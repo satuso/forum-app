@@ -1,0 +1,6 @@
+PUT http://localhost:3003/api/posts/61cb2b31b8e59afd921f4318
+Content-Type: application/json
+
+{
+"content": "new test reply"
+}

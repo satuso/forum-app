@@ -1,0 +1,8 @@
+POST http://localhost:3003/api/threads
+Content-Type: application/json 
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpZCI6IjYxY2IyYTUyYjhlNTlhZmQ5MjFmNDMwMCIsImlhdCI6MTY0MDcwNDY2NH0.W91Zg1QF7wIGROcsH4CHHIXvmPmCq83xym8B4adLdq4
+
+{
+"title": "test thread",
+"content": "test content"
+}

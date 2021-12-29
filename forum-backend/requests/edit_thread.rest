@@ -1,0 +1,7 @@
+PUT http://localhost:3003/api/threads/61cb2b28b8e59afd921f4313
+Content-Type: application/json
+
+{
+"title": "new title",
+"content" : "new content"
+}

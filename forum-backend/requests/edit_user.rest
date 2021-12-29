@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/users/61cb2a52b8e59afd921f4300
+Content-Type: application/json
+
+{
+"username": "user", 
+"name": "new name",
+"avatar" : null,
+"password": "password"
+}
