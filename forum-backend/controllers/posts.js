@@ -22,6 +22,7 @@ postsRouter.get('/', async (request, response) => {
 postsRouter.get('/:id', async (request, response) => {
   const post = await Post.findById(request.params.id)
   .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1})
+  .find({}).populate('thread', { title: 1, content: 1, date: 1, id: 1, user: 1 })
   response.json(post.map(post => post.toJSON()))
 })
 

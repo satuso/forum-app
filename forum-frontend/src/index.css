@@ -24,7 +24,7 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  height: 100%;
 }
 
 .header {
@@ -54,8 +54,7 @@ code {
 }
 
 .nav {
-  height: 10%;
-  padding: .2em;
+  padding: 1em;
   padding-left: 1em;
   background-color: crimson;
   display: flex;
@@ -65,6 +64,7 @@ code {
 .nav a {
   color: white;
   text-decoration: none;
+  padding-right: 1em;
 }
 
 .nav a:hover,
@@ -79,8 +79,11 @@ code {
 
 .footer {
   text-align: center;
-  padding: .2em;
-  background-color: whitesmoke;
+  padding: 1em;
+  background-color: white;
+  font-size: .8rem;
+  color: crimson;
+  font-weight: bold;
 }
 
 a {
@@ -99,8 +102,17 @@ a:focus {
   color: crimson;
   font-weight: bold;
 }
+form {
+  width: 30%;
+  margin: 0 auto;
+}
 
-input {
+textarea {
+  height: 80px;
+}
+
+input,
+textarea {
   outline: none;
   border: 2px solid crimson;
   font-family: 'Montserrat', sans-serif;
@@ -110,10 +122,13 @@ input {
   border-radius: 10px;
   padding: .5em;
   margin: .5em;
+  width: 100%;
 }
 
 input:hover,
-input:focus {
+input:focus,
+textarea:hover,
+textarea:focus {
   border-color: darkslategray;
 }
 
@@ -121,20 +136,55 @@ button {
   outline: none;
   cursor: pointer;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: crimson;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   color: white;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 1em;
-  padding-left: 1.5em;
-  padding-right: 1.5em;
-  margin: .5em;
+  padding: .5em;
 }
 
 button:hover,
 button:focus {
-  color: whitesmoke;
+  background-color: darkslategray;
+}
+
+.thread-list {
+  padding: .5em;
+}
+
+.thread-list:nth-child(odd){
+  background-color: white;
+}
+
+.thread-list:nth-child(even){
+  background-color: whitesmoke;
+}
+
+.thread-list-username {
+  font-weight: bold;
+  color: darkslategray;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.username {
+  font-weight: bold;
+  color: darkslategray;
+}
+
+.thread {
+  background-color: whitesmoke;
+  margin: .5em;
+  margin-left: 1em;
+  padding: 1em;
+}
+
+.post {
+  background-color: whitesmoke;
+  margin: .5em;
+  margin-left: 3em;
+  padding: 1em;
 }

@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
-const Nav = () => {
+const Nav = ({ user, setPage}) => {
   return (
     <div className='nav'>
-      <Link to='/threads'>Threads</Link>
+      <Link to='/' onClick={() => setPage('threads')}>Threads</Link>
+      {user && <Link to='/users'>Users</Link>}
     </div>
   )
 }
