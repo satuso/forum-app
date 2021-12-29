@@ -12,6 +12,8 @@ body {
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
+  background-color: white;
 }
 
 code {
@@ -33,10 +35,41 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: crimson;
+  font-weight: bold;
 }
 
 .header h1 {
+  font-size: 1.5rem;
+}
+
+.header a {
   color: crimson;
+  text-decoration: none;
+}
+
+.header a:hover,
+.header a:focus {
+  color: crimson;
+}
+
+.nav {
+  height: 10%;
+  padding: .2em;
+  padding-left: 1em;
+  background-color: crimson;
+  display: flex;
+  align-items: center;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav a:hover,
+.nav a:focus {
+  color: whitesmoke;
 }
 
 .main {
@@ -44,12 +77,64 @@ code {
   height: 100%;
 }
 
-.main h2 {
-  color: darkslategray;
-}
-
 .footer {
   text-align: center;
   padding: .2em;
   background-color: whitesmoke;
+}
+
+a {
+  color: crimson;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: darkslategray;
+}
+
+.center {
+  text-align: center;
+  color: crimson;
+  font-weight: bold;
+}
+
+input {
+  outline: none;
+  border: 2px solid crimson;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: darkslategray;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  padding: .5em;
+  margin: .5em;
+}
+
+input:hover,
+input:focus {
+  border-color: darkslategray;
+}
+
+button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background-color: crimson;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 1em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  margin: .5em;
+}
+
+button:hover,
+button:focus {
+  color: whitesmoke;
 }

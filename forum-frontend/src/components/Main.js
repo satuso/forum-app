@@ -1,6 +1,6 @@
 const Main = () => {
   return (
-    <div className='main'>
+    <div className='center'>
       <h2>Forum</h2>
     </div>
   )
