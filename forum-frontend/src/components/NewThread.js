@@ -1,3 +1,4 @@
+import React from 'react'
 const NewThreadForm = ({ addThread, newTitle, handleTitleChange, newThread, handleThreadChange }) => (
   <div className='center'>
     <form onSubmit={addThread}>
@@ -13,7 +14,7 @@ const NewThreadForm = ({ addThread, newTitle, handleTitleChange, newThread, hand
         onFocus={(e) => e.target.placeholder = ''}
         onChange={handleThreadChange}
       /><br/>
-      <button type="submit">Post</button>
+      <button type="submit">Send</button>
     </form>
   </div>
 )

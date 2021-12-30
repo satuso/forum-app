@@ -1,9 +1,10 @@
+import React from 'react'
 const User = ({ user }) => {
-  console.log(user)
   return (
-    <div>
+    <>
       <h2>{user.username} • {user.name}</h2>
-    </div>
+      <p>{user.id} {user.avatar}</p>
+    </>
   )
 }
 export default User

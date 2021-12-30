@@ -7,12 +7,6 @@ const postSchema = new mongoose.Schema({
     minlength: 3
   },
   date: Date,
-  user: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  },
   username: {
     type: String,
   },
@@ -22,6 +16,10 @@ const postSchema = new mongoose.Schema({
   thread: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Thread'
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 })
 

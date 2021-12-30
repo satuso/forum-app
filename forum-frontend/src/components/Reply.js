@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import postService from "../services/posts"
+import React, { useState, useEffect } from 'react'
+import postService from '../services/posts'
 
 const Reply = ({ thread, user }) => {
   const [posts , setPosts] = useState([])
@@ -10,11 +10,11 @@ const Reply = ({ thread, user }) => {
       .getAll()
       .then(initialPosts => {
         setPosts(initialPosts)
-    })
+      })
   }, [])
 
   useEffect(() => {
-      postService.setToken(user.token)
+    postService.setToken(user.token)
   }, [user.token])
 
   const replyToThread = (event) => {
@@ -26,26 +26,25 @@ const Reply = ({ thread, user }) => {
     }
     postService
       .create(postObject)
-        .then(returnedPost => {
+      .then(returnedPost => {
         setPosts(posts.concat(returnedPost))
         setNewPost('')
       })
   }
-  
+
   const handleReplyChange = (event) => {
-    console.log(event.target.value)
     setNewPost(event.target.value)
   }
 
   return (
     user &&
-    <div className="new-thread">
+    <div className="center">
       <form onSubmit={replyToThread}>
         <textarea
           value={newPost}
           onChange={handleReplyChange}
         /><br/>
-        <button type="submit">Reply</button>
+        <button type="submit">Send</button>
       </form>
     </div>
   )

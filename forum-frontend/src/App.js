@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Login from './components/Login'
 import Register from './components/Register'
-import ThreadList from './components/ThreadList'
+import Threads from './components/Threads'
 import Thread from './components/Thread'
-import NewThreadForm from './components/NewThreadForm'
 import Profile from './components/Profile'
 import User from './components/User'
 import Users from './components/Users'
@@ -13,25 +12,25 @@ import Nav from './components/Nav'
 import Footer from './components/Footer'
 import threadService from './services/threads'
 import loginService from './services/login'
+import userService from './services/users'
 
 const App = () => {
   const [user, setUser] = useState(null)
   const [threads, setThreads] = useState([])
+  const [users, setUsers] = useState([])
   const [newTitle, setNewTitle] = useState('')
   const [newThread, setNewThread] = useState('')
   const [message, setMessage] = useState(null)
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [toggleThread, setToggleThread] = useState(false)
-  const [toggleReply, setToggleReply] = useState(false)
-  const [page, setPage] = useState('threads')
+  const [toggle, setToggle] = useState(false)
 
   useEffect(() => {
     threadService
       .getAll()
       .then(initialThreads => {
         setThreads(initialThreads.reverse())
-    })
+      })
   }, [threads])
 
   useEffect(() => {
@@ -43,6 +42,14 @@ const App = () => {
     }
   }, [])
 
+  useEffect(() => {
+    userService
+      .getAll()
+      .then(initialUsers => {
+        setUsers(initialUsers)
+      })
+  }, [])
+
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -51,7 +58,7 @@ const App = () => {
       })
       window.localStorage.setItem(
         'loggedForumUser', JSON.stringify(user)
-      ) 
+      )
       threadService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -71,23 +78,12 @@ const App = () => {
       content: newThread,
       date: new Date().toISOString(),
     }
-
     threadService
       .create(threadObject)
-        .then(returnedThread => {
+      .then(returnedThread => {
         setThreads(threads.concat(returnedThread))
         setNewThread('')
       })
-  }
-
-  const handleTitleChange = (event) => {
-    console.log(event.target.value)
-    setNewTitle(event.target.value)
-  }
-
-  const handleThreadChange = (event) => {
-    console.log(event.target.value)
-    setNewThread(event.target.value)
   }
 
   const handleLogout = () => {
@@ -96,40 +92,31 @@ const App = () => {
   }
 
   return (
-    <div className='container'>        
-      <Header 
+    <div className='container'>
+      <Header
         user={user}
         handleLogout={handleLogout}
       />
-      <Nav 
-        user={user}
-        setPage={setPage}
+      <Nav
+        setToggle={setToggle}
       />
       <div className='main'>
-
-      {page === 'threads' && 
-      <>
-      {user && <div className='center'><button onClick={() => setToggleThread(!toggleThread)}>New thread</button></div>}
-      {toggleThread &&
-        <NewThreadForm 
-          addThread={addThread}
-          newTitle={newTitle}
-          handleTitleChange={handleTitleChange}
-          newThread={newThread} 
-          handleThreadChange={handleThreadChange}
-        />}
-      </>}
         <Routes>
-          <Route exact path='/' element={threads.map(thread => <ThreadList 
-              key={thread.id}
-              thread={thread}
+          <Route path='*' element={
+            <Threads
               user={user}
-              setPage={setPage}
-              page={page}
-            />)
+              toggle={toggle}
+              setToggle={setToggle}
+              threads={threads}
+              addThread={addThread}
+              newTitle={newTitle}
+              newThread={newThread}
+              setNewTitle={setNewTitle}
+              setNewThread={setNewThread}
+            />
           }/>
           <Route path='/login' element={
-            <Login 
+            <Login
               username={username}
               password={password}
               setPassword={setPassword}
@@ -141,15 +128,15 @@ const App = () => {
           <Route path='/register' element={<Register />}/>
           <Route path='/profile' element={<Profile user={user} />}/>
           {threads.map(thread => <Route path={`/thread/${thread.id}`} key={thread.id} element={
-            <Thread 
+            <Thread
               thread={thread}
               user={user}
-              toggleReply={toggleReply}
-              setToggleReply={setToggleReply}
-              />
+              toggle={toggle}
+              setToggle={setToggle}
+            />
           }/>)}
-          {threads.map(thread => <Route path={`/user/${thread.user.id}`} key={thread.user.id} element={<User user={thread.user}/>}/>)}
-          <Route path='/users' element={<Users />}/>
+          <Route path='/users' element={users.map(user => <Users key={user.id} user={user}/>)}/>
+          {users.map(user => <Route path={`/user/${user.id}`} key={user.id} element={<User user={user}/>}/>)}
         </Routes>
       </div>
       <Footer />
