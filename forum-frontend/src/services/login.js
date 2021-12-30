@@ -9,4 +9,5 @@ const login = async credentials => {
 const object = {
   login
 }
+
 export default object

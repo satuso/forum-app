@@ -179,7 +179,7 @@ button:focus {
 .thread {
   background-color: whitesmoke;
   margin: .5em;
-  margin-left: 1em;
+  margin-left: .5em;
   padding: 1em;
 }
 

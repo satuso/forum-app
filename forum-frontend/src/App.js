@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Login from './components/Login'
 import Register from './components/Register'
 import Threads from './components/Threads'
@@ -24,6 +25,11 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [toggle, setToggle] = useState(false)
+  const [newUsername, setNewUsername] = useState('')
+  const [newName, setNewName] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+
+  let navigate = useNavigate()
 
   useEffect(() => {
     threadService
@@ -63,6 +69,7 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
+      navigate('/')
     } catch (exception) {
       setMessage('wrong username or password')
       setTimeout(() => {
@@ -84,6 +91,32 @@ const App = () => {
         setThreads(threads.concat(returnedThread))
         setNewThread('')
       })
+  }
+
+  const addUser = async (event) => {
+    event.preventDefault()
+    try {
+      const userObject = {
+        username: newUsername,
+        name: newName,
+        password: newPassword,
+      }
+      await userService
+        .create(userObject)
+        .then(returnedUser => {
+          setUsers(users.concat(returnedUser))
+          navigate('/login')
+          setMessage('Created new user! Please log in')
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        })
+    } catch (exception) {
+      setMessage('Error')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    }
   }
 
   const handleLogout = () => {
@@ -125,7 +158,15 @@ const App = () => {
               message={message}
             />
           }/>
-          <Route path='/register' element={<Register />}/>
+          <Route path='/register' element={
+            <Register
+              addUser={addUser}
+              setNewUsername={setNewUsername}
+              setNewName={setNewName}
+              setNewPassword={setNewPassword}
+              message={message}
+            />
+          }/>
           <Route path='/profile' element={<Profile user={user} />}/>
           {threads.map(thread => <Route path={`/thread/${thread.id}`} key={thread.id} element={
             <Thread

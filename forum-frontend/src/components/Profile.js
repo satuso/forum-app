@@ -1,5 +1,5 @@
 import React from 'react'
-const User = ({ user }) => {
+const Profile = ({ user }) => {
   if (!user){
     return null
   }
@@ -11,4 +11,4 @@ const User = ({ user }) => {
     </div>
   )
 }
-export default User
+export default Profile
