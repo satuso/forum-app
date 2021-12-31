@@ -8,3 +8,4 @@
 | 29.12.2021 | 5   | connect back-end with front-end and render forum posts on page |
 | 30.12.2021 | 2   | refactor code  |
 | 30.12.2021 | 1   | add ability to register a new user on the front-end  |
+| 31.12.2021 | 3   | add functionality to remove threads on the front-end and list threads made by user on their profile |

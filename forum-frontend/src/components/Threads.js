@@ -2,14 +2,23 @@ import React from 'react'
 import NewThread from './NewThread'
 import ThreadList from './ThreadList'
 
-const Threads = ({ user, toggle, threads, addThread, newTitle, newThread, setNewTitle, setNewThread, setToggle }) => {
+const Threads = ({
+  user,
+  toggle,
+  threads,
+  addThread,
+  newTitle,
+  newThread,
+  setNewTitle,
+  setNewThread,
+  setToggle,
+  handleRemove
+}) => {
   const handleTitleChange = (event) => {
-    console.log(event.target.value)
     setNewTitle(event.target.value)
   }
 
   const handleThreadChange = (event) => {
-    console.log(event.target.value)
     setNewThread(event.target.value)
   }
   return (
@@ -31,6 +40,7 @@ const Threads = ({ user, toggle, threads, addThread, newTitle, newThread, setNew
         key={thread.id}
         thread={thread}
         user={user}
+        handleRemove={handleRemove}
       />)
       }
     </>

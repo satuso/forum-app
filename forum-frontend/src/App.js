@@ -56,8 +56,8 @@ const App = () => {
       })
   }, [])
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
+  const handleLogin = async (e) => {
+    e.preventDefault()
     try {
       const user = await loginService.login({
         username, password,
@@ -70,6 +70,10 @@ const App = () => {
       setUsername('')
       setPassword('')
       navigate('/')
+      setMessage('logged in')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     } catch (exception) {
       setMessage('wrong username or password')
       setTimeout(() => {
@@ -80,39 +84,50 @@ const App = () => {
 
   const addThread = (event) => {
     event.preventDefault()
-    const threadObject = {
-      title: newTitle,
-      content: newThread,
-      date: new Date().toISOString(),
+    try {
+      const threadObject = {
+        title: newTitle,
+        content: newThread,
+        date: new Date().toISOString()
+      }
+      threadService
+        .create(threadObject)
+        .then(returnedThread => {
+          setThreads(threads.concat(returnedThread))
+          setNewThread('')
+          setMessage('created new thread')
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
+        })
+    } catch (exception){
+      setMessage('error')
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     }
-    threadService
-      .create(threadObject)
-      .then(returnedThread => {
-        setThreads(threads.concat(returnedThread))
-        setNewThread('')
-      })
   }
 
-  const addUser = async (event) => {
-    event.preventDefault()
+  const addUser = (e) => {
+    e.preventDefault()
     try {
       const userObject = {
         username: newUsername,
         name: newName,
-        password: newPassword,
+        password: newPassword
       }
-      await userService
+      userService
         .create(userObject)
         .then(returnedUser => {
           setUsers(users.concat(returnedUser))
           navigate('/login')
-          setMessage('Created new user! Please log in')
+          setMessage('Created new user! You can now log in.')
           setTimeout(() => {
             setMessage(null)
           }, 5000)
         })
     } catch (exception) {
-      setMessage('Error')
+      setMessage('error')
       setTimeout(() => {
         setMessage(null)
       }, 5000)
@@ -122,6 +137,31 @@ const App = () => {
   const handleLogout = () => {
     window.localStorage.clear()
     setUser(null)
+    navigate('/')
+    setMessage('logged out')
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
+  }
+
+  const handleRemove = async (id) => {
+    if (window.confirm('Are you sure you want to delete this?')){
+      try {
+        await threadService.remove(id)
+        const updatedThreads = threads.filter(thread => thread.id !== id)
+        setThreads(updatedThreads)
+        setMessage('removed thread')
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      }
+      catch (exception){
+        setMessage('error')
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      }
+    }
   }
 
   return (
@@ -133,6 +173,7 @@ const App = () => {
       <Nav
         setToggle={setToggle}
       />
+      <div className='center'>{message}</div>
       <div className='main'>
         <Routes>
           <Route path='*' element={
@@ -146,6 +187,7 @@ const App = () => {
               newThread={newThread}
               setNewTitle={setNewTitle}
               setNewThread={setNewThread}
+              handleRemove={handleRemove}
             />
           }/>
           <Route path='/login' element={
@@ -155,7 +197,6 @@ const App = () => {
               setPassword={setPassword}
               setUsername={setUsername}
               handleLogin={handleLogin}
-              message={message}
             />
           }/>
           <Route path='/register' element={
@@ -164,16 +205,17 @@ const App = () => {
               setNewUsername={setNewUsername}
               setNewName={setNewName}
               setNewPassword={setNewPassword}
-              message={message}
             />
           }/>
-          <Route path='/profile' element={<Profile user={user} />}/>
+
+          <Route path='/profile' element={<Profile user={user} users={users} />}/>
           {threads.map(thread => <Route path={`/thread/${thread.id}`} key={thread.id} element={
             <Thread
               thread={thread}
               user={user}
               toggle={toggle}
               setToggle={setToggle}
+              handleRemove={handleRemove}
             />
           }/>)}
           <Route path='/users' element={users.map(user => <Users key={user.id} user={user}/>)}/>

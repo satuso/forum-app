@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const ThreadList = ({ thread }) => {
+const ThreadList = ({ user, thread, handleRemove  }) => {
   const date = thread.date.split('T')
   return (
     <div className='thread-list'>
@@ -10,6 +10,7 @@ const ThreadList = ({ thread }) => {
         <span className='thread-list-username'>{thread.user.username}</span>
       </Link>
       <span>{date[0]} • {thread.posts.length} replies</span>
+      {user && user.id === thread.user.id && <button className='delete' onClick={() => handleRemove(thread.id, thread, user)}>delete</button>}
     </div>
   )
 }

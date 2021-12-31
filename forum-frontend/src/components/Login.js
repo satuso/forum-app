@@ -4,13 +4,11 @@ const Login = ({
   password,
   setPassword,
   setUsername,
-  handleLogin,
-  message
+  handleLogin
 }) => {
   return (
     <div className='center'>
       <h2>Login</h2>
-      {message}
       <form onSubmit={handleLogin}>
         <input
           type='text'

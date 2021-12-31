@@ -200,3 +200,9 @@ button:focus {
 .link:focus {
   color: darkslategray;
 }
+
+.delete {
+  margin-left: 1em;
+  margin-right: 1em;
+  font-size: .6rem;
+}
