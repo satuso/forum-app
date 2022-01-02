@@ -21,13 +21,7 @@ threadsRouter.get('/', async (request, response) => {
 threadsRouter.get('/:id', async (request, response) => {
   const thread = await Thread.findById(request.params.id)
     .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1})
-    .find({}).populate({ 
-      path: 'posts',
-      populate: {
-        path: 'user',
-        model: 'User'
-      } 
-    })
+    .find({}).populate('posts')
   response.json(thread.map(thread => thread.toJSON()))
 })
 

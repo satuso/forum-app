@@ -94,8 +94,10 @@ const App = () => {
         .create(threadObject)
         .then(returnedThread => {
           setThreads(threads.concat(returnedThread))
+          setNewTitle('')
           setNewThread('')
           setMessage('created new thread')
+          setToggle(!toggle)
           setTimeout(() => {
             setMessage(null)
           }, 5000)
@@ -150,7 +152,7 @@ const App = () => {
         await threadService.remove(id)
         const updatedThreads = threads.filter(thread => thread.id !== id)
         setThreads(updatedThreads)
-        setMessage('removed thread')
+        setMessage('deleted thread')
         setTimeout(() => {
           setMessage(null)
         }, 5000)
@@ -173,7 +175,7 @@ const App = () => {
       <Nav
         setToggle={setToggle}
       />
-      <div className='center'>{message}</div>
+      <div className='message'>{message}</div>
       <div className='main'>
         <Routes>
           <Route path='*' element={
@@ -216,6 +218,7 @@ const App = () => {
               toggle={toggle}
               setToggle={setToggle}
               handleRemove={handleRemove}
+              setMessage={setMessage}
             />
           }/>)}
           <Route path='/users' element={users.map(user => <Users key={user.id} user={user}/>)}/>

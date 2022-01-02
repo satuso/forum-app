@@ -4,14 +4,14 @@ const NewThreadForm = ({ addThread, newTitle, handleTitleChange, newThread, hand
     <form onSubmit={addThread}>
       <input
         value={newTitle}
-        placeholder='title'
         onFocus={(e) => e.target.placeholder = ''}
+        placeholder='Topic'
         onChange={handleTitleChange}
       /><br/>
       <textarea
         value={newThread}
-        placeholder='content'
         onFocus={(e) => e.target.placeholder = ''}
+        placeholder='Content'
         onChange={handleThreadChange}
       /><br/>
       <button type="submit">Send</button>

@@ -101,6 +101,7 @@ a:focus {
   text-align: center;
   color: crimson;
   font-weight: bold;
+  margin-bottom: 1em;
 }
 form {
   width: 30%;
@@ -205,4 +206,11 @@ button:focus {
   margin-left: 1em;
   margin-right: 1em;
   font-size: .6rem;
+}
+
+.message {
+  height: 1em;
+  text-align: center;
+  color: darkslategray;
+  font-weight: bold;
 }
