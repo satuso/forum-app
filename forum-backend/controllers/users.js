@@ -22,15 +22,15 @@ usersRouter.post('/', async (request, response) => {
 
 usersRouter.get('/', async (request, response) => {
   const users = await User
-    .find({}).populate('threads', { title: 1, content: 1, date: 1 })
-    .find({}).populate('posts', { title: 1, content: 1, date: 1 })
+    .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1 })
+    .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1 })
   response.json(users.map(u => u.toJSON()))
 })
 
 usersRouter.get('/:id', async (request, response) => {
   const user = await User.findById(request.params.id)
-    .find({}).populate('threads', { title: 1, content: 1, date: 1 })
-    .find({}).populate('posts', { title: 1, content: 1, date: 1 })
+    .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1})
+    .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1 })
   if (user) {
     response.json(user.toJSON())
   } else {

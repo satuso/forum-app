@@ -49,7 +49,6 @@ const Thread = ({
   }
 
   const date = thread.date.split('T')
-
   return (
     <>
       {user &&
@@ -78,11 +77,11 @@ const Thread = ({
           user={user}
           post={post}
           key={post.id}
-          thread={thread}
           posts={posts}
           setPosts={setPosts}
           setMessage={setMessage}
           postService={postService}
+          thread={post.thread}
         />)}
     </>
   )

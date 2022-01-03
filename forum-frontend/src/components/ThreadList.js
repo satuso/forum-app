@@ -9,7 +9,7 @@ const ThreadList = ({ user, thread, handleRemove  }) => {
       <Link to={`/user/${thread.user.id}`}>
         <span className='thread-list-username'>{thread.user.username}</span>
       </Link>
-      <span>{date[0]} • {thread.posts.length} replies</span>
+      <span>{date[0]} • {thread.posts.length} {thread.posts.length === 1 ? 'reply' : 'replies'}</span>
       {user && (user.id === thread.user.id || user.username === 'admin') && <button className='delete' onClick={() => handleRemove(thread.id, thread, user)}>delete</button>}
     </div>
   )

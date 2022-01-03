@@ -199,12 +199,20 @@ button:focus {
   font-weight: bold;
 }
 
+.page-link {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
 .link:hover,
 .link:focus {
   color: darkslategray;
 }
 
 .delete {
+  background-color: darkslategray;
+  color: whitesmoke;
   margin-left: 1em;
   margin-right: 1em;
   font-size: .6rem;

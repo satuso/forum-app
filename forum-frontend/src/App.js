@@ -58,7 +58,7 @@ const App = () => {
       .then(initialUsers => {
         setUsers(initialUsers)
       })
-  }, [])
+  }, [users])
 
   useEffect(() => {
     postService
@@ -66,7 +66,7 @@ const App = () => {
       .then(initialPosts => {
         setPosts(initialPosts)
       })
-  }, [])
+  }, [posts])
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -178,6 +178,27 @@ const App = () => {
     }
   }
 
+  const deleteUser = async (id) => {
+    if (window.confirm('Are you sure you want to delete this?')){
+      try {
+        await userService.remove(id)
+        const updatedUsers = users.filter(user => user.id !== id)
+        setUsers(updatedUsers)
+        handleLogout()
+        setMessage('user deleted')
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      }
+      catch (exception){
+        setMessage('error')
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
+      }
+    }
+  }
+
   return (
     <div className='container'>
       <Header
@@ -222,25 +243,33 @@ const App = () => {
             />
           }/>
 
-          <Route path='/profile' element={<Profile user={user} users={users} />}/>
-          {threads.map(thread => <Route path={`/thread/${thread.id}`} key={thread.id} element={
-            <Thread
-              thread={thread}
+          <Route path='/profile' element={
+            <Profile
               user={user}
-              setUser={setUser}
-              toggle={toggle}
-              setToggle={setToggle}
-              handleRemove={handleRemove}
-              setMessage={setMessage}
-              posts={posts}
-              setPosts={setPosts}
-              postService={postService}
-              newPost={newPost}
-              setNewPost={setNewPost}
-            />
-          }/>)}
+              users={users}
+              deleteUser={deleteUser}
+            />}/>
+          {threads.map(thread =>
+            <Route path={`/thread/${thread.id}`} key={thread.id} element={
+              <Thread
+                thread={thread}
+                user={user}
+                setUser={setUser}
+                toggle={toggle}
+                setToggle={setToggle}
+                handleRemove={handleRemove}
+                setMessage={setMessage}
+                posts={posts}
+                setPosts={setPosts}
+                postService={postService}
+                newPost={newPost}
+                setNewPost={setNewPost}
+              />
+            }/>
+          )}
           <Route path='/users' element={<Users users={users} search={search} setSearch={setSearch}/>}/>
-          {users.map(user => <Route path={`/user/${user.id}`} key={user.id} element={<User user={user}/>}/>)}
+          {users.map(user =>
+            <Route path={`/user/${user.id}`} key={user.id} element={<User user={user}/>}/>)}
         </Routes>
       </div>
       <Footer />
