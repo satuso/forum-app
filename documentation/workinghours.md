@@ -10,3 +10,4 @@
 | 30.12.2021 | 1   | add ability to register a new user on the front-end  |
 | 31.12.2021 | 3   | add functionality to remove threads on the front-end and list threads made by user on their profile |
 | 02.01.2022 | 2   | add ability to delete posts on the front-end, refactor code  |
+| 03.01.2022 | 2   | sort userlist and add search feature, refactor code |

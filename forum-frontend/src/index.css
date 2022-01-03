@@ -59,6 +59,7 @@ code {
   background-color: crimson;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .nav a {
@@ -103,7 +104,8 @@ a:focus {
   font-weight: bold;
   margin-bottom: 1em;
 }
-form {
+
+.center form {
   width: 30%;
   margin: 0 auto;
 }
@@ -213,4 +215,13 @@ button:focus {
   text-align: center;
   color: darkslategray;
   font-weight: bold;
+}
+
+.search button {
+  color: crimson;
+  background-color: transparent;
+}
+.search input {
+  margin-left: 0;
+  width: 20%;
 }

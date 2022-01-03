@@ -27,7 +27,7 @@ const Post = ({ user, post, postService, posts, setPosts, setMessage }) => {
   return (
     <div className='post'>
       <p className='username'>
-        <Link to={`/user/${post.user}`}>{post.username}</Link> {date[0]} {user && user.id === post.user && <button className='delete' onClick={() => handleRemovePost(post.id, post, user)}>delete</button>}</p>
+        <Link to={`/user/${post.user}`}>{post.username}</Link> {date[0]} {user && (user.id === post.user || user.username === 'admin') && <button className='delete' onClick={() => handleRemovePost(post.id, post, user)}>delete</button>}</p>
       <p>{post.content}</p>
     </div>
   )

@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import Post from './Post'
 import Reply from './Reply'
-import postService from '../services/posts'
 
-const Thread = ({ thread, user, toggle, setToggle, handleRemove, setMessage }) => {
-  const [posts , setPosts] = useState([])
-  const [newPost, setNewPost] = useState('')
-
-  useEffect(() => {
-    postService
-      .getAll()
-      .then(initialPosts => {
-        setPosts(initialPosts)
-      })
-  }, [])
-
-  useEffect(() => {
-    postService.setToken(user.token)
-  }, [user.token])
+const Thread = ({
+  thread,
+  user,
+  toggle,
+  setToggle,
+  handleRemove,
+  setMessage,
+  posts,
+  setPosts,
+  postService,
+  newPost,
+  setNewPost
+}) => {
 
   const replyToThread = (event) => {
     event.preventDefault()
@@ -52,6 +49,7 @@ const Thread = ({ thread, user, toggle, setToggle, handleRemove, setMessage }) =
   }
 
   const date = thread.date.split('T')
+
   return (
     <>
       {user &&
@@ -69,7 +67,9 @@ const Thread = ({ thread, user, toggle, setToggle, handleRemove, setMessage }) =
         setToggle={setToggle}
       />}
       <div className='thread'>
-        <p className='username'><Link to={`/user/${thread.user.id}`}>{thread.user.username}</Link> {date[0]} {user && user.id === thread.user.id && <button className='delete' onClick={() => handleRemove(thread.id, thread, user)}>delete</button>}</p>
+        <p className='username'>
+          <Link to={`/user/${thread.user.id}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='delete' onClick={() => handleRemove(thread.id, thread, user)}>delete</button>}
+        </p>
         <h3>{thread.title}</h3>
         <p>{thread.content}</p>
       </div>

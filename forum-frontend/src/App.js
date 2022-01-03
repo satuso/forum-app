@@ -14,6 +14,7 @@ import Footer from './components/Footer'
 import threadService from './services/threads'
 import loginService from './services/login'
 import userService from './services/users'
+import postService from './services/posts'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -28,6 +29,9 @@ const App = () => {
   const [newUsername, setNewUsername] = useState('')
   const [newName, setNewName] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const [posts , setPosts] = useState([])
+  const [newPost, setNewPost] = useState('')
+  const [search, setSearch] = useState('')
 
   let navigate = useNavigate()
 
@@ -53,6 +57,14 @@ const App = () => {
       .getAll()
       .then(initialUsers => {
         setUsers(initialUsers)
+      })
+  }, [])
+
+  useEffect(() => {
+    postService
+      .getAll()
+      .then(initialPosts => {
+        setPosts(initialPosts)
       })
   }, [])
 
@@ -137,8 +149,8 @@ const App = () => {
   }
 
   const handleLogout = () => {
-    window.localStorage.clear()
     setUser(null)
+    window.localStorage.clear()
     navigate('/')
     setMessage('logged out')
     setTimeout(() => {
@@ -215,13 +227,19 @@ const App = () => {
             <Thread
               thread={thread}
               user={user}
+              setUser={setUser}
               toggle={toggle}
               setToggle={setToggle}
               handleRemove={handleRemove}
               setMessage={setMessage}
+              posts={posts}
+              setPosts={setPosts}
+              postService={postService}
+              newPost={newPost}
+              setNewPost={setNewPost}
             />
           }/>)}
-          <Route path='/users' element={users.map(user => <Users key={user.id} user={user}/>)}/>
+          <Route path='/users' element={<Users users={users} search={search} setSearch={setSearch}/>}/>
           {users.map(user => <Route path={`/user/${user.id}`} key={user.id} element={<User user={user}/>}/>)}
         </Routes>
       </div>

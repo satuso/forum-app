@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import postService from '../services/posts'
 
 const Reply = ({ user, replyToThread, newPost, handleReplyChange }) => {
+
+  useEffect(() => {
+    postService.setToken(user.token)
+  }, [])
+
   return (
     user &&
     <div className="center">
