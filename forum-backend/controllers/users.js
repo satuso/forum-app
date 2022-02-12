@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
+
+
 usersRouter.post('/', async (request, response) => {
   const body = request.body
 
@@ -16,7 +18,6 @@ usersRouter.post('/', async (request, response) => {
   })
 
   const savedUser = await user.save()
-
   response.json(savedUser)
 })
 
@@ -32,7 +33,7 @@ usersRouter.get('/:id', async (request, response) => {
     .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1})
     .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1 })
   if (user) {
-    response.json(user.toJSON())
+    response.json(user)
   } else {
     response.status(404).end()
   }
@@ -45,7 +46,6 @@ usersRouter.delete('/:id', async (request, response) => {
 
 usersRouter.put('/:id', async (request, response) => {
   const user = request.body
-
   const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
   response.json(updatedUser.toJSON())
 })

@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Upload from './Upload'
+
 const User = ({ user }) => {
   const [toggleThreads, setToggleThreads] = useState(false)
   const [togglePosts, setTogglePosts] = useState(false)
-  console.log(user)
   return (
     <>
       <h2>{user.username} • {user.name}</h2>
-      <p>{user.id} {user.avatar}</p>
+      <p>{user.id}</p>
+      <img src={user.avatar.data} alt='avatar'/>
+      <Upload user={user}/>
       <p>
         <span className='page-link' onClick={() => setToggleThreads(!toggleThreads)}>
           {user.threads.length} {user.threads.length === 1 ? 'thread' : 'threads'}

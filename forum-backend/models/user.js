@@ -7,7 +7,9 @@ const userSchema = mongoose.Schema({
     minLength: 2
   },
   name: String,
-  avatar: String,
+  avatar: {
+    type: String
+  },
   passwordHash: String,
   threads: [
     {

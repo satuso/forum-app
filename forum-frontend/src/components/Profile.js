@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Upload from './Upload'
 
 const Profile = ({ user, users, deleteUser }) => {
   if (!user){
@@ -25,6 +26,7 @@ const Profile = ({ user, users, deleteUser }) => {
       {userMatch && userMatch.posts.map(post =>
         <p key={post.id}>{post.content}</p>
       )}
+      <Upload />
       {user && <button onClick={() => deleteUser(user.id, user, user)}>Delete profile</button>}
     </div>
   )
