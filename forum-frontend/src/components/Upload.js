@@ -23,7 +23,7 @@ const Upload = ({ user }) => {
     formData.append('name', name)
     formData.append('avatar', avatar)
     axios
-      .post('http://localhost:3003/api/image', formData)
+      .put(`http://localhost:3003/api/users/${user.id}`, formData)
       .then(res => {
         console.log(res)
       })

@@ -8,34 +8,6 @@ const usersRouter = require('./controllers/users')
 const threadsRouter = require('./controllers/threads')
 const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
-const { v4: uuidv4 } = require('uuid');
-const path = require('path')
-
-const multer = require('multer');
-
-const storage = multer.diskStorage({   
-  destination: function(req, file, cb) { 
-     cb(null, './public/uploads');    
-  }, 
-  filename: function (req, file, cb) { 
-     cb(null , uuidv4() + path.extname(file.originalname));   
-  }
-});
-
-const upload = multer({ 
-  storage: storage,
-  limits : {
-    fileSize : 1000000
-  },
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
-      cb(null, true);
-  } else {
-      cb(null, false);
-      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
-  }
-}
-}).single("avatar")
 
 const logger = require('./utils/logger')
 logger.info('connecting to', config.MONGODB_URI)
@@ -57,15 +29,6 @@ app.use('/api/posts', postsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/threads', threadsRouter)
 app.use('/api/login', loginRouter)
-
-app.post("/api/image", (req, res) => {
-  upload(req, res, (err) => {
-   if(err) {
-     res.status(400).send("Something went wrong!");
-   }
-   res.send(req.file);
- });
-});
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

@@ -2,6 +2,33 @@ const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
+const { v4: uuidv4 } = require('uuid');
+const path = require('path')
+const multer = require('multer');
+
+const storage = multer.diskStorage({   
+  destination: function(req, file, cb) { 
+     cb(null, './public/uploads');    
+  }, 
+  filename: function (req, file, cb) { 
+     cb(null , uuidv4() + path.extname(file.originalname));   
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  limits : {
+    fileSize : 1000000
+  },
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+      cb(null, true);
+  } else {
+      cb(null, false);
+      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+  }
+}
+})
 
 
 usersRouter.post('/', async (request, response) => {
@@ -44,10 +71,16 @@ usersRouter.delete('/:id', async (request, response) => {
   response.status(204).end()  
 })
 
-usersRouter.put('/:id', async (request, response) => {
-  const user = request.body
+usersRouter.put("/:id", upload.single("avatar"), async (request, response) => {
+  const body = request.body
+  const url = request.protocol + '://' + request.get('host')
+  const user = {
+    name: body.name,
+    avatar: url + '/public/uploads/' + request.file.filename
+  }
+  console.log(user)
   const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
-  response.json(updatedUser.toJSON())
+  response.send(updatedUser)
 })
 
 module.exports = usersRouter

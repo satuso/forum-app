@@ -5,11 +5,12 @@ import Upload from './Upload'
 const User = ({ user }) => {
   const [toggleThreads, setToggleThreads] = useState(false)
   const [togglePosts, setTogglePosts] = useState(false)
+  console.log(user.avatar)
   return (
     <>
       <h2>{user.username} • {user.name}</h2>
       <p>{user.id}</p>
-      <img src={user.avatar.data} alt='avatar'/>
+
       <Upload user={user}/>
       <p>
         <span className='page-link' onClick={() => setToggleThreads(!toggleThreads)}>

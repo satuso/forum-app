@@ -41,7 +41,7 @@ const App = () => {
       .then(initialThreads => {
         setThreads(initialThreads.reverse())
       })
-  }, [threads])
+  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedForumUser')
@@ -58,7 +58,7 @@ const App = () => {
       .then(initialUsers => {
         setUsers(initialUsers)
       })
-  }, [users])
+  }, [])
 
   useEffect(() => {
     postService
@@ -66,7 +66,7 @@ const App = () => {
       .then(initialPosts => {
         setPosts(initialPosts)
       })
-  }, [posts])
+  }, [])
 
   const handleLogin = async (e) => {
     e.preventDefault()
