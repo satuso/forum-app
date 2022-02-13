@@ -16,3 +16,4 @@
 | 12.02.2022 | 5 | research multer, add an upload form to user's profile page, start working on backend |
 |  | 3 | work on file upload feature |
 | 13.02.2022 | 3 | finish file upload feature |
+|  | 5 | edit layout and display user avatars on the front-end |

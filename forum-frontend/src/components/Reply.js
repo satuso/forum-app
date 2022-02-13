@@ -10,14 +10,14 @@ const Reply = ({ user, replyToThread, newPost, handleReplyChange }) => {
   return (
     user &&
     <div className="center">
-      <form onSubmit={replyToThread}>
+      <form onSubmit={replyToThread} className='form'>
         <textarea
           onFocus={(e) => e.target.placeholder = ''}
           placeholder='Content'
           value={newPost}
           onChange={handleReplyChange}
         /><br/>
-        <button type="submit">Send</button>
+        <button type="submit" className='btn btn-primary'>Send</button>
       </form>
     </div>
   )

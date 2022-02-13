@@ -1,5 +1,7 @@
 import React from 'react'
-const Login = ({
+import { Button } from 'react-bootstrap'
+
+const LoginForm = ({
   username,
   password,
   setPassword,
@@ -9,7 +11,7 @@ const Login = ({
   return (
     <div className='center'>
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className='form'>
         <input
           type='text'
           placeholder='username'
@@ -28,9 +30,9 @@ const Login = ({
           onChange={({ target }) => setPassword(target.value)}
         />
         <br/>
-        <button type='submit'>Log In</button>
+        <Button type='submit'>Log In</Button>
       </form>
     </div>
   )
 }
-export default Login
+export default LoginForm

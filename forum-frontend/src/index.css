@@ -16,8 +16,41 @@ body {
   background-color: white;
 }
 
-code {
-  font-family: 'Courier New', monospace;
+a {
+  color: #0e6ffd;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  filter: brightness(90%);
+  text-decoration: underline;
+}
+
+.btn {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: white;
+  padding: 9px 12px;
+  margin: 5px;
+}
+
+.btn:hover,
+.btn:focus {
+  filter: brightness(90%);
+}
+
+.btn-primary {
+  background-color: #0e6ffd;
+}
+
+.btn-danger {
+  background-color: #d43442;
 }
 
 .container {
@@ -35,7 +68,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: crimson;
+  color: black;
   font-weight: bold;
 }
 
@@ -44,33 +77,32 @@ code {
 }
 
 .header a {
-  color: crimson;
-  text-decoration: none;
+  color: black;
 }
 
 .header a:hover,
 .header a:focus {
-  color: darkslategray;
+  color: #282828;
+  text-decoration: none;
 }
 
 .nav {
-  padding: 1em;
   padding-left: 1em;
-  background-color: crimson;
+  padding-bottom: .5em;
+  background-color: whitesmoke;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .nav a {
-  color: white;
-  text-decoration: none;
-  padding-right: 1em;
+  color: #282828;
+  margin-right: .5em;
 }
 
 .nav a:hover,
 .nav a:focus {
-  color: whitesmoke;
+  color: black;
 }
 
 .main {
@@ -83,76 +115,44 @@ code {
   padding: 1em;
   background-color: white;
   font-size: .8rem;
-  color: crimson;
   font-weight: bold;
-}
-
-a {
-  color: crimson;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-a:hover,
-a:focus {
-  color: darkslategray;
 }
 
 .center {
   text-align: center;
-  color: crimson;
   font-weight: bold;
   margin-bottom: 1em;
 }
 
-.center form {
+.form {
   width: 30%;
   margin: 0 auto;
 }
 
-textarea {
+.form textarea {
   height: 80px;
 }
 
-input,
-textarea {
+.form input,
+.form textarea {
   outline: none;
-  border: 2px solid crimson;
+  border: 1px solid whitesmoke;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 1rem;
-  color: darkslategray;
+  color: black;
   letter-spacing: 1px;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: .5em;
   margin: .5em;
   width: 80%;
 }
 
-input:hover,
-input:focus,
-textarea:hover,
-textarea:focus {
-  border-color: darkslategray;
-}
-
-button {
-  outline: none;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  background-color: crimson;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: .5em;
-}
-
-button:hover,
-button:focus {
-  background-color: darkslategray;
+.form input:hover,
+.form input:focus,
+.form textarea:hover,
+.form textarea:focus {
+  border-color: lightgray;
 }
 
 .thread-list {
@@ -169,86 +169,52 @@ button:focus {
 
 .thread-list-username {
   font-weight: bold;
-  color: darkslategray;
+  color: #282828;
   padding-left: 1em;
   padding-right: 1em;
 }
 
 .username {
   font-weight: bold;
-  color: darkslategray;
+  color: #282828;
 }
 
-.thread {
-  background-color: whitesmoke;
-  margin: .5em;
-  margin-left: .5em;
-  padding: 1em;
-}
-
+.thread,
 .post {
   background-color: whitesmoke;
   margin: .5em;
+  margin-left: .5em;
+  padding: .5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.post {
   margin-left: 3em;
-  padding: 1em;
 }
 
-.link {
-  cursor: pointer;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.page-link {
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.link:hover,
-.link:focus {
-  color: darkslategray;
-}
-
-.delete {
-  background-color: darkslategray;
-  color: whitesmoke;
-  margin-left: 1em;
-  margin-right: 1em;
-  font-size: .6rem;
-}
-
-.message {
-  height: 1em;
+.alert {
+  min-height: 1em;
+  max-width: 200px;
+  margin: 0 auto;
   text-align: center;
-  color: darkslategray;
+  color: gold;
   font-weight: bold;
-}
-
-.search button {
-  color: crimson;
-  background-color: transparent;
-}
-.search input {
-  margin-left: 0;
-  width: 20%;
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 9px 12px;
+  margin-top: 1em;
 }
 
 .avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  margin: 1em;
 }
 
-.delete-profile {
-  background-color: white;
-  color: black;
-}
-
-.update-form {
-  width: 400px;
-}
-
-.active {
-  text-decoration: underline;
+.page-link {
+  cursor: pointer;
 }

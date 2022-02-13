@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Register = ({ addUser, setNewUsername, setNewName, setNewPassword, message }) => {
+const RegisterForm = ({ addUser, setNewUsername, setNewName, setNewPassword, message }) => {
   return (
     <div className='center'>
       <h2>Register</h2>
       {message}
-      <form onSubmit={addUser}>
+      <form onSubmit={addUser} className='form'>
         <input
           type='text'
           placeholder='username'
@@ -27,9 +27,9 @@ const Register = ({ addUser, setNewUsername, setNewName, setNewPassword, message
           onChange={({ target }) => setNewPassword(target.value)}
         />
         <br/>
-        <button type='submit'>Register</button>
+        <button type='submit' className='btn btn-primary'>Register</button>
       </form>
     </div>
   )
 }
-export default Register
+export default RegisterForm

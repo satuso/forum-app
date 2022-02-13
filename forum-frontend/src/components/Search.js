@@ -5,7 +5,7 @@ const Search = ({ search, setSearch }) => {
     setSearch('')
   }
   return (
-    <form className='search' onSubmit={submitSearch}>
+    <form onSubmit={submitSearch} className='form'>
       <input
         type='text'
         placeholder='Search'
@@ -14,7 +14,7 @@ const Search = ({ search, setSearch }) => {
         onChange={(e) => setSearch(e.target.value)}
       >
       </input>
-      <button><i className='fas fa-search'></i></button>
+      <button className='btn btn-primary'><i className='fas fa-search'></i></button>
     </form>
   )
 }

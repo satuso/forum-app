@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import Login from './components/Login'
-import Register from './components/Register'
+import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
 import Threads from './components/Threads'
 import Thread from './components/Thread'
 import Profile from './components/Profile'
@@ -10,7 +10,6 @@ import User from './components/User'
 import Users from './components/Users'
 import Header from './components/Header'
 import Nav from './components/Nav'
-import Footer from './components/Footer'
 import threadService from './services/threads'
 import loginService from './services/login'
 import userService from './services/users'
@@ -208,7 +207,7 @@ const App = () => {
       <Nav
         setToggle={setToggle}
       />
-      <div className='message'>{message}</div>
+      {message && <div className='alert'>{message}</div>}
       <div className='main'>
         <Routes>
           <Route path='*' element={
@@ -226,7 +225,7 @@ const App = () => {
             />
           }/>
           <Route path='/login' element={
-            <Login
+            <LoginForm
               username={username}
               password={password}
               setPassword={setPassword}
@@ -235,19 +234,19 @@ const App = () => {
             />
           }/>
           <Route path='/register' element={
-            <Register
+            <RegisterForm
               addUser={addUser}
               setNewUsername={setNewUsername}
               setNewName={setNewName}
               setNewPassword={setNewPassword}
             />
           }/>
-
           <Route path='/profile' element={
             <Profile
               user={user}
               users={users}
               deleteUser={deleteUser}
+              setMessage={setMessage}
             />}/>
           {threads.map(thread =>
             <Route path={`/thread/${thread.id}`} key={thread.id} element={
@@ -272,7 +271,6 @@ const App = () => {
             <Route path={`/user/${user.id}`} key={user.id} element={<User user={user}/>}/>)}
         </Routes>
       </div>
-      <Footer />
     </div>
   )
 }

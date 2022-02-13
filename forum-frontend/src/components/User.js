@@ -6,14 +6,12 @@ const User = ({ user }) => {
   const [toggleThreads, setToggleThreads] = useState(false)
 
   return (
-    <>
+    <div className='center'>
       <UserDetails user={user} />
       <p>
-        <span className={toggleThreads ? 'page-link active' : 'page-link'} onClick={() => setToggleThreads(!toggleThreads)}>
+        <span className={user.threads.length > 0 && 'page-link'} onClick={() => setToggleThreads(!toggleThreads)}>
           {user.threads.length} {user.threads.length === 1 ? 'thread' : 'threads'}
-        </span> • <span className='page-link'>
-          {user.posts.length} {user.posts.length === 1 ? 'post' : 'posts'}
-        </span>
+        </span> • <span>{user.posts.length} {user.posts.length === 1 ? 'post' : 'posts'}</span>
       </p>
       {(user.threads.length > 0 && toggleThreads) &&
         <>
@@ -23,7 +21,7 @@ const User = ({ user }) => {
             </Link>)}
         </>
       }
-    </>
+    </div>
   )
 }
 export default User

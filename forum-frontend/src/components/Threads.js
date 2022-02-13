@@ -24,9 +24,9 @@ const Threads = ({
   return (
     <>
       {user &&
-      <div className='center'>
-        <span className='link' onClick={() => setToggle(!toggle)}>New Thread <i className="fas fa-comment"></i></span>
-      </div>
+        <div className='center'>
+          <button className='btn btn-primary' onClick={() => setToggle(!toggle)}>New Thread <i className="fas fa-comment"></i></button>
+        </div>
       }
       {toggle &&
       <NewThread

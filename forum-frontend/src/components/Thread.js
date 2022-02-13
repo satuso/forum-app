@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Post from './Post'
 import Reply from './Reply'
+import Avatar from './Avatar'
 
 const Thread = ({
   thread,
@@ -49,11 +50,12 @@ const Thread = ({
   }
 
   const date = thread.date.split('T')
+  const userAvatar = thread.user
   return (
     <>
       {user &&
       <div className='center'>
-        <span className='link' onClick={() => setToggle(!toggle)}>Reply <i className="fas fa-comment"></i></span>
+        <button className='btn btn-primary'  onClick={() => setToggle(!toggle)}>Reply <i className="fas fa-comment"></i></button>
       </div>
       }
       {user && toggle && <Reply
@@ -66,11 +68,14 @@ const Thread = ({
         setToggle={setToggle}
       />}
       <div className='thread'>
-        <p className='username'>
-          <Link to={`/user/${thread.user.id}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='delete' onClick={() => handleRemove(thread.id, thread, user)}>delete</button>}
-        </p>
-        <h3>{thread.title}</h3>
-        <p>{thread.content}</p>
+        <Avatar user={userAvatar}/>
+        <div>
+          <p className='username'>
+            <Link to={`/user/${thread.user.id}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemove(thread.id, thread, user)}>delete</button>}
+          </p>
+          <h3>{thread.title}</h3>
+          <p>{thread.content}</p>
+        </div>
       </div>
       {thread.posts.map(post =>
         <Post
