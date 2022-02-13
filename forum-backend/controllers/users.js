@@ -21,13 +21,13 @@ const upload = multer({
     fileSize : 1000000
   },
   fileFilter: (req, file, cb) => {
-    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+    if (file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg') {
       cb(null, true);
-  } else {
-      cb(null, false);
-      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    } else {
+        cb(null, false);
+        return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
   }
-}
 })
 
 
@@ -71,14 +71,13 @@ usersRouter.delete('/:id', async (request, response) => {
   response.status(204).end()  
 })
 
-usersRouter.put("/:id", upload.single("avatar"), async (request, response) => {
+usersRouter.put('/:id', upload.single('avatar'), async (request, response) => {
   const body = request.body
   const url = request.protocol + '://' + request.get('host')
   const user = {
     name: body.name,
     avatar: url + '/public/uploads/' + request.file.filename
   }
-  console.log(user)
   const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
   response.send(updatedUser)
 })

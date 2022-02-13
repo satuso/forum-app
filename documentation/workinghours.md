@@ -15,3 +15,4 @@
 | 06.01.2022 | 2 | research how users can upload images to backend |
 | 12.02.2022 | 5 | research multer, add an upload form to user's profile page, start working on backend |
 |  | 3 | work on file upload feature |
+| 13.02.2022 | 3 | finish file upload feature |

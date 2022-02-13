@@ -233,3 +233,22 @@ button:focus {
   margin-left: 0;
   width: 20%;
 }
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.delete-profile {
+  background-color: white;
+  color: black;
+}
+
+.update-form {
+  width: 400px;
+}
+
+.active {
+  text-decoration: underline;
+}

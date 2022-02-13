@@ -22,6 +22,7 @@ mongoose.connect(config.MONGODB_URI)
 
 app.use(cors())
 app.use(express.static('build'))
+app.use('/public', express.static('public'));
 app.use(express.json())
 app.use(middleware.requestLogger)
 
