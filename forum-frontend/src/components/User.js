@@ -9,7 +9,7 @@ const User = ({ user }) => {
     <div className='center'>
       <UserDetails user={user} />
       <p>
-        <span className={user.threads.length > 0 && 'page-link'} onClick={() => setToggleThreads(!toggleThreads)}>
+        <span className={user.threads.length > 0 ? 'page-link' : ''} onClick={() => setToggleThreads(!toggleThreads)}>
           {user.threads.length} {user.threads.length === 1 ? 'thread' : 'threads'}
         </span> • <span>{user.posts.length} {user.posts.length === 1 ? 'post' : 'posts'}</span>
       </p>

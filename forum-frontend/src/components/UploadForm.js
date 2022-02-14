@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import userService from '../services/users'
 
 const UploadForm = ({ user, setMessage }) => {
   const [avatar, setAvatar] = useState(null)
@@ -11,16 +11,16 @@ const UploadForm = ({ user, setMessage }) => {
 
   const submitAvatar = (e) => {
     e.preventDefault()
-    console.log('submit', avatar)
     // eslint-disable-next-line no-undef
     const formData = new FormData()
     if (avatar){
+      console.log(formData)
       formData.append('avatar', avatar)
-      axios
-        .put(`http://localhost:3003/api/users/${user.id}`, formData)
+      userService
+        .update(user.id, formData)
         .then(res => {
           console.log(res)
-          setMessage('changed profile picture')
+          setMessage('uploaded new profile picture')
           setTimeout(() => {
             setMessage(null)
           }, 5000)

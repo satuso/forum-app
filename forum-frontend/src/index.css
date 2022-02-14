@@ -196,10 +196,9 @@ a:focus {
 
 .alert {
   min-height: 1em;
-  max-width: 200px;
   margin: 0 auto;
   text-align: center;
-  color: gold;
+  color: goldenrod;
   font-weight: bold;
   border: 1px solid whitesmoke;
   border-radius: 5px;

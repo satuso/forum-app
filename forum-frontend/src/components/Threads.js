@@ -14,6 +14,7 @@ const Threads = ({
   setToggle,
   handleRemove
 }) => {
+
   const handleTitleChange = (event) => {
     setNewTitle(event.target.value)
   }

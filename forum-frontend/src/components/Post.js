@@ -4,7 +4,7 @@ import Avatar from './Avatar'
 
 const Post = ({ user, post, postService, posts, setPosts, setMessage }) => {
   const date = post.date.split('T')
-  console.log(post)
+
   const handleRemovePost = async (id) => {
     // eslint-disable-next-line no-undef
     if (window.confirm('Are you sure you want to delete this?')){

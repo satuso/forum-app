@@ -13,14 +13,14 @@ const getTokenFrom = request => {
 
 threadsRouter.get('/', async (request, response) => { 
   const threads = await Thread
-    .find({}).populate('user', { username: 1, name: 1, avatar: 1 })
+    .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
     .find({}).populate('posts')
   response.json(threads.map(thread => thread.toJSON()))
 })
 
 threadsRouter.get('/:id', async (request, response) => {
   const thread = await Thread.findById(request.params.id)
-    .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1})
+    .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
     .find({}).populate('posts')
   response.json(thread.map(thread => thread.toJSON()))
 })
@@ -37,12 +37,16 @@ threadsRouter.post('/', async (request, response) => {
     title: body.title,
     content: body.content,
     date: new Date(),
-    user: user._id
+    user: user._id,
   })
   const savedThread = await thread.save()
   user.threads = user.threads.concat(savedThread._id)
   await user.save()
-  response.json(savedThread.toJSON())
+
+  const populatedThread = await savedThread
+    .populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
+    
+  response.status(201).json(populatedThread.toJSON())
 })
 
 threadsRouter.delete('/:id', async (request, response) => {

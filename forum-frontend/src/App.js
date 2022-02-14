@@ -40,7 +40,8 @@ const App = () => {
       .then(initialThreads => {
         setThreads(initialThreads.reverse())
       })
-  }, [])
+  }, [threads.title])
+
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedForumUser')
@@ -57,7 +58,7 @@ const App = () => {
       .then(initialUsers => {
         setUsers(initialUsers)
       })
-  }, [])
+  }, [users.username])
 
   useEffect(() => {
     postService
@@ -65,7 +66,7 @@ const App = () => {
       .then(initialPosts => {
         setPosts(initialPosts)
       })
-  }, [])
+  }, [posts.content])
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -95,26 +96,33 @@ const App = () => {
 
   const addThread = (event) => {
     event.preventDefault()
-    try {
-      const threadObject = {
-        title: newTitle,
-        content: newThread,
-        date: new Date().toISOString()
+    if (newThread.length >= 2 && newTitle.length >= 2){
+      try {
+        const threadObject = {
+          title: newTitle,
+          content: newThread,
+          date: new Date().toISOString()
+        }
+        threadService
+          .create(threadObject)
+          .then(returnedThread => {
+            setThreads(threads.concat(returnedThread))
+            setNewTitle('')
+            setNewThread('')
+            setMessage('created new thread')
+            setToggle(!toggle)
+            setTimeout(() => {
+              setMessage(null)
+            }, 5000)
+          })
+      } catch (exception){
+        setMessage('error')
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
       }
-      threadService
-        .create(threadObject)
-        .then(returnedThread => {
-          setThreads(threads.concat(returnedThread))
-          setNewTitle('')
-          setNewThread('')
-          setMessage('created new thread')
-          setToggle(!toggle)
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
-        })
-    } catch (exception){
-      setMessage('error')
+    } else {
+      setMessage('title and message must contain least 2 characters')
       setTimeout(() => {
         setMessage(null)
       }, 5000)
@@ -245,6 +253,7 @@ const App = () => {
             <Profile
               user={user}
               users={users}
+              setUsers={setUsers}
               deleteUser={deleteUser}
               setMessage={setMessage}
             />}/>
