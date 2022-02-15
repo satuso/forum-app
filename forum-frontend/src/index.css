@@ -7,13 +7,25 @@
   box-sizing: border-box;
 }
 
+:root {
+  --blue: #0e6ffd;
+  --red: #d43442;
+  --white: #fff;
+  --whitesmoke: whitesmoke;
+  --gray: gray;
+  --lightgray: lightgray;
+  --darkgray: #282828;
+  --black: #000;
+  --yellow: gold;
+}
+
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1rem;
-  background-color: white;
+  background-color: var(--white);
 }
 
 a {
@@ -35,9 +47,10 @@ a:focus {
   border-radius: 5px;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
-  color: white;
+  color: black;
   padding: 9px 12px;
-  margin: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .btn:hover,
@@ -46,11 +59,13 @@ a:focus {
 }
 
 .btn-primary {
-  background-color: #0e6ffd;
+  background-color: var(--blue);
+  color: var(--white);
 }
 
 .btn-danger {
-  background-color: #d43442;
+  background-color: var(--red);
+  color: var(--white);
 }
 
 .container {
@@ -62,14 +77,13 @@ a:focus {
 
 .header {
   padding: .2em;
-  padding-left: 1em;
-  padding-right: 1em;
-  background-color: whitesmoke;
+  padding-left: .5em;
+  padding-right: .5em;
+  background-color: var(--whitesmoke);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: black;
-  font-weight: bold;
+  color: var(--darkgray);
 }
 
 .header h1 {
@@ -77,32 +91,35 @@ a:focus {
 }
 
 .header a {
-  color: black;
+  color: var(--darkgray);
 }
 
 .header a:hover,
 .header a:focus {
-  color: #282828;
+  color: var(--black);
   text-decoration: none;
 }
 
 .nav {
-  padding-left: 1em;
-  padding-bottom: .5em;
-  background-color: whitesmoke;
+  background-color: var(--whitesmoke);
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  font-size: 1rem;
 }
 
 .nav a {
-  color: #282828;
-  margin-right: .5em;
+  color: var(--darkgray);
+  margin-right: 1em;
+  text-decoration: none;
+  padding: .6em;
+  margin: 0;
 }
 
 .nav a:hover,
 .nav a:focus {
-  color: black;
+  color: var(--black);
+  background-color: var(--lightgray);
 }
 
 .main {
@@ -113,18 +130,14 @@ a:focus {
 .footer {
   text-align: center;
   padding: 1em;
-  background-color: white;
+  background-color: var(--white);
   font-size: .8rem;
   font-weight: bold;
 }
 
 .center {
   text-align: center;
-  font-weight: bold;
   margin-bottom: 1em;
-}
-
-.form {
   width: 30%;
   margin: 0 auto;
 }
@@ -136,15 +149,15 @@ a:focus {
 .form input,
 .form textarea {
   outline: none;
-  border: 1px solid whitesmoke;
+  border: 1px solid var(--whitesmoke);
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 1rem;
   color: black;
-  letter-spacing: 1px;
   border-radius: 5px;
   padding: .5em;
-  margin: .5em;
+  margin-bottom: .5em;
+  margin-top: .5em;
   width: 80%;
 }
 
@@ -152,7 +165,12 @@ a:focus {
 .form input:focus,
 .form textarea:hover,
 .form textarea:focus {
-  border-color: lightgray;
+  border-color: var(--lightgray);
+}
+
+.search-form {
+  width: 30%;
+  margin: 0 auto;
 }
 
 .thread-list {
@@ -160,11 +178,11 @@ a:focus {
 }
 
 .thread-list:nth-child(odd){
-  background-color: white;
+  background-color: var(--white)
 }
 
 .thread-list:nth-child(even){
-  background-color: whitesmoke;
+  background-color: var(--whitesmoke)
 }
 
 .thread-list-username {
@@ -181,7 +199,7 @@ a:focus {
 
 .thread,
 .post {
-  background-color: whitesmoke;
+  background-color: var(--whitesmoke);
   margin: .5em;
   margin-left: .5em;
   padding: .5em;
@@ -200,7 +218,7 @@ a:focus {
   text-align: center;
   color: goldenrod;
   font-weight: bold;
-  border: 1px solid whitesmoke;
+  border: 1px solid var(--whitesmoke);
   border-radius: 5px;
   font-weight: bold;
   padding: 9px 12px;
@@ -214,6 +232,42 @@ a:focus {
   margin: 1em;
 }
 
+.avatar-small {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+}
+
 .page-link {
   cursor: pointer;
+  font-weight: bold;
+}
+
+.active {
+  text-decoration: underline;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.logged-in {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logged-in span {
+  padding: 5px;
+}
+
+.settings {
+  color: var(--gray);
+  font-size: 1.5rem;
 }

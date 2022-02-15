@@ -4,7 +4,7 @@ import userService from '../services/users'
 const UploadForm = ({ user, setMessage }) => {
   const [avatar, setAvatar] = useState(null)
 
-  const onImageChange = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0]
     setAvatar(file)
   }
@@ -38,9 +38,10 @@ const UploadForm = ({ user, setMessage }) => {
 
   return (
     <div>
-      <form onSubmit={submitAvatar} className='form'>
-        <label>Change profile picture</label><br/>
-        <input type='file' multiple accept='image/*' onChange={onImageChange}></input>
+      <form onSubmit={submitAvatar}>
+        <label><h3>Change profile picture</h3></label>
+        <input type='file' multiple accept='image/*' onChange={handleImageChange}></input>
+        <br />
         <button className="btn btn-primary" type='submit'>Submit</button>
       </form>
     </div>

@@ -40,8 +40,7 @@ const App = () => {
       .then(initialThreads => {
         setThreads(initialThreads.reverse())
       })
-  }, [threads.title])
-
+  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedForumUser')
@@ -58,7 +57,7 @@ const App = () => {
       .then(initialUsers => {
         setUsers(initialUsers)
       })
-  }, [users.username])
+  }, [])
 
   useEffect(() => {
     postService
@@ -66,7 +65,7 @@ const App = () => {
       .then(initialPosts => {
         setPosts(initialPosts)
       })
-  }, [posts.content])
+  }, [])
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -147,8 +146,8 @@ const App = () => {
             setMessage(null)
           }, 5000)
         })
-    } catch (exception) {
-      setMessage('error')
+    } catch (err) {
+      setMessage(err.response.data)
       setTimeout(() => {
         setMessage(null)
       }, 5000)
@@ -186,7 +185,7 @@ const App = () => {
   }
 
   const deleteUser = async (id) => {
-    if (window.confirm('Are you sure you want to delete this?')){
+    if (window.confirm('Are you sure you want to delete your profile?')){
       try {
         await userService.remove(id)
         const updatedUsers = users.filter(user => user.id !== id)
@@ -277,7 +276,7 @@ const App = () => {
           )}
           <Route path='/users' element={<Users users={users} search={search} setSearch={setSearch}/>}/>
           {users.map(user =>
-            <Route path={`/user/${user.id}`} key={user.id} element={<User user={user}/>}/>)}
+            <Route path={`/user/${user.username}`} key={user.username} element={<User user={user}/>}/>)}
         </Routes>
       </div>
     </div>

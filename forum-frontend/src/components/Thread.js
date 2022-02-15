@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Post from './Post'
 import NewPost from './NewPost'
 import Avatar from './Avatar'
+import GoBack from './GoBack'
 
 const Thread = ({
   thread,
@@ -78,7 +79,7 @@ const Thread = ({
         <Avatar user={userAvatar}/>
         <div>
           <p className='username'>
-            <Link to={`/user/${thread.user.id}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemove(thread.id, thread, user)}>delete</button>}
+            <Link to={`/user/${thread.user.username}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemove(thread.id, thread, user)}>delete</button>}
           </p>
           <h3>{thread.title}</h3>
           <p>{thread.content}</p>
@@ -95,6 +96,7 @@ const Thread = ({
           postService={postService}
           thread={post.thread}
         />)}
+      <GoBack />
     </>
   )
 }

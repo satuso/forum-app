@@ -31,7 +31,7 @@ const Post = ({ user, post, postService, posts, setPosts, setMessage }) => {
       <Avatar user={userAvatar}/>
       <div>
         <p className='username'>
-          <Link to={`/user/${post.user}`}>{post.username}</Link> {date[0]} {user && (user.id === post.user || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemovePost(post.id, post, user)}>delete</button>}</p>
+          <Link to={`/user/${post.username}`}>{post.username}</Link> {date[0]} {user && (user.id === post.user || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemovePost(post.id, post, user)}>delete</button>}</p>
         <p>{post.content}</p>
       </div>
     </div>

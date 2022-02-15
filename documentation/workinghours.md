@@ -18,3 +18,4 @@
 | 13.02.2022 | 3 | finish file upload feature |
 |  | 5 | edit layout and display user avatars on the front-end |
 | 14.02.2022 | 1 | refactor code |
+| 15.02.2022 | 5 | add form to update profile details, edit back-end and front-end |

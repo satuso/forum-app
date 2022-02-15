@@ -5,7 +5,7 @@ const Search = ({ search, setSearch }) => {
     setSearch('')
   }
   return (
-    <form onSubmit={submitSearch} className='form'>
+    <form onSubmit={submitSearch} className='form search-form'>
       <input
         type='text'
         placeholder='Search'

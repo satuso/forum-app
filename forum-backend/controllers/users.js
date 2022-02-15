@@ -32,54 +32,76 @@ const upload = multer({
 
 
 usersRouter.post('/', async (request, response) => {
-  const body = request.body
+  try {
+    const body = request.body
 
-  const saltRounds = 10
-  const passwordHash = await bcrypt.hash(body.password, saltRounds)
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
-  const user = new User({
-    username: body.username,
-    name: body.name,
-    avatar: body.avatar,
-    passwordHash,
-  })
+    const user = new User({
+      username: body.username,
+      name: body.name,
+      avatar: body.avatar,
+      age: body.age,
+      passwordHash,
+    })
 
-  const savedUser = await user.save()
-  response.json(savedUser)
+    const savedUser = await user.save()
+    response.json(savedUser)
+  } catch (e) {
+    console.log(e)
+  } 
 })
 
 usersRouter.get('/', async (request, response) => {
-  const users = await User
-    .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1 })
-    .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1 })
-  response.json(users.map(u => u.toJSON()))
+  try {
+    const users = await User
+      .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1 })
+      .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1,  thread: 1 })
+    response.json(users.map(u => u.toJSON()))
+  } catch (e){
+    console.log(e)
+  }
 })
 
 usersRouter.get('/:id', async (request, response) => {
-  const user = await User.findById(request.params.id)
-    .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1})
-    .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1 })
-  if (user) {
-    response.json(user)
-  } else {
-    response.status(404).end()
+  try {
+    const user = await User.findById(request.params.id)
+      .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1})
+      .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1, thread: 1 })
+    if (user) {
+      response.json(user)
+    } else {
+      response.status(404).end()
+    }
+  } catch(e){
+    console.log(e)
   }
 })
 
 usersRouter.delete('/:id', async (request, response) => {
-  await User.findByIdAndRemove(request.params.id)
-  response.status(204).end()  
+  try {
+    await User.findByIdAndRemove(request.params.id)
+    response.status(204).end() 
+  } catch (e) {
+    console.log(e)
+  }
 })
 
 usersRouter.put('/:id', upload.single('avatar'), async (request, response) => {
-  const body = request.body
-  const url = request.protocol + '://' + request.get('host')
-  const user = {
-    name: body.name,
-    avatar: url + '/public/uploads/' + request.file.filename
+  try {
+    const body = request.body
+    const url = request.protocol + '://' + request.get('host')
+    const user = {
+      name: body.name,
+      age: body.age,
+      avatar: request.file ? url + '/public/uploads/' + request.file.filename : body.avatar
+    }
+    const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
+    response.send(updatedUser)
+  } catch (e){
+    console.log(e)
   }
-  const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
-  response.send(updatedUser)
 })
 
 module.exports = usersRouter

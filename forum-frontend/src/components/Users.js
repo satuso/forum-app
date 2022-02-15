@@ -12,7 +12,7 @@ const Users = ({ users, search, setSearch }) => {
       />
       {filteredUsers.sort((a, b) => a.username.localeCompare(b.username)).map(user =>
         <p key={user.id}>
-          <Link to={`/user/${user.id}`}>{user.username}</Link> {user.name}</p>)}
+          <Link to={`/user/${user.username}`}>{user.username}</Link> {user.name}</p>)}
     </>
   )
 }
