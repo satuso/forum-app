@@ -1,19 +1,23 @@
 import React from 'react'
 import NewThread from './NewThread'
 import ThreadList from './ThreadList'
+import { useSelector } from 'react-redux'
 
 const Threads = ({
   user,
   toggle,
-  threads,
+
   addThread,
   newTitle,
   newThread,
   setNewTitle,
   setNewThread,
   setToggle,
-  handleRemove
+  handleRemoveThread
 }) => {
+
+  const threads = useSelector(state => state.threads)
+  const threadsCopy = [ ...threads ].reverse()
 
   const handleTitleChange = (event) => {
     setNewTitle(event.target.value)
@@ -37,11 +41,11 @@ const Threads = ({
         newThread={newThread}
         handleThreadChange={handleThreadChange}
       />}
-      {threads.map(thread => <ThreadList
+      {threadsCopy.map(thread => <ThreadList
         key={thread.id}
         thread={thread}
         user={user}
-        handleRemove={handleRemove}
+        handleRemoveThread={handleRemoveThread}
       />)
       }
     </>

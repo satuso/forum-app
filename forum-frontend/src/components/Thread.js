@@ -10,8 +10,7 @@ const Thread = ({
   user,
   toggle,
   setToggle,
-  handleRemove,
-  setMessage,
+  handleRemoveThread,
   posts,
   setPosts,
   postService,
@@ -33,23 +32,13 @@ const Thread = ({
           .then(returnedPost => {
             setPosts(posts.concat(returnedPost))
             setNewPost('')
-            setMessage('replied to thread')
-            setTimeout(() => {
-              setMessage(null)
-            }, 5000)
             setToggle(!toggle)
           })
-      } catch (exception) {
-        setMessage('error')
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
+      } catch (error) {
+        console.log(error)
       }
     } else {
-      setMessage('message must contain least 2 characters')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
+      console.log('replied')
     }
   }
 
@@ -79,7 +68,7 @@ const Thread = ({
         <Avatar user={userAvatar}/>
         <div>
           <p className='username'>
-            <Link to={`/user/${thread.user.username}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemove(thread.id, thread, user)}>delete</button>}
+            <Link to={`/user/${thread.user.username}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemoveThread(thread.id, thread, user)}>delete</button>}
           </p>
           <h3>{thread.title}</h3>
           <p>{thread.content}</p>
@@ -92,7 +81,6 @@ const Thread = ({
           key={post.id}
           posts={posts}
           setPosts={setPosts}
-          setMessage={setMessage}
           postService={postService}
           thread={post.thread}
         />)}

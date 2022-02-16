@@ -10,18 +10,22 @@ import User from './components/User'
 import Users from './components/Users'
 import Header from './components/Header'
 import Nav from './components/Nav'
+import Notification from './components/Notification'
+
 import threadService from './services/threads'
 import loginService from './services/login'
 import userService from './services/users'
 import postService from './services/posts'
 
+import { setNotification } from './reducers/notificationReducer'
+import { createThread, removeThread } from './reducers/threadReducer'
+import { useDispatch, useSelector } from 'react-redux'
+
 const App = () => {
   const [user, setUser] = useState(null)
-  const [threads, setThreads] = useState([])
   const [users, setUsers] = useState([])
   const [newTitle, setNewTitle] = useState('')
   const [newThread, setNewThread] = useState('')
-  const [message, setMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [toggle, setToggle] = useState(false)
@@ -32,15 +36,11 @@ const App = () => {
   const [newPost, setNewPost] = useState('')
   const [search, setSearch] = useState('')
 
-  let navigate = useNavigate()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    threadService
-      .getAll()
-      .then(initialThreads => {
-        setThreads(initialThreads.reverse())
-      })
-  }, [])
+  const threads = useSelector(state => state.threads)
+  let threadsCopy = [ ...threads ].reverse()
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedForumUser')
@@ -81,15 +81,9 @@ const App = () => {
       setUsername('')
       setPassword('')
       navigate('/')
-      setMessage('logged in')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
+      dispatch(setNotification('You are now logged in', 10))
     } catch (exception) {
-      setMessage('wrong username or password')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
+      dispatch(setNotification('Wrong username or password', 10))
     }
   }
 
@@ -102,29 +96,16 @@ const App = () => {
           content: newThread,
           date: new Date().toISOString()
         }
-        threadService
-          .create(threadObject)
-          .then(returnedThread => {
-            setThreads(threads.concat(returnedThread))
-            setNewTitle('')
-            setNewThread('')
-            setMessage('created new thread')
-            setToggle(!toggle)
-            setTimeout(() => {
-              setMessage(null)
-            }, 5000)
-          })
-      } catch (exception){
-        setMessage('error')
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
+        dispatch(createThread(threadObject))
+        dispatch(setNotification('Created a new thread', 10))
+        setNewTitle('')
+        setNewThread('')
+        setToggle(!toggle)
+      } catch (error){
+        dispatch(setNotification('Error', 10))
       }
     } else {
-      setMessage('title and message must contain least 2 characters')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
+      dispatch(setNotification('Title and message must contain least 2 characters', 10))
     }
   }
 
@@ -141,16 +122,10 @@ const App = () => {
         .then(returnedUser => {
           setUsers(users.concat(returnedUser))
           navigate('/login')
-          setMessage('Created new user! You can now log in.')
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
+          dispatch(setNotification('Created new user! You can now log in', 10))
         })
-    } catch (err) {
-      setMessage(err.response.data)
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
+    } catch (error) {
+      dispatch(setNotification('Error', 10))
     }
   }
 
@@ -158,28 +133,17 @@ const App = () => {
     setUser(null)
     window.localStorage.clear()
     navigate('/')
-    setMessage('logged out')
-    setTimeout(() => {
-      setMessage(null)
-    }, 5000)
+    dispatch(setNotification('You are now logged out', 10))
   }
 
-  const handleRemove = async (id) => {
+  const handleRemoveThread = (id) => {
     if (window.confirm('Are you sure you want to delete this?')){
       try {
-        await threadService.remove(id)
-        const updatedThreads = threads.filter(thread => thread.id !== id)
-        setThreads(updatedThreads)
-        setMessage('deleted thread')
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
+        dispatch(removeThread(id))
+        dispatch(setNotification('Deleted thread', 10))
       }
       catch (exception){
-        setMessage('error')
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
+        dispatch(setNotification('Error', 10))
       }
     }
   }
@@ -191,16 +155,10 @@ const App = () => {
         const updatedUsers = users.filter(user => user.id !== id)
         setUsers(updatedUsers)
         handleLogout()
-        setMessage('user deleted')
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
+        dispatch(setNotification('User deleted', 10))
       }
       catch (exception){
-        setMessage('error')
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
+        dispatch(setNotification('Error', 10))
       }
     }
   }
@@ -214,7 +172,7 @@ const App = () => {
       <Nav
         setToggle={setToggle}
       />
-      {message && <div className='alert'>{message}</div>}
+      <Notification />
       <div className='main'>
         <Routes>
           <Route path='*' element={
@@ -222,13 +180,13 @@ const App = () => {
               user={user}
               toggle={toggle}
               setToggle={setToggle}
-              threads={threads}
+              threads={threadsCopy}
               addThread={addThread}
               newTitle={newTitle}
               newThread={newThread}
               setNewTitle={setNewTitle}
               setNewThread={setNewThread}
-              handleRemove={handleRemove}
+              handleRemoveThread={handleRemoveThread}
             />
           }/>
           <Route path='/login' element={
@@ -254,7 +212,6 @@ const App = () => {
               users={users}
               setUsers={setUsers}
               deleteUser={deleteUser}
-              setMessage={setMessage}
             />}/>
           {threads.map(thread =>
             <Route path={`/thread/${thread.id}`} key={thread.id} element={
@@ -264,8 +221,7 @@ const App = () => {
                 setUser={setUser}
                 toggle={toggle}
                 setToggle={setToggle}
-                handleRemove={handleRemove}
-                setMessage={setMessage}
+                handleRemoveThread={handleRemoveThread}
                 posts={posts}
                 setPosts={setPosts}
                 postService={postService}

@@ -19,3 +19,4 @@
 |  | 5 | edit layout and display user avatars on the front-end |
 | 14.02.2022 | 1 | refactor code |
 | 15.02.2022 | 5 | add form to update profile details, edit back-end and front-end |
+| 16.02.2022 | 6 | convert front-end to use redux for threads' state management |

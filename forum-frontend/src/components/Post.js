@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Avatar from './Avatar'
 
-const Post = ({ user, post, postService, posts, setPosts, setMessage }) => {
+const Post = ({ user, post, postService, posts, setPosts }) => {
   const date = post.date.split('T')
 
   const handleRemovePost = async (id) => {
@@ -12,16 +12,9 @@ const Post = ({ user, post, postService, posts, setPosts, setMessage }) => {
         await postService.remove(id)
         const updatedPosts = posts.filter(post => post.id !== id)
         setPosts(updatedPosts)
-        setMessage('deleted post')
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
       }
-      catch (exception){
-        setMessage('error')
-        setTimeout(() => {
-          setMessage(null)
-        }, 5000)
+      catch (error){
+        console.log(error)
       }
     }
   }
