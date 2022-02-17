@@ -20,3 +20,4 @@
 | 14.02.2022 | 1 | refactor code |
 | 15.02.2022 | 5 | add form to update profile details, edit back-end and front-end |
 | 16.02.2022 | 6 | convert front-end to use redux for threads' state management |
+| 17.02.2022 | 3 | extend redux to handle forum posts and users |

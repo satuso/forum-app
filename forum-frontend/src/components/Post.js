@@ -1,23 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { removePost } from '../reducers/postReducer'
+import { setNotification } from '../reducers/notificationReducer'
 import Avatar from './Avatar'
 
-const Post = ({ user, post, postService, posts, setPosts }) => {
+const Post = ({ user, post }) => {
   const date = post.date.split('T')
+  const dispatch = useDispatch()
 
-  const handleRemovePost = async (id) => {
+  const handleRemovePost = (id) => {
     // eslint-disable-next-line no-undef
     if (window.confirm('Are you sure you want to delete this?')){
       try {
-        await postService.remove(id)
-        const updatedPosts = posts.filter(post => post.id !== id)
-        setPosts(updatedPosts)
+        dispatch(removePost(id))
+        dispatch(setNotification('Deleted post', 10))
       }
       catch (error){
-        console.log(error)
+        dispatch(setNotification('Error', 10))
       }
     }
   }
+
   const userAvatar = post
   return (
     <div className='post'>

@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react'
 import postService from '../services/posts'
 
-const NewPost = ({ user, replyToThread, newPost, handleReplyChange }) => {
+const NewPost = ({
+  user,
+  replyToThread,
+  newPost,
+  handleReplyChange
+}) => {
 
   useEffect(() => {
     postService.setToken(user.token)

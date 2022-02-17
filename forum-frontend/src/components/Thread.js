@@ -4,6 +4,9 @@ import Post from './Post'
 import NewPost from './NewPost'
 import Avatar from './Avatar'
 import GoBack from './GoBack'
+import { useDispatch } from 'react-redux'
+import { createPost } from '../reducers/postReducer'
+import { setNotification } from '../reducers/notificationReducer'
 
 const Thread = ({
   thread,
@@ -11,12 +14,11 @@ const Thread = ({
   toggle,
   setToggle,
   handleRemoveThread,
-  posts,
-  setPosts,
-  postService,
   newPost,
   setNewPost
 }) => {
+
+  const dispatch = useDispatch()
 
   const replyToThread = (event) => {
     event.preventDefault()
@@ -27,18 +29,16 @@ const Thread = ({
           date: new Date().toISOString(),
           threadId: thread.id
         }
-        postService
-          .create(postObject)
-          .then(returnedPost => {
-            setPosts(posts.concat(returnedPost))
-            setNewPost('')
-            setToggle(!toggle)
-          })
+        dispatch(createPost(postObject))
+        dispatch(setNotification('Replied to thread', 10))
+        setNewPost('')
+        setToggle(!toggle)
+
       } catch (error) {
-        console.log(error)
+        dispatch(setNotification('Error', 10))
       }
     } else {
-      console.log('replied')
+      dispatch(setNotification('Error', 10))
     }
   }
 
@@ -79,10 +79,6 @@ const Thread = ({
           user={user}
           post={post}
           key={post.id}
-          posts={posts}
-          setPosts={setPosts}
-          postService={postService}
-          thread={post.thread}
         />)}
       <GoBack />
     </>

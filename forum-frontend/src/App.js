@@ -14,16 +14,14 @@ import Notification from './components/Notification'
 
 import threadService from './services/threads'
 import loginService from './services/login'
-import userService from './services/users'
-import postService from './services/posts'
 
 import { setNotification } from './reducers/notificationReducer'
+import { createUser, removeUser } from './reducers/userReducer'
 import { createThread, removeThread } from './reducers/threadReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
 const App = () => {
   const [user, setUser] = useState(null)
-  const [users, setUsers] = useState([])
   const [newTitle, setNewTitle] = useState('')
   const [newThread, setNewThread] = useState('')
   const [username, setUsername] = useState('')
@@ -32,7 +30,6 @@ const App = () => {
   const [newUsername, setNewUsername] = useState('')
   const [newName, setNewName] = useState('')
   const [newPassword, setNewPassword] = useState('')
-  const [posts , setPosts] = useState([])
   const [newPost, setNewPost] = useState('')
   const [search, setSearch] = useState('')
 
@@ -40,7 +37,10 @@ const App = () => {
   const dispatch = useDispatch()
 
   const threads = useSelector(state => state.threads)
-  let threadsCopy = [ ...threads ].reverse()
+  let threadsCopy = [...threads].reverse()
+
+  const users = useSelector(state => state.users)
+  let usersCopy = [...users]
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedForumUser')
@@ -49,22 +49,6 @@ const App = () => {
       setUser(user)
       threadService.setToken(user.token)
     }
-  }, [])
-
-  useEffect(() => {
-    userService
-      .getAll()
-      .then(initialUsers => {
-        setUsers(initialUsers)
-      })
-  }, [])
-
-  useEffect(() => {
-    postService
-      .getAll()
-      .then(initialPosts => {
-        setPosts(initialPosts)
-      })
   }, [])
 
   const handleLogin = async (e) => {
@@ -82,7 +66,7 @@ const App = () => {
       setPassword('')
       navigate('/')
       dispatch(setNotification('You are now logged in', 10))
-    } catch (exception) {
+    } catch (error) {
       dispatch(setNotification('Wrong username or password', 10))
     }
   }
@@ -117,13 +101,9 @@ const App = () => {
         name: newName,
         password: newPassword
       }
-      userService
-        .create(userObject)
-        .then(returnedUser => {
-          setUsers(users.concat(returnedUser))
-          navigate('/login')
-          dispatch(setNotification('Created new user! You can now log in', 10))
-        })
+      dispatch(createUser(userObject))
+      navigate('/login')
+      dispatch(setNotification('Created new user! You can now log in', 10))
     } catch (error) {
       dispatch(setNotification('Error', 10))
     }
@@ -142,7 +122,7 @@ const App = () => {
         dispatch(removeThread(id))
         dispatch(setNotification('Deleted thread', 10))
       }
-      catch (exception){
+      catch (error){
         dispatch(setNotification('Error', 10))
       }
     }
@@ -151,13 +131,11 @@ const App = () => {
   const deleteUser = async (id) => {
     if (window.confirm('Are you sure you want to delete your profile?')){
       try {
-        await userService.remove(id)
-        const updatedUsers = users.filter(user => user.id !== id)
-        setUsers(updatedUsers)
+        dispatch(removeUser(id))
         handleLogout()
         dispatch(setNotification('User deleted', 10))
       }
-      catch (exception){
+      catch (error){
         dispatch(setNotification('Error', 10))
       }
     }
@@ -209,11 +187,10 @@ const App = () => {
           <Route path='/profile' element={
             <Profile
               user={user}
-              users={users}
-              setUsers={setUsers}
+              users={usersCopy}
               deleteUser={deleteUser}
             />}/>
-          {threads.map(thread =>
+          {threadsCopy.map(thread =>
             <Route path={`/thread/${thread.id}`} key={thread.id} element={
               <Thread
                 thread={thread}
@@ -222,16 +199,18 @@ const App = () => {
                 toggle={toggle}
                 setToggle={setToggle}
                 handleRemoveThread={handleRemoveThread}
-                posts={posts}
-                setPosts={setPosts}
-                postService={postService}
                 newPost={newPost}
                 setNewPost={setNewPost}
               />
             }/>
           )}
-          <Route path='/users' element={<Users users={users} search={search} setSearch={setSearch}/>}/>
-          {users.map(user =>
+          <Route path='/users' element={
+            <Users
+              users={users}
+              search={search}
+              setSearch={setSearch}
+            />}/>
+          {usersCopy.map(user =>
             <Route path={`/user/${user.username}`} key={user.username} element={<User user={user}/>}/>)}
         </Routes>
       </div>

@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 const Threads = ({
   user,
   toggle,
-
   addThread,
   newTitle,
   newThread,
