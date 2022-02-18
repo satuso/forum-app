@@ -4,13 +4,30 @@ import GoBack from './GoBack'
 import UploadForm from './UploadForm'
 import UpdateForm from './UpdateForm'
 import UserDetails from './UserDetails'
+import { removeUser } from '../reducers/userReducer'
+import { useDispatch } from 'react-redux'
+import { setNotification } from '../reducers/notificationReducer'
 
-const Profile = ({ user, users, deleteUser }) => {
+const Profile = ({ user, users, handleLogout }) => {
   const [toggleThreads, setToggleThreads] = useState(false)
   const [togglePosts, setTogglePosts] = useState(false)
+  const dispatch = useDispatch()
 
   if (!user){
     return null
+  }
+
+  const deleteUser = async (id) => {
+    if (window.confirm('Are you sure you want to delete your profile?')){
+      try {
+        dispatch(removeUser(id))
+        handleLogout()
+        dispatch(setNotification('User deleted', 10))
+      }
+      catch (error){
+        dispatch(setNotification('Error', 10))
+      }
+    }
   }
 
   const id = user.id

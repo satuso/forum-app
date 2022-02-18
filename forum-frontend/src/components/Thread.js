@@ -1,51 +1,36 @@
+/* eslint-disable no-undef */
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Post from './Post'
-import NewPost from './NewPost'
+import NewPostForm from './NewPostForm'
 import Avatar from './Avatar'
 import GoBack from './GoBack'
 import { useDispatch } from 'react-redux'
-import { createPost } from '../reducers/postReducer'
 import { setNotification } from '../reducers/notificationReducer'
+import { deleteThread } from '../reducers/threadReducer'
 import { useNavigate } from 'react-router-dom'
 
 const Thread = ({
   thread,
   user,
   toggle,
-  setToggle,
-  removeThread,
-  newPost,
-  setNewPost
+  setToggle
 }) => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const replyToThread = (event) => {
-    event.preventDefault()
-    if (newPost.length >= 2){
+  const removeThread = (id) => {
+    if (window.confirm('Are you sure you want to delete this?')){
       try {
-        const postObject = {
-          content: newPost,
-          date: new Date().toISOString(),
-          threadId: thread.id
-        }
-        dispatch(createPost(postObject))
-        dispatch(setNotification('Replied to thread', 10))
-        setNewPost('')
-        setToggle(!toggle)
-        navigate(`/thread/${thread.id}`)
-      } catch (error) {
+        dispatch(deleteThread(id))
+        dispatch(setNotification('Deleted thread', 10))
+        navigate('/threads')
+      }
+      catch (error){
         dispatch(setNotification('Error', 10))
       }
-    } else {
-      dispatch(setNotification('Error', 10))
     }
-  }
-
-  const handleReplyChange = (event) => {
-    setNewPost(event.target.value)
   }
 
   const date = thread.date.split('T')
@@ -57,12 +42,9 @@ const Thread = ({
         <button className='btn btn-primary'  onClick={() => setToggle(!toggle)}>Reply <i className="fas fa-comment"></i></button>
       </div>
       }
-      {user && toggle && <NewPost
+      {user && toggle && <NewPostForm
         thread={thread}
         user={user}
-        replyToThread={replyToThread}
-        handleReplyChange={handleReplyChange}
-        newPost={newPost}
         toggle={toggle}
         setToggle={setToggle}
       />}

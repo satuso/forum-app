@@ -2,7 +2,13 @@ module.exports = {
   'env': {
     'commonjs': true,
     'es2021': true,
-    'node': true
+    'node': true,
+    'browser': true
+  },
+  'settings': {
+    'react': {
+      'version': 'detect'
+    }
   },
   'extends': [
     'eslint:recommended',

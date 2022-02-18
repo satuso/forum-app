@@ -1,29 +1,16 @@
 import React from 'react'
-import NewThread from './NewThread'
+import NewThreadForm from './NewThreadForm'
 import ThreadList from './ThreadList'
 
 const Threads = ({
   user,
   toggle,
-  threads,
-  addThread,
-  newTitle,
-  newThread,
-  setNewTitle,
-  setNewThread,
   setToggle,
-  removeThread
+  threads
 }) => {
+
   if (threads === []){
     return null
-  }
-
-  const handleTitleChange = (event) => {
-    setNewTitle(event.target.value)
-  }
-
-  const handleThreadChange = (event) => {
-    setNewThread(event.target.value)
   }
 
   return (
@@ -34,19 +21,16 @@ const Threads = ({
         </div>
       }
       {toggle &&
-      <NewThread
-        addThread={addThread}
-        newTitle={newTitle}
-        handleTitleChange={handleTitleChange}
-        newThread={newThread}
-        handleThreadChange={handleThreadChange}
+      <NewThreadForm
+        toggle={toggle}
+        setToggle={setToggle}
       />}
-      {threads.map(thread => <ThreadList
-        key={thread.id}
-        thread={thread}
-        user={user}
-        removeThread={removeThread}
-      />)
+      {threads.map(thread =>
+        <ThreadList
+          key={thread.id}
+          thread={thread}
+          user={user}
+        />)
       }
     </>
   )

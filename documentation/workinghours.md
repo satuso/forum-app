@@ -22,4 +22,5 @@
 | 16.02.2022 | 6 | convert front-end to use redux for threads' state management |
 | 17.02.2022 | 3 | extend redux to handle forum posts and users |
 | 18.02.2022 | 4 | try to problem solve state not updating on the front-end |
-| total | 65 |  |
+| 18.02.2022 | 3 | refactor code |
+| total | 68 |  |

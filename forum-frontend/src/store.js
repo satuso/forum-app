@@ -13,7 +13,7 @@ const reducer = combineReducers({
   threads: threadReducer,
   posts: postReducer,
   users: userReducer,
-  notification: notificationReducer,
+  notification: notificationReducer
 })
 
 const store = createStore(
