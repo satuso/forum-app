@@ -5,7 +5,7 @@ import UploadForm from './UploadForm'
 import UpdateForm from './UpdateForm'
 import UserDetails from './UserDetails'
 
-const Profile = ({ user, users, deleteUser, setMessage }) => {
+const Profile = ({ user, users, deleteUser }) => {
   const [toggleThreads, setToggleThreads] = useState(false)
   const [togglePosts, setTogglePosts] = useState(false)
 
@@ -21,7 +21,7 @@ const Profile = ({ user, users, deleteUser, setMessage }) => {
       <div className='profile'>
         <div>
           <UserDetails user={user} />
-          <UploadForm user={user} setMessage={setMessage}/>
+          <UploadForm user={user}/>
           <p>
             <span className='page-link' onClick={() => {
               setTogglePosts(false)
@@ -44,7 +44,7 @@ const Profile = ({ user, users, deleteUser, setMessage }) => {
         </div>
         <div>
           <h3>Edit profile</h3>
-          <UpdateForm user={user} setMessage={setMessage}/>
+          <UpdateForm user={user}/>
           {user && <button className='btn btn-danger' onClick={() => deleteUser(user.id, user, user)}>Delete profile</button>}
         </div>
       </div>

@@ -10,8 +10,8 @@ const getTokenFrom = request => {
       return authorization.substring(7)
     }
     return null
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 }
 
@@ -21,8 +21,8 @@ threadsRouter.get('/', async (request, response) => {
       .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
       .find({}).populate('posts')
     response.json(threads.map(thread => thread.toJSON()))
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 })
 
@@ -32,8 +32,8 @@ threadsRouter.get('/:id', async (request, response) => {
       .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
       .find({}).populate('posts')
     response.json(thread.map(thread => thread.toJSON()))
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 })
 
@@ -60,8 +60,8 @@ threadsRouter.post('/', async (request, response) => {
       .populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
       
     response.status(201).json(populatedThread.toJSON())
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 })
 
@@ -69,8 +69,8 @@ threadsRouter.delete('/:id', async (request, response) => {
   try {
     await Thread.findByIdAndRemove(request.params.id)
     response.status(204).end()
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 })
 
@@ -79,8 +79,8 @@ threadsRouter.put('/:id', async (request, response) => {
     const thread = request.body
     const updatedThread = await Thread.findByIdAndUpdate(request.params.id, thread, { new: true })
     response.json(updatedThread.toJSON())
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 })
 

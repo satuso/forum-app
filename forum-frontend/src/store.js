@@ -35,4 +35,10 @@ userService.getAll().then(user =>
   store.dispatch(initializeUsers(user))
 )
 
+store.subscribe(() => {
+  const storeNow = store.getState()
+  console.log(storeNow)
+})
+
+
 export default store

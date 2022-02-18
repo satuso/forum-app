@@ -17,7 +17,7 @@ import loginService from './services/login'
 
 import { setNotification } from './reducers/notificationReducer'
 import { createUser, removeUser } from './reducers/userReducer'
-import { createThread, removeThread } from './reducers/threadReducer'
+import { createThread, deleteThread } from './reducers/threadReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
 const App = () => {
@@ -93,6 +93,19 @@ const App = () => {
     }
   }
 
+  const removeThread = (id) => {
+    if (window.confirm('Are you sure you want to delete this?')){
+      try {
+        dispatch(deleteThread(id))
+        dispatch(setNotification('Deleted thread', 10))
+        navigate('/threads')
+      }
+      catch (error){
+        dispatch(setNotification('Error', 10))
+      }
+    }
+  }
+
   const addUser = (e) => {
     e.preventDefault()
     try {
@@ -114,18 +127,6 @@ const App = () => {
     window.localStorage.clear()
     navigate('/')
     dispatch(setNotification('You are now logged out', 10))
-  }
-
-  const handleRemoveThread = (id) => {
-    if (window.confirm('Are you sure you want to delete this?')){
-      try {
-        dispatch(removeThread(id))
-        dispatch(setNotification('Deleted thread', 10))
-      }
-      catch (error){
-        dispatch(setNotification('Error', 10))
-      }
-    }
   }
 
   const deleteUser = async (id) => {
@@ -164,7 +165,7 @@ const App = () => {
               newThread={newThread}
               setNewTitle={setNewTitle}
               setNewThread={setNewThread}
-              handleRemoveThread={handleRemoveThread}
+              removeThread={removeThread}
             />
           }/>
           <Route path='/login' element={
@@ -198,7 +199,7 @@ const App = () => {
                 setUser={setUser}
                 toggle={toggle}
                 setToggle={setToggle}
-                handleRemoveThread={handleRemoveThread}
+                removeThread={removeThread}
                 newPost={newPost}
                 setNewPost={setNewPost}
               />

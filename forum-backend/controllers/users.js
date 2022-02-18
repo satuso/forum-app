@@ -48,8 +48,8 @@ usersRouter.post('/', async (request, response) => {
 
     const savedUser = await user.save()
     response.json(savedUser)
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
   } 
 })
 
@@ -59,8 +59,8 @@ usersRouter.get('/', async (request, response) => {
       .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1 })
       .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1,  thread: 1 })
     response.json(users.map(u => u.toJSON()))
-  } catch (e){
-    console.log(e)
+  } catch (error){
+    console.log(error)
   }
 })
 
@@ -74,8 +74,8 @@ usersRouter.get('/:id', async (request, response) => {
     } else {
       response.status(404).end()
     }
-  } catch(e){
-    console.log(e)
+  } catch (error){
+    console.log(error)
   }
 })
 
@@ -83,8 +83,8 @@ usersRouter.delete('/:id', async (request, response) => {
   try {
     await User.findByIdAndRemove(request.params.id)
     response.status(204).end() 
-  } catch (e) {
-    console.log(e)
+  } catch (error) {
+    console.log(error)
   }
 })
 
@@ -99,8 +99,8 @@ usersRouter.put('/:id', upload.single('avatar'), async (request, response) => {
     }
     const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
     response.send(updatedUser)
-  } catch (e){
-    console.log(e)
+  } catch (error){
+    console.log(error)
   }
 })
 

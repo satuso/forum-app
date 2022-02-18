@@ -7,18 +7,20 @@ import GoBack from './GoBack'
 import { useDispatch } from 'react-redux'
 import { createPost } from '../reducers/postReducer'
 import { setNotification } from '../reducers/notificationReducer'
+import { useNavigate } from 'react-router-dom'
 
 const Thread = ({
   thread,
   user,
   toggle,
   setToggle,
-  handleRemoveThread,
+  removeThread,
   newPost,
   setNewPost
 }) => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const replyToThread = (event) => {
     event.preventDefault()
@@ -33,7 +35,7 @@ const Thread = ({
         dispatch(setNotification('Replied to thread', 10))
         setNewPost('')
         setToggle(!toggle)
-
+        navigate(`/thread/${thread.id}`)
       } catch (error) {
         dispatch(setNotification('Error', 10))
       }
@@ -68,7 +70,7 @@ const Thread = ({
         <Avatar user={userAvatar}/>
         <div>
           <p className='username'>
-            <Link to={`/user/${thread.user.username}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemoveThread(thread.id, thread, user)}>delete</button>}
+            <Link to={`/user/${thread.user.username}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => removeThread(thread.id, thread, user)}>delete</button>}
           </p>
           <h3>{thread.title}</h3>
           <p>{thread.content}</p>

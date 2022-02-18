@@ -7,7 +7,7 @@ export const userReducer = (state = [], action) => {
   case 'NEW_USER':
     return [...state, action.data]
   case 'REMOVE_USER':
-    return [...state, state.filter(id  => id !== action.payload)]
+    return state.filter(id  => id !== action.payload)
   default: return state
   }
 }

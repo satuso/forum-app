@@ -11,8 +11,8 @@ const getTokenFrom = request => {
       return authorization.substring(7)
     }
     return null
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 }
 
@@ -22,8 +22,8 @@ postsRouter.get('/', async (request, response) => {
     .find({}).populate('user', { user: 1, username: 1, name: 1, id: 1, age: 1, avatar: 1 })
     .find({}).populate('thread', { title: 1, content: 1, date: 1, id: 1, user: 1 })
   response.json(posts.map(post => post.toJSON()))
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 })
 
@@ -33,8 +33,8 @@ postsRouter.get('/:id', async (request, response) => {
     .find({}).populate('user', { user: 1, username: 1, name: 1, id: 1, age: 1, avatar: 1 })
     .find({}).populate('thread', { title: 1, content: 1, date: 1, id: 1, user: 1 })
     response.json(post.map(post => post.toJSON()))
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 })
 
@@ -65,8 +65,8 @@ postsRouter.post('/', async (request, response) => {
     await thread.save()
 
     response.json(savedPost.toJSON())
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 })
 
@@ -74,8 +74,8 @@ postsRouter.delete('/:id', async (request, response) => {
   try {
     await Post.findByIdAndRemove(request.params.id)
     response.status(204).end()
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 })
 
@@ -84,8 +84,8 @@ postsRouter.put('/:id', async (request, response) => {
     const post = request.body
     const updatedPost = await Post.findByIdAndUpdate(request.params.id, post, { new: true })
     response.json(updatedPost.toJSON())
-  } catch(e){
-    console.log(e)
+  } catch(error){
+    console.log(error)
   }
 })
 

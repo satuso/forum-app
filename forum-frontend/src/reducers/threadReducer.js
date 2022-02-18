@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import threadService from '../services/threads'
 
 export const threadReducer = (state = [], action) => {
@@ -7,7 +8,7 @@ export const threadReducer = (state = [], action) => {
   case 'NEW_THREAD':
     return [...state, action.data]
   case 'REMOVE_THREAD':
-    return [...state, state.filter(id  => id !== action.payload)]
+    return state.filter(id  => id !== action.payload)
   default: return state
   }
 }
@@ -32,7 +33,7 @@ export const createThread = thread => {
   }
 }
 
-export const removeThread = thread => {
+export const deleteThread = thread => {
   return async dispatch => {
     const removedThread = await threadService.remove(thread)
     dispatch({

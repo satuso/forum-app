@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import userService from '../services/users'
 
-const UpdateForm = ({ user, setMessage }) => {
+const UpdateForm = ({ user }) => {
   const [name, setName] = useState(user.name)
   const [age, setAge] = useState('')
 
@@ -26,10 +26,7 @@ const UpdateForm = ({ user, setMessage }) => {
           console.log(res)
           setName(user.name)
           setAge('')
-          setMessage('updated profile')
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
+          console.log('updated profile')
         })
         .catch(err => {
           setMessage(err.response.data)
@@ -38,10 +35,7 @@ const UpdateForm = ({ user, setMessage }) => {
           }, 5000)
         })
     } else {
-      setMessage('field cannot be empty')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
+      console.log('field cannot be empty')
     }
   }
 
