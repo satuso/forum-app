@@ -32,7 +32,7 @@ export const createPost = post => {
   }
 }
 
-export const removePost = post => {
+export const deletePost = post => {
   return async dispatch => {
     const removedPost = await postService.remove(post)
     dispatch({
