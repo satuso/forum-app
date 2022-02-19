@@ -12,19 +12,6 @@ const store = configureStore({
     notification: notificationReducer
   }
 })
-/*
-threadService.getAll().then(thread =>
-  store.dispatch(initializeThreads(thread))
-)
-
-postService.getAll().then(post =>
-  store.dispatch(initializePosts(post))
-)
-
-userService.getAll().then(user =>
-  store.dispatch(initializeUsers(user))
-)
-*/
 
 store.subscribe(() => {
   const storeNow = store.getState()

@@ -10,7 +10,6 @@ const Post = ({ user, post }) => {
   const dispatch = useDispatch()
 
   const handleRemovePost = (id) => {
-    // eslint-disable-next-line no-undef
     if (window.confirm('Are you sure you want to delete this?')){
       try {
         dispatch(deletePost(id))
@@ -29,7 +28,7 @@ const Post = ({ user, post }) => {
       <Avatar user={userAvatar}/>
       <div>
         <p className='username'>
-          <Link to={`/user/${post.username}`}>{post.username}</Link> {date[0]} {user && (user.id === post.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemovePost(post.id, post, user)}>delete</button>}</p>
+          <Link to={`/user/${post.username}`}>{post.username}</Link> {date[0]} {user && (user.id === post.user.id || post.user || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemovePost(post.id, post, user)}>delete</button>}</p>
         <p>{post.content}</p>
       </div>
     </div>

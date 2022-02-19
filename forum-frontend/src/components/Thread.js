@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Post from './Post'
@@ -25,9 +24,8 @@ const Thread = ({
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  const postsOfThread = posts.filter(post => post.thread.id === thread.id)
-
+  const postsOfThread = posts.filter(post => post.thread === thread.id)
+  console.log(posts.map(post => post.user))
   const removeThread = (id) => {
     if (window.confirm('Are you sure you want to delete this?')){
       try {

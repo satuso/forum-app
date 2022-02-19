@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import React, { useState } from 'react'
 import threadService from '../services/threads'
+import postService from '../services/posts'
 import loginService from '../services/login'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
@@ -26,6 +27,7 @@ const LoginForm = ({
         'loggedForumUser', JSON.stringify(user)
       )
       threadService.setToken(user.token)
+      postService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')

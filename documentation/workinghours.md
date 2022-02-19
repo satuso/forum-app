@@ -25,4 +25,5 @@
 |  | 3 | refactor code |
 | 19.02.2022 | 2 | work on how posts are handled on the front-end |
 |  | 3 | refactor redux reducers |
-| total | 73 |  |
+|  | 3 | fix issues with posts |
+| total | 76 |  |

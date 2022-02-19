@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import postService from '../services/posts'
 import { createPost } from '../reducers/postReducer'
 import { setNotification } from '../reducers/notificationReducer'
 
@@ -12,10 +11,6 @@ const NewPostForm = ({
 }) => {
   const [newPost, setNewPost] = useState('')
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    postService.setToken(user.token)
-  }, [])
 
   const replyToThread = (event) => {
     event.preventDefault()

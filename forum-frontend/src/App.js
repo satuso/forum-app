@@ -30,7 +30,7 @@ const App = () => {
   let threadsCopy = [...threads].reverse()
 
   const posts = useSelector(state => state.posts)
-  const postsCopy = [...posts]
+  let postsCopy = [...posts]
 
   const users = useSelector(state => state.users)
   let usersCopy = [...users]
@@ -85,7 +85,7 @@ const App = () => {
             />
           }/>
           <Route path='/register' element={
-            <RegisterForm/>
+            <RegisterForm users={users}/>
           }/>
           <Route path='/profile' element={
             <Profile
