@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
+import { initializeThreads } from './reducers/threadReducer'
+import { initializePosts } from './reducers/postReducer'
+import { initializeUsers } from './reducers/userReducer'
 import threadService from './services/threads'
 import postService from './services/posts'
 import LoginForm from './components/LoginForm'
@@ -26,8 +29,17 @@ const App = () => {
   const threads = useSelector(state => state.threads)
   let threadsCopy = [...threads].reverse()
 
+  const posts = useSelector(state => state.posts)
+  const postsCopy = [...posts]
+
   const users = useSelector(state => state.users)
   let usersCopy = [...users]
+
+  useEffect(() => {
+    dispatch(initializeThreads())
+    dispatch(initializeUsers())
+    dispatch(initializePosts())
+  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedForumUser')
@@ -90,12 +102,13 @@ const App = () => {
                 setUser={setUser}
                 toggle={toggle}
                 setToggle={setToggle}
+                posts={postsCopy}
               />
             }/>
           )}
           <Route path='/users' element={
             <Users
-              users={users}
+              users={usersCopy}
               search={search}
               setSearch={setSearch}
             />

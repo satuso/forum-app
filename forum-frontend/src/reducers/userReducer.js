@@ -1,45 +1,61 @@
+import { createSlice } from '@reduxjs/toolkit'
 import userService from '../services/users'
 
-export const userReducer = (state = [], action) => {
-  switch (action.type) {
-  case 'INIT_USER':
-    return action.data
-  case 'NEW_USER':
-    return [...state, action.data]
-  case 'REMOVE_USER':
-    return state.filter(id  => id !== action.payload)
-  default: return state
-  }
-}
+const slice = createSlice({
+  name: 'user',
+  initialState: [],
+  reducers: {
+    initializeWith(state, { payload }) {
+      return payload
+    },
+    addNew(state, { payload }) {
+      return state.concat(payload)
+    },
+    removeOne(state, { payload }) {
+      return state.filter((b) => b.id !== payload)
+    },
+    update(state, { payload }) {
+      return state.map((b) => (b.id === payload.id ? payload : b))
+    },
+  },
+})
 
 export const initializeUsers = () => {
-  return async dispatch => {
-    const users = await userService.getAll()
-    dispatch({
-      type: 'INIT_USER',
-      data: users,
+  return async (dispatch) => {
+    userService.getAll().then((response) => {
+      dispatch(initializeWith(response))
     })
   }
 }
 
-export const createUser = user => {
-  return async dispatch => {
-    const newUser = await userService.create(user)
-    dispatch({
-      type: 'NEW_USER',
-      data: newUser
+export const deleteUser = (id) => {
+  return async (dispatch) => {
+    userService.remove(id).then(() => {
+      dispatch(removeOne(id))
     })
   }
 }
 
-export const removeUser = user => {
-  return async dispatch => {
-    const removedUser = await userService.remove(user)
-    dispatch({
-      type: 'REMOVE_USER',
-      data: removedUser
+export const updateUser = (user) => {
+  return async (dispatch) => {
+    userService.update(user.id, user).then((updatedUser) => {
+      dispatch(update(updatedUser))
     })
   }
 }
 
-export default userReducer
+export const createUser = (user) => {
+  return async (dispatch) => {
+    userService
+      .create(user)
+      .then((response) => {
+        dispatch(addNew(response))
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
+
+const { initializeWith, addNew, removeOne, update } = slice.actions
+export default slice.reducer

@@ -4,7 +4,7 @@ import GoBack from './GoBack'
 import UploadForm from './UploadForm'
 import UpdateForm from './UpdateForm'
 import UserDetails from './UserDetails'
-import { removeUser } from '../reducers/userReducer'
+import { deleteUser } from '../reducers/userReducer'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 
@@ -17,10 +17,10 @@ const Profile = ({ user, users, handleLogout }) => {
     return null
   }
 
-  const deleteUser = async (id) => {
+  const removeUser = async (id) => {
     if (window.confirm('Are you sure you want to delete your profile?')){
       try {
-        dispatch(removeUser(id))
+        dispatch(deleteUser(id))
         handleLogout()
         dispatch(setNotification('User deleted', 10))
       }
@@ -62,7 +62,7 @@ const Profile = ({ user, users, handleLogout }) => {
         <div>
           <h3>Edit profile</h3>
           <UpdateForm user={user}/>
-          {user && <button className='btn btn-danger' onClick={() => deleteUser(user.id, user, user)}>Delete profile</button>}
+          {user && <button className='btn btn-danger' onClick={() => removeUser(user.id, user, user)}>Delete profile</button>}
         </div>
       </div>
       <GoBack />

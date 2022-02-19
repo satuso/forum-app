@@ -1,46 +1,61 @@
-/* eslint-disable no-case-declarations */
+import { createSlice } from '@reduxjs/toolkit'
 import threadService from '../services/threads'
 
-export const threadReducer = (state = [], action) => {
-  switch (action.type) {
-  case 'INIT_THREAD':
-    return action.data
-  case 'NEW_THREAD':
-    return [...state, action.data]
-  case 'REMOVE_THREAD':
-    return state.filter(id  => id !== action.payload)
-  default: return state
-  }
-}
+const slice = createSlice({
+  name: 'thread',
+  initialState: [],
+  reducers: {
+    initializeWith(state, { payload }) {
+      return payload
+    },
+    addNew(state, { payload }) {
+      return state.concat(payload)
+    },
+    removeOne(state, { payload }) {
+      return state.filter((b) => b.id !== payload)
+    },
+    update(state, { payload }) {
+      return state.map((b) => (b.id === payload.id ? payload : b))
+    },
+  },
+})
 
 export const initializeThreads = () => {
-  return async dispatch => {
-    const threads = await threadService.getAll()
-    dispatch({
-      type: 'INIT_THREAD',
-      data: threads,
+  return async (dispatch) => {
+    threadService.getAll().then((response) => {
+      dispatch(initializeWith(response))
     })
   }
 }
 
-export const createThread = thread => {
-  return async dispatch => {
-    const newThread = await threadService.create(thread)
-    dispatch({
-      type: 'NEW_THREAD',
-      data: newThread
+export const deleteThread = (id) => {
+  return async (dispatch) => {
+    threadService.remove(id).then(() => {
+      dispatch(removeOne(id))
     })
   }
 }
 
-export const deleteThread = thread => {
-  return async dispatch => {
-    const removedThread = await threadService.remove(thread)
-    dispatch({
-      type: 'REMOVE_THREAD',
-      data: removedThread
+export const updateThread = (thread) => {
+  return async (dispatch) => {
+    threadService.update(thread.id, thread).then((updatedthread) => {
+      dispatch(update(updatedthread))
     })
   }
 }
 
-export default threadReducer
+export const createThread = (thread) => {
+  return async (dispatch) => {
+    threadService
+      .create(thread)
+      .then((response) => {
+        dispatch(addNew(response))
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
+
+const { initializeWith, addNew, removeOne, update } = slice.actions
+export default slice.reducer

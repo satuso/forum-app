@@ -5,7 +5,7 @@ import Post from './Post'
 import NewPostForm from './NewPostForm'
 import Avatar from './Avatar'
 import GoBack from './GoBack'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 import { deleteThread } from '../reducers/threadReducer'
 import { deletePost } from '../reducers/postReducer'
@@ -15,13 +15,17 @@ const Thread = ({
   thread,
   user,
   toggle,
-  setToggle
+  setToggle,
+  posts
 }) => {
+
+  if (!thread) {
+    return null
+  }
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const posts = useSelector(state => state.posts)
   const postsOfThread = posts.filter(post => post.thread.id === thread.id)
 
   const removeThread = (id) => {

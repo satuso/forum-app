@@ -24,4 +24,5 @@
 | 18.02.2022 | 4 | try to problem solve state not updating on the front-end |
 |  | 3 | refactor code |
 | 19.02.2022 | 2 | work on how posts are handled on the front-end |
-| total | 70 |  |
+|  | 3 | refactor redux reducers |
+| total | 73 |  |
