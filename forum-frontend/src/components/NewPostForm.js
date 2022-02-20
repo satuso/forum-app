@@ -40,11 +40,12 @@ const NewPostForm = ({
   return (
     user &&
     <div className='center'>
-      <form onSubmit={replyToThread} className='form'>
+      <form onSubmit={replyToThread} className='form form-toggle'>
         <textarea
           onFocus={(e) => e.target.placeholder = ''}
           onBlur={(e) => e.target.placeholder = 'Message'}
           placeholder='Message'
+          wrap='hard'
           value={newPost}
           onChange={handleReplyChange}
         /><br/>

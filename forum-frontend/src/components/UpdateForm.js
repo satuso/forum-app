@@ -1,10 +1,12 @@
-/* eslint-disable no-undef */
 import React, { useState } from 'react'
 import userService from '../services/users'
+import { useDispatch } from 'react-redux'
+import { setNotification } from '../reducers/notificationReducer'
 
 const UpdateForm = ({ user }) => {
   const [name, setName] = useState(user.name)
   const [age, setAge] = useState('')
+  const dispatch = useDispatch()
 
   const handleNameChange = (e) => {
     setName(e.target.value)
@@ -26,16 +28,14 @@ const UpdateForm = ({ user }) => {
           console.log(res)
           setName(user.name)
           setAge('')
-          console.log('updated profile')
+          dispatch(setNotification('Updated profile', 10))
         })
         .catch(err => {
-          setMessage(err.response.data)
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
+          console.log(err)
+          dispatch(setNotification('Error', 10))
         })
     } else {
-      console.log('field cannot be empty')
+      dispatch(setNotification('Fields cannot be empty', 10))
     }
   }
 

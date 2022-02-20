@@ -4,25 +4,40 @@ import GoBack from './GoBack'
 import UploadForm from './UploadForm'
 import UpdateForm from './UpdateForm'
 import UserDetails from './UserDetails'
-import { deleteUser } from '../reducers/userReducer'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
+import { deleteUser } from '../reducers/userReducer'
+import { deleteThread } from '../reducers/threadReducer'
+import { deletePost } from '../reducers/postReducer'
+import { useNavigate } from 'react-router-dom'
 
-const Profile = ({ user, users, handleLogout }) => {
+const Profile = ({ user, users, handleLogout, threads, posts }) => {
   const [toggleThreads, setToggleThreads] = useState(false)
   const [togglePosts, setTogglePosts] = useState(false)
+
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   if (!user){
     return null
   }
 
-  const removeUser = async (id) => {
+  const threadsOfUser = threads.filter(thread => thread.user.id === user.id)
+  const postsOfUser = posts.filter(post => post.user.id === user.id)
+
+  const removeUser = (id) => {
     if (window.confirm('Are you sure you want to delete your profile?')){
       try {
-        dispatch(deleteUser(id))
+        if (user.threads.length > 0){
+          threadsOfUser.map(thread => dispatch(deleteThread(thread.id)))
+        }
+        if (user.posts.length > 0){
+          postsOfUser.map(post => dispatch(deletePost(post.id)))
+        }
         handleLogout()
+        dispatch(deleteUser(id))
         dispatch(setNotification('User deleted', 10))
+        navigate('/threads')
       }
       catch (error){
         dispatch(setNotification('Error', 10))

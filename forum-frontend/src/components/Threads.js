@@ -15,10 +15,11 @@ const Threads = ({
 
   return (
     <>
-      {user &&
+      {user ?
         <div className='center'>
-          <button className='btn btn-primary' onClick={() => setToggle(!toggle)}>New Thread <i className="fas fa-comment"></i></button>
-        </div>
+          <button className={toggle ? 'btn btn-toggle' : 'btn btn-toggle off'} onClick={() => setToggle(!toggle)}>New Thread <i className="fas fa-comment"></i></button>
+        </div> :
+        <p className='center'>Please login or register to join discussion</p>
       }
       {toggle &&
       <NewThreadForm

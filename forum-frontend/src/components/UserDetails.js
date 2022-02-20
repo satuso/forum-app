@@ -6,7 +6,7 @@ const UserDetails = ({ user }) => {
     <>
       <h2>{user.username}</h2>
       <p>Name: {user.name}</p>
-      {user.age && <p>Age: {user.age}</p>}
+      {user.age > 0 && <p>Age: {user.age}</p>}
       <Avatar user={user}/>
     </>
   )

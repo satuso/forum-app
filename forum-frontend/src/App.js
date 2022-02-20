@@ -58,6 +58,8 @@ const App = () => {
     dispatch(setNotification('You are now logged out', 10))
   }
 
+  const loggedInUser = user
+
   return (
     <div className='container'>
       <Header
@@ -92,6 +94,8 @@ const App = () => {
               user={user}
               users={usersCopy}
               handleLogout={handleLogout}
+              threads={threadsCopy}
+              posts={postsCopy}
             />
           }/>
           {threadsCopy.map(thread =>
@@ -115,7 +119,11 @@ const App = () => {
           }/>
           {usersCopy.map(user =>
             <Route path={`/user/${user.username}`} key={user.username} element={
-              <User user={user}
+              <User
+                user={user}
+                loggedInUser={loggedInUser}
+                threads={threadsCopy}
+                posts={postsCopy}
               />
             }/>
           )}

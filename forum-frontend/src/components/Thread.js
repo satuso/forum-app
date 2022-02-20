@@ -25,14 +25,14 @@ const Thread = ({
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const postsOfThread = posts.filter(post => post.thread === thread.id)
-  console.log(posts.map(post => post.user))
+
   const removeThread = (id) => {
     if (window.confirm('Are you sure you want to delete this?')){
       try {
-        dispatch(deleteThread(id))
         if (thread.posts.length > 0){
-          return dispatch(deletePost(postsOfThread.map(post => post.id)))
+          postsOfThread.map(post => dispatch(deletePost(post.id)))
         }
+        dispatch(deleteThread(id))
         dispatch(setNotification('Deleted thread', 10))
         navigate('/threads')
       }
@@ -49,10 +49,11 @@ const Thread = ({
     <>
       {user &&
       <div className='center'>
-        <button className='btn btn-primary'  onClick={() => setToggle(!toggle)}>Reply <i className="fas fa-comment"></i></button>
+        <button className={toggle ? 'btn btn-toggle' : 'btn btn-toggle off'} onClick={() => setToggle(!toggle)}>Reply <i className="fas fa-comment"></i></button>
       </div>
       }
-      {user && toggle && <NewPostForm
+      {user && toggle &&
+      <NewPostForm
         thread={thread}
         user={user}
         toggle={toggle}
@@ -65,7 +66,7 @@ const Thread = ({
             <Link to={`/user/${thread.user.username}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => removeThread(thread.id)}>delete</button>}
           </p>
           <h3>{thread.title}</h3>
-          <p>{thread.content}</p>
+          <p className='content'>{thread.content}</p>
         </div>
       </div>
       {postsOfThread.map(post =>

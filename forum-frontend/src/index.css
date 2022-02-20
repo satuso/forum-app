@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Montserrat';
-  src: local('Montserrat'), url('./fonts/Montserrat-Regular.ttf') format('truetype');
+  font-family: 'Lato';
+  src: local('Lato'), url('./fonts/Lato-Regular.ttf') format('truetype');
 }
 
 * {
@@ -19,19 +19,23 @@
   --yellow: gold;
 }
 
+html {
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: 'Lato', sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 1rem;
   background-color: var(--white);
 }
 
 a {
-  color: #0e6ffd;
-  font-weight: bold;
+  color: var(--blue);
   text-decoration: none;
+  font-weight: bold;
 }
 
 a:hover,
@@ -45,12 +49,12 @@ a:focus {
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
-  color: black;
+  font-family: 'Lato', sans-serif;
+  color: var(--black);
   padding: 9px 12px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  background-color: var(--whitesmoke);
+  margin-bottom: .5em;
+  text-transform: uppercase;
 }
 
 .btn:hover,
@@ -68,6 +72,29 @@ a:focus {
   color: var(--white);
 }
 
+.btn-toggle {
+  width: 100%;
+  font-size: 1.2rem;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-bottom: 0;
+}
+
+.btn-toggle:hover,
+.btn-toggle:focus {
+  background-color: var(--whitesmoke);
+  color: var(--blue);
+  filter: none;
+}
+
+.off {
+  margin-bottom: 2em;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -76,9 +103,8 @@ a:focus {
 }
 
 .header {
-  padding: .2em;
-  padding-left: .5em;
-  padding-right: .5em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
   background-color: var(--whitesmoke);
   display: flex;
   align-items: center;
@@ -96,8 +122,12 @@ a:focus {
 
 .header a:hover,
 .header a:focus {
-  color: var(--black);
+  color: var(--blue);
   text-decoration: none;
+}
+
+.admin {
+  background-color: var(--red);
 }
 
 .nav {
@@ -106,20 +136,22 @@ a:focus {
   align-items: center;
   justify-content: flex-start;
   font-size: 1rem;
+  padding-left: 1.5em;
+  padding-bottom: .5em;
+  padding-top: .5em;
 }
 
 .nav a {
   color: var(--darkgray);
   margin-right: 1em;
   text-decoration: none;
-  padding: .6em;
+  padding-right: 1em;
   margin: 0;
 }
 
 .nav a:hover,
 .nav a:focus {
-  color: var(--black);
-  background-color: var(--lightgray);
+  color: var(--blue);
 }
 
 .main {
@@ -127,19 +159,17 @@ a:focus {
   height: 100%;
 }
 
-.footer {
-  text-align: center;
-  padding: 1em;
-  background-color: var(--white);
-  font-size: .8rem;
-  font-weight: bold;
-}
-
 .center {
   text-align: center;
-  margin-bottom: 1em;
   width: 30%;
   margin: 0 auto;
+}
+
+.form-toggle {
+  background-color: var(--whitesmoke);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-top: 0;
 }
 
 .form textarea {
@@ -150,8 +180,7 @@ a:focus {
 .form textarea {
   outline: none;
   border: 1px solid var(--whitesmoke);
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
+  font-family: 'Lato', sans-serif;
   font-size: 1rem;
   color: black;
   border-radius: 5px;
@@ -186,14 +215,12 @@ a:focus {
 }
 
 .thread-list-username {
-  font-weight: bold;
   color: #282828;
   padding-left: 1em;
   padding-right: 1em;
 }
 
 .username {
-  font-weight: bold;
   color: #282828;
 }
 
@@ -205,7 +232,7 @@ a:focus {
   padding: .5em;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .post {
@@ -220,7 +247,6 @@ a:focus {
   font-weight: bold;
   border: 1px solid var(--whitesmoke);
   border-radius: 5px;
-  font-weight: bold;
   padding: 9px 12px;
   margin-top: 1em;
 }
@@ -240,7 +266,6 @@ a:focus {
 
 .page-link {
   cursor: pointer;
-  font-weight: bold;
 }
 
 .active {
@@ -270,4 +295,14 @@ a:focus {
 .settings {
   color: var(--gray);
   font-size: 1.5rem;
+}
+
+.content {
+  white-space: pre-line;
+}
+
+@media (max-width: 600px){
+  .center {
+    width: 100%;
+  }
 }

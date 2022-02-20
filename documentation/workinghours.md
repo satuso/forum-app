@@ -26,4 +26,5 @@
 | 19.02.2022 | 2 | work on how posts are handled on the front-end |
 |  | 3 | refactor redux reducers |
 |  | 3 | fix issues with posts |
-| total | 76 |  |
+| 20.02.2022 | 5 | work on UI, handle removal of posts and threads when deleting users |
+| total | 81 |  |

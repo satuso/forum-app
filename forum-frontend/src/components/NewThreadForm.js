@@ -41,7 +41,7 @@ const NewThreadForm = ({ toggle, setToggle }) => {
 
   return (
     <div className='center'>
-      <form onSubmit={addThread} className='form'>
+      <form onSubmit={addThread} className='form form-toggle'>
         <input
           value={newTitle}
           onFocus={(e) => e.target.placeholder = ''}
@@ -51,6 +51,7 @@ const NewThreadForm = ({ toggle, setToggle }) => {
         /><br/>
         <textarea
           value={newMessage}
+          wrap='hard'
           onFocus={(e) => e.target.placeholder = ''}
           onBlur={(e) => e.target.placeholder = 'Message'}
           placeholder='Message'

@@ -5,11 +5,11 @@ const ThreadList = ({ thread }) => {
   const date = thread.date.split('T')
   return (
     <div className='thread-list'>
-      <Link to={`/thread/${thread.id}`}>{thread.title}</Link>
+      <Link to={`/thread/${thread.id}`}><span>{thread.title}</span></Link>
       <Link to={`/user/${thread.user.username}`}>
         <span className='thread-list-username'>{thread.user.username}</span>
       </Link>
-      <span>{date[0]} • {thread.posts.length} {thread.posts.length === 1 ? 'reply' : 'replies'}</span>
+      <span>{date[0]}</span>
     </div>
   )
 }
