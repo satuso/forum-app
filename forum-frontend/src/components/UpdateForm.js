@@ -2,11 +2,14 @@ import React, { useState } from 'react'
 import userService from '../services/users'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
+import { useNavigate } from 'react-router-dom'
 
 const UpdateForm = ({ user }) => {
   const [name, setName] = useState(user.name)
   const [age, setAge] = useState('')
+
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleNameChange = (e) => {
     setName(e.target.value)
@@ -19,23 +22,20 @@ const UpdateForm = ({ user }) => {
   const submitDetails = (e) => {
     e.preventDefault()
     const formData = new FormData()
-    if (name || age){
-      formData.append('name', name)
-      formData.append('age', age)
-      userService
-        .update(user.id, formData)
-        .then(res => {
-          console.log(res)
-          setName(user.name)
-          setAge('')
-          dispatch(setNotification('Updated profile', 10))
-        })
-        .catch(err => {
-          console.log(err)
-          dispatch(setNotification('Error', 10))
-        })
-    } else {
-      dispatch(setNotification('Fields cannot be empty', 10))
+    try {
+      if (name || age){
+        formData.append('name', name)
+        formData.append('age', age)
+        userService.update(user.id, formData)
+        setName(user.name)
+        setAge('')
+        dispatch(setNotification('Updated profile', 10))
+        navigate(`/user/${user.username}`)
+      } else {
+        dispatch(setNotification('Fields cannot be empty', 10))
+      }
+    } catch(error){
+      dispatch(setNotification('Error', 10))
     }
   }
 

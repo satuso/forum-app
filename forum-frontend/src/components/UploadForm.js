@@ -1,38 +1,34 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setNotification } from '../reducers/notificationReducer'
 import userService from '../services/users'
+import { useNavigate } from 'react-router-dom'
 
-const UploadForm = ({ user, setMessage }) => {
+const UploadForm = ({ user }) => {
   const [avatar, setAvatar] = useState(null)
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0]
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0]
     setAvatar(file)
   }
 
   const submitAvatar = (e) => {
     e.preventDefault()
-    // eslint-disable-next-line no-undef
-    const formData = new FormData()
-    if (avatar){
-      console.log(formData)
-      formData.append('avatar', avatar)
-      userService
-        .update(user.id, formData)
-        .then(res => {
-          console.log(res)
-          setMessage('uploaded new profile picture')
-          setTimeout(() => {
-            setMessage(null)
-          }, 5000)
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    } else {
-      setMessage('no file chosen')
-      setTimeout(() => {
-        setMessage(null)
-      }, 5000)
+    try {
+      const formData = new FormData()
+      if (avatar){
+        formData.append('avatar', avatar)
+        userService.update(user.id, formData)
+        dispatch(setNotification('Uploaded new profile picture', 10))
+        navigate(`/user/${user.username}`)
+      } else {
+        dispatch(setNotification('No file chosen', 10))
+      }
+    } catch (error) {
+      dispatch(setNotification('Error', 10))
     }
   }
 
@@ -40,7 +36,10 @@ const UploadForm = ({ user, setMessage }) => {
     <div>
       <form onSubmit={submitAvatar}>
         <label><h3>Change profile picture</h3></label>
-        <input type='file' multiple accept='image/*' onChange={handleImageChange}></input>
+        <input
+          type='file' multiple accept='image/*'
+          onChange={handleImageChange}
+        ></input>
         <br />
         <button className="btn btn-primary" type='submit'>Submit</button>
       </form>

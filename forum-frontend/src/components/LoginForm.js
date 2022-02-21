@@ -6,6 +6,7 @@ import loginService from '../services/login'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 import { useNavigate } from 'react-router-dom'
+import GoBack from './GoBack'
 
 const LoginForm = ({
   setUser,
@@ -42,26 +43,37 @@ const LoginForm = ({
     <div className='center'>
       <h2>Login</h2>
       <form onSubmit={handleLogin} className='form'>
+        <label htmlFor='username'>Username</label><br/>
         <input
           type='text'
           placeholder='username'
+          id='username'
           onFocus={(e) => e.target.placeholder = ''}
+          onBlur={(e) => e.target.placeholder = 'Username'}
           value={username}
           name="Username"
           onChange={({ target }) => setUsername(target.value)}
+          minLength={2}
+          required
         />
         <br/>
+        <label htmlFor='username'>Password</label><br/>
         <input
           type='password'
           placeholder='password'
+          id='password'
           onFocus={(e) => e.target.placeholder = ''}
+          onBlur={(e) => e.target.placeholder = 'Password'}
           value={password}
           name="Password"
           onChange={({ target }) => setPassword(target.value)}
+          minLength={8}
+          required
         />
         <br/>
         <button type='submit' className='btn btn-primary'>Log In</button>
       </form>
+      <GoBack />
     </div>
   )
 }

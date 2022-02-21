@@ -24,14 +24,16 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
 
   const threadsOfUser = threads.filter(thread => thread.user.id === user.id)
   const postsOfUser = posts.filter(post => post.user.id === user.id)
+  const id = user.id
+  const userMatch = users.find(user => user.id === id)
 
   const removeUser = (id) => {
     if (window.confirm('Are you sure you want to delete your profile?')){
       try {
-        if (user.threads.length > 0){
+        if (userMatch && userMatch.threads.length > 0){
           threadsOfUser.map(thread => dispatch(deleteThread(thread.id)))
         }
-        if (user.posts.length > 0){
+        if (userMatch && userMatch.posts.length > 0){
           postsOfUser.map(post => dispatch(deletePost(post.id)))
         }
         handleLogout()
@@ -45,14 +47,11 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
     }
   }
 
-  const id = user.id
-  const userMatch = users.find(user => user.id === id)
-
   return (
     <>
       <div className='profile'>
         <div>
-          <UserDetails user={user} />
+          {userMatch && <UserDetails user={userMatch} />}
           <UploadForm user={user}/>
           <p>
             <span className='page-link' onClick={() => {

@@ -27,4 +27,5 @@
 |  | 3 | refactor redux reducers |
 |  | 3 | fix issues with posts |
 | 20.02.2022 | 5 | work on UI, handle removal of posts and threads when deleting users |
-| total | 81 |  |
+| 21.02.2022 | 3 | add form validation |
+| total | 84 |  |

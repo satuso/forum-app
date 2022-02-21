@@ -4,12 +4,12 @@ const threadSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    minlength: 2
+    minlength: 1
   },
   content: {
     type: String,
     required: true,
-    minlength: 2
+    minlength: 1
   },
   date: Date,
   user: {

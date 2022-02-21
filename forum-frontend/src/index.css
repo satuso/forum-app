@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'Lato';
   src: local('Lato'), url('./fonts/Lato-Regular.ttf') format('truetype');
+  font-weight: 400;
 }
 
 * {
@@ -53,6 +54,7 @@ a:focus {
   color: var(--black);
   padding: 9px 12px;
   background-color: var(--whitesmoke);
+  margin-top: .5em;
   margin-bottom: .5em;
   text-transform: uppercase;
 }
@@ -73,6 +75,7 @@ a:focus {
 }
 
 .btn-toggle {
+  background-color: var(--white);
   width: 100%;
   font-size: 1.2rem;
   border-top-left-radius: 5px;
@@ -84,7 +87,6 @@ a:focus {
 
 .btn-toggle:hover,
 .btn-toggle:focus {
-  background-color: var(--whitesmoke);
   color: var(--blue);
   filter: none;
 }
@@ -165,11 +167,17 @@ a:focus {
   margin: 0 auto;
 }
 
+.form {
+  width: 100%;
+  text-align: left;
+}
+
 .form-toggle {
-  background-color: var(--whitesmoke);
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
   margin-top: 0;
+}
+
+.form .btn {
+  width: 100%;
 }
 
 .form textarea {
@@ -187,7 +195,7 @@ a:focus {
   padding: .5em;
   margin-bottom: .5em;
   margin-top: .5em;
-  width: 80%;
+  width: 100%;
 }
 
 .form input:hover,
@@ -200,6 +208,15 @@ a:focus {
 .search-form {
   width: 30%;
   margin: 0 auto;
+}
+
+.search-form input {
+  width: 80%;
+}
+
+.search-form .btn {
+  margin-left: 1em;
+  width: 50px;
 }
 
 .thread-list {
@@ -233,6 +250,7 @@ a:focus {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  overflow: auto;
 }
 
 .post {
@@ -299,6 +317,16 @@ a:focus {
 
 .content {
   white-space: pre-line;
+}
+
+.message {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.go-back {
+  margin-top: 3em;
+  text-align: center;
 }
 
 @media (max-width: 600px){

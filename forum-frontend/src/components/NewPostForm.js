@@ -14,8 +14,8 @@ const NewPostForm = ({
 
   const replyToThread = (event) => {
     event.preventDefault()
-    if (newPost.length >= 2){
-      try {
+    try {
+      if (newPost.length >= 1){
         const postObject = {
           content: newPost,
           date: new Date().toISOString(),
@@ -25,10 +25,11 @@ const NewPostForm = ({
         dispatch(setNotification('Replied to thread', 10))
         setNewPost('')
         setToggle(!toggle)
-      } catch (error) {
-        dispatch(setNotification('Error', 10))
+      } else {
+        dispatch(setNotification('Message cannot be empty', 10))
       }
-    } else {
+    } catch (error) {
+      console.log(error)
       dispatch(setNotification('Error', 10))
     }
   }
@@ -41,13 +42,19 @@ const NewPostForm = ({
     user &&
     <div className='center'>
       <form onSubmit={replyToThread} className='form form-toggle'>
+        <label htmlFor='message'>Message</label><br/>
         <textarea
           onFocus={(e) => e.target.placeholder = ''}
           onBlur={(e) => e.target.placeholder = 'Message'}
           placeholder='Message'
+          id='message'
+          type='text'
           wrap='hard'
           value={newPost}
           onChange={handleReplyChange}
+          minLength={2}
+          maxLength={5000}
+          required
         /><br/>
         <button type='submit' className='btn btn-primary'>Send</button>
       </form>

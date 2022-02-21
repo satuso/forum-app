@@ -11,7 +11,7 @@ const NewThreadForm = ({ toggle, setToggle }) => {
 
   const addThread = (event) => {
     event.preventDefault()
-    if (newMessage.length >= 2 && newTitle.length >= 2){
+    if (newMessage.length >= 1 && newTitle.length >= 1){
       try {
         const threadObject = {
           title: newTitle,
@@ -28,7 +28,7 @@ const NewThreadForm = ({ toggle, setToggle }) => {
         dispatch(setNotification('Error', 10))
       }
     } else {
-      dispatch(setNotification('Title and message must contain least 2 characters', 10))
+      dispatch(setNotification('Title and message cannot be empty', 10))
     }
   }
 
@@ -42,20 +42,32 @@ const NewThreadForm = ({ toggle, setToggle }) => {
   return (
     <div className='center'>
       <form onSubmit={addThread} className='form form-toggle'>
+        <label htmlFor='topic'>Topic</label><br/>
         <input
           value={newTitle}
           onFocus={(e) => e.target.placeholder = ''}
           onBlur={(e) => e.target.placeholder = 'Topic'}
           placeholder='Topic'
+          id='topic'
+          type='text'
           onChange={handleTitleChange}
+          minLength={1}
+          maxLength={40}
+          required
         /><br/>
+        <label htmlFor='message'>Message</label><br/>
         <textarea
           value={newMessage}
           wrap='hard'
           onFocus={(e) => e.target.placeholder = ''}
           onBlur={(e) => e.target.placeholder = 'Message'}
           placeholder='Message'
+          id='message'
+          type='text'
           onChange={handleMessageChange}
+          minLength={1}
+          maxLength={5000}
+          required
         /><br/>
         <button className='btn btn-primary' type='submit'>Send</button>
       </form>
