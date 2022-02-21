@@ -295,7 +295,7 @@ a:focus {
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
 }
 
@@ -325,8 +325,12 @@ a:focus {
 }
 
 .go-back {
-  margin-top: 3em;
+  margin-top: 1em;
   text-align: center;
+}
+
+.user-details {
+  min-width: 250px;
 }
 
 @media (max-width: 600px){

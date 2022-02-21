@@ -18,7 +18,7 @@ const getTokenFrom = request => {
 threadsRouter.get('/', async (request, response) => {
   try {
     const threads = await Thread
-      .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
+      .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1, email: 1 })
       .find({}).populate('posts')
     response.json(threads.map(thread => thread.toJSON()))
   } catch(error){
@@ -29,7 +29,7 @@ threadsRouter.get('/', async (request, response) => {
 threadsRouter.get('/:id', async (request, response) => {
   try {
     const thread = await Thread.findById(request.params.id)
-      .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
+      .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1, email: 1 })
       .find({}).populate('posts')
     response.json(thread.map(thread => thread.toJSON()))
   } catch(error){
@@ -57,7 +57,7 @@ threadsRouter.post('/', async (request, response) => {
     await user.save()
 
     const populatedThread = await savedThread
-      .populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
+      .populate('user', { username: 1, name: 1, id: 1, avatar: 1, email: 1 })
       
     response.status(201).json(populatedThread.toJSON())
   } catch(error){

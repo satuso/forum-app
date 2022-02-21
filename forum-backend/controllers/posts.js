@@ -19,7 +19,7 @@ const getTokenFrom = request => {
 postsRouter.get('/', async (request, response) => {
   try {
   const posts = await Post
-    .find({}).populate('user', { user: 1, username: 1, name: 1, id: 1, age: 1, avatar: 1 })
+    .find({}).populate('user', { user: 1, username: 1, name: 1, id: 1, age: 1, avatar: 1, email: 1 })
 
   response.json(posts.map(post => post.toJSON()))
   } catch(error){
@@ -30,7 +30,7 @@ postsRouter.get('/', async (request, response) => {
 postsRouter.get('/:id', async (request, response) => {
   try {
     const post = await Post.findById(request.params.id)
-    .find({}).populate('user', { user: 1, username: 1, name: 1, id: 1, age: 1, avatar: 1 })
+    .find({}).populate('user', { user: 1, username: 1, name: 1, id: 1, age: 1, avatar: 1, email: 1 })
 
     response.json(post.map(post => post.toJSON()))
   } catch(error){

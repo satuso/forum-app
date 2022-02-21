@@ -28,4 +28,5 @@
 |  | 3 | fix issues with posts |
 | 20.02.2022 | 5 | work on UI, handle removal of posts and threads when deleting users |
 | 21.02.2022 | 3 | add form validation |
-| total | 84 |  |
+|  | 3 | edit update profile feature and register form |
+| total | 87 |  |

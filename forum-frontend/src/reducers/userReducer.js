@@ -12,12 +12,12 @@ const slice = createSlice({
       return state.concat(payload)
     },
     removeOne(state, { payload }) {
-      return state.filter((b) => b.id !== payload)
+      return state.filter(u => u.id !== payload)
     },
     update(state, { payload }) {
-      return state.map((b) => (b.id === payload.id ? payload : b))
-    },
-  },
+      return state.map(u => (u.id === payload.id ? payload : u))
+    }
+  }
 })
 
 export const initializeUsers = () => {

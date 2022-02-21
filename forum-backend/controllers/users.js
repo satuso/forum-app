@@ -43,6 +43,7 @@ usersRouter.post('/', async (request, response) => {
       name: body.name,
       avatar: body.avatar,
       age: body.age,
+      email: body.email,
       passwordHash,
     })
 
@@ -95,6 +96,7 @@ usersRouter.put('/:id', upload.single('avatar'), async (request, response) => {
     const user = {
       name: body.name,
       age: body.age,
+      email: body.email,
       avatar: request.file ? url + '/public/uploads/' + request.file.filename : body.avatar
     }
     const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })

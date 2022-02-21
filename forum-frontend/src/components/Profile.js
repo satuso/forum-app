@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import GoBack from './GoBack'
-import UploadForm from './UploadForm'
 import UpdateForm from './UpdateForm'
 import UserDetails from './UserDetails'
 import { useDispatch } from 'react-redux'
@@ -18,7 +17,7 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  if (!user){
+  if (!user) {
     return null
   }
 
@@ -51,8 +50,8 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
     <>
       <div className='profile'>
         <div>
-          {userMatch && <UserDetails user={userMatch} />}
-          <UploadForm user={user}/>
+          {userMatch && <UserDetails user={userMatch}/>}
+          {userMatch && <p>Email: {userMatch.email}</p>}
           <p>
             <span className='page-link' onClick={() => {
               setTogglePosts(false)
@@ -72,11 +71,11 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
           {userMatch && togglePosts && userMatch.posts.map(post =>
             <Link to={`/thread/${post.thread}`} key={post.id}><p>{post.content.length > 10 ? post.content.slice(0, 10) + '...' : post.content}</p></Link>
           )}
+          {user && <button className='btn btn-danger' onClick={() => removeUser(user.id, user, user)}>Delete profile</button>}
         </div>
         <div>
-          <h3>Edit profile</h3>
+          <h2>Edit profile</h2>
           <UpdateForm user={user}/>
-          {user && <button className='btn btn-danger' onClick={() => removeUser(user.id, user, user)}>Delete profile</button>}
         </div>
       </div>
       <GoBack />
