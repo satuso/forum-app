@@ -14,7 +14,7 @@ const slice = createSlice({
     removeOne(state, { payload }) {
       return state.filter(u => u.id !== payload)
     },
-    update(state, { payload }) {
+    updateOne(state, { payload }) {
       return state.map(u => (u.id === payload.id ? payload : u))
     }
   }
@@ -36,10 +36,10 @@ export const deleteUser = (id) => {
   }
 }
 
-export const updateUser = (user) => {
+export const updateUser = (id, data) => {
   return async (dispatch) => {
-    userService.update(user.id, user).then((updatedUser) => {
-      dispatch(update(updatedUser))
+    userService.update(id, data).then((updatedUser) => {
+      dispatch(updateOne(updatedUser))
     })
   }
 }
@@ -57,5 +57,5 @@ export const createUser = (user) => {
   }
 }
 
-const { initializeWith, addNew, removeOne, update } = slice.actions
+const { initializeWith, addNew, removeOne, updateOne } = slice.actions
 export default slice.reducer

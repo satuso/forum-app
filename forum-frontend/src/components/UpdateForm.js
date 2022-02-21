@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import userService from '../services/users'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 import { useNavigate } from 'react-router-dom'
+import { updateUser } from '../reducers/userReducer'
 
 const UpdateForm = ({ user }) => {
   const [name, setName] = useState('')
@@ -17,7 +17,6 @@ const UpdateForm = ({ user }) => {
     const file = event.target.files[0]
     setAvatar(file)
   }
-
   const submitDetails = (e) => {
     e.preventDefault()
     const formData = new FormData()
@@ -29,7 +28,7 @@ const UpdateForm = ({ user }) => {
       if (age) formData.append('age', age)
       if (email) formData.append('email', email)
       if (avatar) formData.append('avatar', avatar)
-      userService.update(user.id, formData)
+      dispatch(updateUser(user.id, formData))
       setName('')
       setAge('')
       dispatch(setNotification('Updated profile', 10))
@@ -46,7 +45,7 @@ const UpdateForm = ({ user }) => {
         <input
           type='file'
           id='file'
-          multiple accept='image/*'
+          accept='image/*'
           onChange={handleImageChange}
         ></input>
         <br/>

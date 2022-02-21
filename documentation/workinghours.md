@@ -29,4 +29,5 @@
 | 20.02.2022 | 5 | work on UI, handle removal of posts and threads when deleting users |
 | 21.02.2022 | 3 | add form validation |
 |  | 3 | edit update profile feature and register form |
-| total | 87 |  |
+|  | 1 | handle user profile updates in redux |
+| total | 88 |  |
