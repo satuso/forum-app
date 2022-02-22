@@ -31,4 +31,5 @@
 |  | 3 | edit update profile feature and register form |
 |  | 1 | handle user profile updates in redux |
 | 22.02.2022 | 1 | add ability to change password |
-| total | 89 |  |
+|  | 7 | work on reset password feature on the back-end |
+| total | 96 |  |

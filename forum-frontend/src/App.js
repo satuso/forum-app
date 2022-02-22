@@ -17,6 +17,7 @@ import Users from './components/Users'
 import Header from './components/Header'
 import Nav from './components/Nav'
 import Notification from './components/Notification'
+import ResetPassword from './components/ResetPassword'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -127,6 +128,9 @@ const App = () => {
               />
             }/>
           )}
+          {user && user.resetLink && <Route path={`/resetpassword/${user.resetLink}`} element={
+            <ResetPassword/>
+          }/>}
         </Routes>
       </div>
     </div>

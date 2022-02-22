@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
 import UserDetails from './UserDetails'
 import GoBack from './GoBack'
 import { useDispatch } from 'react-redux'
@@ -10,9 +9,6 @@ import { deletePost } from '../reducers/postReducer'
 import { useNavigate } from 'react-router-dom'
 
 const User = ({ user, loggedInUser, posts, threads }) => {
-  const [toggleThreads, setToggleThreads] = useState(false)
-  const [togglePosts, setTogglePosts] = useState(false)
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -42,35 +38,6 @@ const User = ({ user, loggedInUser, posts, threads }) => {
     <div className='center'>
       <UserDetails user={user}/>
       {loggedInUser && (loggedInUser.username === 'admin' && <button className='btn btn-danger' onClick={() => removeUser(user.id)}>delete user</button>)}
-      <p>
-        <span className='page-link' onClick={() => {
-          setTogglePosts(false)
-          setToggleThreads(!toggleThreads)}}
-        >
-          {user.threads.length} {user.threads.length === 1 ? 'thread' : 'threads'}
-        </span> • <span className='page-link' onClick={() => {
-          setTogglePosts(!togglePosts)
-          setToggleThreads(false)}}
-        >
-          {user.posts.length} {user.posts.length === 1 ? 'post' : 'posts'}
-        </span>
-      </p>
-      {(user.threads.length > 0 && toggleThreads) &&
-        <>
-          {user.threads.map(thread =>
-            <Link to={`/thread/${thread.id}`} key={thread.id}>
-              <p>{thread.title}</p>
-            </Link>)}
-        </>
-      }
-      {(user.posts.length > 0 && togglePosts) &&
-        <>
-          {user.posts.map(post =>
-            <Link to={`/thread/${post.thread}`} key={post.id}>
-              <p>{post.content.length > 10 ? post.content.slice(0, 10) + '...' : post.content}</p>
-            </Link>)}
-        </>
-      }
       <GoBack/>
     </div>
   )

@@ -44,6 +44,7 @@ usersRouter.post('/', async (request, response) => {
       avatar: body.avatar,
       age: body.age,
       email: body.email,
+      resetLink: body.resetLink,
       passwordHash,
     })
 
@@ -93,16 +94,13 @@ usersRouter.put('/:id', upload.single('avatar'), async (request, response) => {
   try {
     const body = request.body
 
-    const saltRounds = 10
-    const passwordHash = await bcrypt.hash(body.password, saltRounds)
-
     const url = request.protocol + '://' + request.get('host')
     const user = {
       name: body.name,
       age: body.age,
       email: body.email,
       avatar: request.file ? url + '/public/uploads/' + request.file.filename : body.avatar,
-      passwordHash
+      resetLink: body.resetLink
     }
     const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
     response.send(updatedUser)

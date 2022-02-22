@@ -14,7 +14,7 @@ const slice = createSlice({
     removeOne(state, { payload }) {
       return state.filter(t => t.id !== payload)
     },
-    update(state, { payload }) {
+    updateOne(state, { payload }) {
       return state.map(t => (t.id === payload.id ? payload : t))
     },
   },
@@ -39,7 +39,7 @@ export const deleteThread = (id) => {
 export const updateThread = (thread) => {
   return async (dispatch) => {
     threadService.update(thread.id, thread).then((updatedthread) => {
-      dispatch(update(updatedthread))
+      dispatch(updateOne(updatedthread))
     })
   }
 }
@@ -57,5 +57,5 @@ export const createThread = (thread) => {
   }
 }
 
-const { initializeWith, addNew, removeOne, update } = slice.actions
+const { initializeWith, addNew, removeOne, updateOne } = slice.actions
 export default slice.reducer

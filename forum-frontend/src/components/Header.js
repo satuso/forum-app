@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = ({
-  user,
-  handleLogout
-}) => {
+const Header = ({ user, handleLogout }) => {
+  if (!user){
+    return null
+  }
+
   return (
     <div className={user && user.username === 'admin' ? 'header admin' : 'header'}>
       <h1><Link to='/'>Discussion Forum <i className='far fa-comment'></i></Link></h1>

@@ -22,10 +22,7 @@ const UpdateForm = ({ user }) => {
     e.preventDefault()
     const formData = new FormData()
     try {
-      const regex = /[^a-zA-Z ]/g
-      if (name.match(regex)){
-        return dispatch(setNotification('Name can only contain letters', 10))
-      } else if (name) formData.append('name', name)
+      if (name) formData.append('name', name)
       if (age) formData.append('age', age)
       if (email) formData.append('email', email)
       if (avatar) formData.append('avatar', avatar)
@@ -69,7 +66,7 @@ const UpdateForm = ({ user }) => {
           id='name'
           value={name}
           onChange={({ target }) => setName(target.value)}
-          maxLength={30}
+          maxLength={50}
         ></input>
         <br/>
         <label htmlFor='age'>Age</label><br/>
@@ -92,6 +89,7 @@ const UpdateForm = ({ user }) => {
           id='email'
           value={email}
           onChange={({ target }) => setEmail(target.value)}
+          maxLength={50}
         ></input>
         <br/>
         <label htmlFor='password'>New Password</label><br/>
@@ -103,7 +101,7 @@ const UpdateForm = ({ user }) => {
           onBlur={(e) => e.target.placeholder = 'Password'}
           onChange={({ target }) => setPassword(target.value)}
           minLength={8}
-          maxLength={20}
+          maxLength={50}
         />
         <label htmlFor='passwordConfirm'>Confirm New Password</label><br/>
         <input
@@ -114,7 +112,7 @@ const UpdateForm = ({ user }) => {
           onBlur={(e) => e.target.placeholder = 'Confirm Password'}
           onChange={({ target }) => setConfirmPassword(target.value)}
           minLength={8}
-          maxLength={20}
+          maxLength={50}
         />
         <br/>
         <button className="btn btn-primary" type='submit'>Submit</button>

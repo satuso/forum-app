@@ -3,20 +3,27 @@ const mongoose = require('mongoose')
 const userSchema = mongoose.Schema({
   username: {
     type: String,
-    unique: true,
     minLength: 2,
+    required: true,
     validate: [/^([a-zA-Z0-9])*$/, 'Usernames may only contain letters (A-Z) and numbers (0-9)']
   },
   name: String,
   age: Number,
   email: {
     type: String,
-    unique: true
+    required: true
   },
   avatar: {
     type: String
   },
-  passwordHash: String,
+  resetLink: {
+    data: String,
+    default: ''
+  },
+  passwordHash: {
+    type: String,
+    required: true
+  },
   threads: [
     {
       type: mongoose.Schema.Types.ObjectId,

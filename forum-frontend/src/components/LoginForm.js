@@ -22,7 +22,7 @@ const LoginForm = ({
     e.preventDefault()
     try {
       const user = await loginService.login({
-        username, password,
+        username, password
       })
       window.localStorage.setItem(
         'loggedForumUser', JSON.stringify(user)
@@ -36,6 +36,7 @@ const LoginForm = ({
       navigate('/')
       dispatch(setNotification('You are now logged in', 10))
     } catch (error) {
+      console.log(error)
       dispatch(setNotification('Wrong username or password', 10))
     }
   }
@@ -54,6 +55,7 @@ const LoginForm = ({
           name="Username"
           onChange={({ target }) => setUsername(target.value)}
           minLength={2}
+          maxLength={50}
           required
         />
         <br/>
@@ -68,6 +70,7 @@ const LoginForm = ({
           name="Password"
           onChange={({ target }) => setPassword(target.value)}
           minLength={8}
+          maxLength={50}
           required
         />
         <br/>

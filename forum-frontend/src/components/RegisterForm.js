@@ -21,6 +21,10 @@ const RegisterForm = ({ users }) => {
       if (usernames.includes(newUsername.toLowerCase())){
         return dispatch(setNotification('Username already exists', 10))
       }
+      const emails = users.map(user => user.email.toLowerCase())
+      if (emails.includes(newEmail.toLowerCase())){
+        return dispatch(setNotification('Email already exists', 10))
+      }
       if (newPassword === confirmPassword){
         const regex = /[^a-zA-Z0-9]/g
         if (newUsername.match(regex)){
@@ -56,7 +60,7 @@ const RegisterForm = ({ users }) => {
           onBlur={(e) => e.target.placeholder = 'Username'}
           onChange={({ target }) => setNewUsername(target.value)}
           minLength={2}
-          maxLength={20}
+          maxLength={50}
           required
         />
         <br/>
@@ -69,7 +73,7 @@ const RegisterForm = ({ users }) => {
           onBlur={(e) => e.target.placeholder = 'Email'}
           onChange={({ target }) => setNewEmail(target.value)}
           minLength={2}
-          maxLength={20}
+          maxLength={50}
           required
         />
         <label htmlFor='password'>Password *</label><br/>
@@ -81,7 +85,7 @@ const RegisterForm = ({ users }) => {
           onBlur={(e) => e.target.placeholder = 'Password'}
           onChange={({ target }) => setNewPassword(target.value)}
           minLength={8}
-          maxLength={20}
+          maxLength={50}
           required
         />
         <label htmlFor='passwordConfirm'>Confirm Password *</label><br/>
@@ -93,7 +97,7 @@ const RegisterForm = ({ users }) => {
           onBlur={(e) => e.target.placeholder = 'Confirm Password'}
           onChange={({ target }) => setConfirmPassword(target.value)}
           minLength={8}
-          maxLength={20}
+          maxLength={50}
           required
         />
         <br/>
