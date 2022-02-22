@@ -92,12 +92,17 @@ usersRouter.delete('/:id', async (request, response) => {
 usersRouter.put('/:id', upload.single('avatar'), async (request, response) => {
   try {
     const body = request.body
+
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash(body.password, saltRounds)
+
     const url = request.protocol + '://' + request.get('host')
     const user = {
       name: body.name,
       age: body.age,
       email: body.email,
-      avatar: request.file ? url + '/public/uploads/' + request.file.filename : body.avatar
+      avatar: request.file ? url + '/public/uploads/' + request.file.filename : body.avatar,
+      passwordHash
     }
     const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
     response.send(updatedUser)

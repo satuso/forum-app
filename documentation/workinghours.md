@@ -30,4 +30,5 @@
 | 21.02.2022 | 3 | add form validation |
 |  | 3 | edit update profile feature and register form |
 |  | 1 | handle user profile updates in redux |
-| total | 88 |  |
+| 22.02.2022 | 1 | add ability to change password |
+| total | 89 |  |

@@ -57,24 +57,23 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
               setTogglePosts(false)
               setToggleThreads(!toggleThreads)}}
             >
-              {userMatch && userMatch.threads.length} {userMatch && userMatch.threads.length === 1 ? 'thread' : 'threads'}
+              {threadsOfUser.length} {threadsOfUser.length === 1 ? 'thread' : 'threads'}
             </span> • <span className='page-link' onClick={() => {
               setTogglePosts(!togglePosts)
               setToggleThreads(false)}}
             >
-              {userMatch && userMatch.posts.length} {userMatch && userMatch.posts.length === 1 ? 'post' : 'posts'}
+              {postsOfUser.length} {postsOfUser.length === 1 ? 'post' : 'posts'}
             </span>
           </p>
-          {userMatch && userMatch.threads.map(thread =>
+          {toggleThreads && threadsOfUser.map(thread =>
             <Link to={`/thread/${thread.id}`} key={thread.id}><p>{thread.title}</p></Link>
           )}
-          {userMatch && togglePosts && userMatch.posts.map(post =>
+          {togglePosts && userMatch.posts.map(post =>
             <Link to={`/thread/${post.thread}`} key={post.id}><p>{post.content.length > 10 ? post.content.slice(0, 10) + '...' : post.content}</p></Link>
           )}
           {user && <button className='btn btn-danger' onClick={() => removeUser(user.id, user, user)}>Delete profile</button>}
         </div>
         <div>
-          <h2>Edit profile</h2>
           <UpdateForm user={user}/>
         </div>
       </div>
