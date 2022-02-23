@@ -32,6 +32,7 @@
 |  | 1 | handle user profile updates in redux |
 | 22.02.2022 | 1 | add ability to change password |
 |  | 7 | work on reset password feature on the back-end |
-| 23.02.2022 | 2   | refactor code |
-|  | 6   | continue work with reset password feature on the back-end |
-| total | 104 |  |
+| 23.02.2022 | 2 | refactor code |
+|  | 6 | continue work with reset password feature on the back-end |
+|  | 1 | create front-end for reset password feature and connect it with back-end |
+| total | 105 |  |

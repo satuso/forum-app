@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import GoBack from './GoBack'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
-import forgotpasswordService from '../services/forgotpassword'
+import forgotPasswordService from '../services/forgotpassword'
 import { useNavigate } from 'react-router-dom'
 
 const ForgotPassword = ({ users }) => {
@@ -17,7 +17,7 @@ const ForgotPassword = ({ users }) => {
       if (users){
         const emails = users.map(user => user.email)
         if (emails.includes(email)){
-          forgotpasswordService.update(email)
+          forgotPasswordService.update(email)
           setEmail('')
           navigate('/')
           dispatch(setNotification('Email sent. Please follow the instructions in the email to reset your password', 10))
