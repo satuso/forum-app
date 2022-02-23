@@ -66,6 +66,7 @@ const App = () => {
       <Header
         user={user}
         handleLogout={handleLogout}
+        users={usersCopy}
       />
       <Nav
         setToggle={setToggle}

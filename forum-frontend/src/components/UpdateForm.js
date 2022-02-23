@@ -47,7 +47,7 @@ const UpdateForm = ({ user }) => {
   return (
     <div>
       <h2>Edit profile</h2>
-      <p>* Fields that are empty will not be updated</p>
+      <p>Fields that are empty will not be updated</p>
       <form onSubmit={submitDetails} className='form update-form'>
         <label htmlFor='file'>Change profile picture</label>
         <input

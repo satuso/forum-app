@@ -64,7 +64,11 @@ postsRouter.post('/', async (request, response) => {
     await user.save()
     await thread.save()
 
-    response.json(savedPost.toJSON())
+    const populatedPost = await savedPost
+    .populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
+    
+    response.status(201).json(populatedThread.toJSON())
+    //response.json(savedPost.toJSON())
   } catch(error){
     console.log(error)
   }

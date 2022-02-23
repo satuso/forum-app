@@ -1,16 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import LoggedInUser from './LoggedInUser'
 
-const Header = ({ user, handleLogout }) => {
-  if (!user){
-    return null
-  }
+const Header = ({ users, user, handleLogout }) => {
 
   return (
     <div className={user && user.username === 'admin' ? 'header admin' : 'header'}>
       <h1><Link to='/'>Discussion Forum <i className='far fa-comment'></i></Link></h1>
       {user ?
-        <div className='logged-in'><Link to={`/user/${user.username}`}><div className='logged-in'>{user.avatar ? <img src={user.avatar} alt='profile' className='avatar avatar-small'/> : <img src='http://localhost:3003/public/uploads/default-avatar.png' alt='profile' className='avatar avatar-small'/>}<span className='page-link'>{user.username}</span></div></Link> is logged in <Link to='/profile'><span className='settings'><i className="fa-solid fa-gear"></i></span></Link> <button className='btn btn-primary' onClick={handleLogout}>Log Out</button></div>
+        <LoggedInUser users={users} user={user} handleLogout={handleLogout} />
         :
         <div>
           <Link to='/login'>Log In</Link> / <Link to='/register'>Register</Link>

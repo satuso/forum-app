@@ -1,5 +1,6 @@
 import React from 'react'
 import UserDetails from './UserDetails'
+import Count from './Count'
 import GoBack from './GoBack'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
@@ -38,6 +39,7 @@ const User = ({ user, loggedInUser, posts, threads }) => {
     <div className='center'>
       <UserDetails user={user}/>
       {loggedInUser && (loggedInUser.username === 'admin' && <button className='btn btn-danger' onClick={() => removeUser(user.id)}>delete user</button>)}
+      <Count threadsOfUser={threadsOfUser} postsOfUser={postsOfUser}/>
       <GoBack/>
     </div>
   )

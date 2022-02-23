@@ -9,6 +9,7 @@ import { deleteUser } from '../reducers/userReducer'
 import { deleteThread } from '../reducers/threadReducer'
 import { deletePost } from '../reducers/postReducer'
 import { useNavigate } from 'react-router-dom'
+import Count from './Count'
 
 const Profile = ({ user, users, handleLogout, threads, posts }) => {
   const dispatch = useDispatch()
@@ -49,7 +50,7 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
         <div>
           {userMatch && <UserDetails user={userMatch}/>}
           {userMatch && <p>Email: {userMatch.email}</p>}
-
+          <Count threadsOfUser={threadsOfUser} postsOfUser={postsOfUser}/>
           {user && <button className='btn btn-danger' onClick={() => removeUser(user.id, user, user)}>Delete profile</button>}
         </div>
         <div>

@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
     type: String,
     minLength: 2,
     required: true,
-    validate: [/^([a-zA-Z0-9])*$/, 'Usernames may only contain letters (A-Z) and numbers (0-9)']
+    validate: [/^([a-zA-Z0-9]|[-_\.])*$/, 'Usernames may only contain letters (A-Z), numbers (0-9) and symbols (- . _)']
   },
   name: String,
   age: Number,

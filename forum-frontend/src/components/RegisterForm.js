@@ -26,9 +26,9 @@ const RegisterForm = ({ users }) => {
         return dispatch(setNotification('Email already exists', 10))
       }
       if (newPassword === confirmPassword){
-        const regex = /[^a-zA-Z0-9]/g
+        const regex = /[^a-zA-Z0-9-._]/g
         if (newUsername.match(regex)){
-          dispatch(setNotification('Usernames may only contain letters (A-Z) and numbers (0-9)', 10))
+          dispatch(setNotification('Usernames may only contain letters (A-Z), numbers (0-9) and symbols (- . _)', 10))
         } else {
           const userObject = {
             username: newUsername,
