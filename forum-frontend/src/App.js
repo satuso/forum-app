@@ -18,6 +18,7 @@ import Header from './components/Header'
 import Nav from './components/Nav'
 import Notification from './components/Notification'
 import ResetPassword from './components/ResetPassword'
+import ForgotPassword from './components/ForgotPassword'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -129,6 +130,7 @@ const App = () => {
               />
             }/>
           )}
+          <Route path='/forgotpassword' element={<ForgotPassword users={usersCopy} />}></Route>
           {user && user.resetLink && <Route path={`/resetpassword/${user.resetLink}`} element={
             <ResetPassword/>
           }/>}

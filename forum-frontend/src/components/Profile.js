@@ -54,7 +54,7 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
           {user && <button className='btn btn-danger' onClick={() => removeUser(user.id, user, user)}>Delete profile</button>}
         </div>
         <div>
-          <UpdateForm user={user}/>
+          <UpdateForm user={user} users={users}/>
         </div>
       </div>
       <GoBack />

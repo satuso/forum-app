@@ -1,17 +1,13 @@
-/* eslint-disable no-undef */
 import React, { useState } from 'react'
 import threadService from '../services/threads'
 import postService from '../services/posts'
 import loginService from '../services/login'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import GoBack from './GoBack'
 
-const LoginForm = ({
-  setUser,
-  setToggle
-}) => {
+const LoginForm = ({ setUser, setToggle }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -76,6 +72,7 @@ const LoginForm = ({
         <br/>
         <button type='submit' className='btn btn-primary'>Log In</button>
       </form>
+      <Link to='/forgotpassword'>Forgot Password?</Link>
       <GoBack />
     </div>
   )

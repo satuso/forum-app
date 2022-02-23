@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 import { updateUser } from '../reducers/userReducer'
 
-const UpdateForm = ({ user }) => {
+const UpdateForm = ({ user, users }) => {
   const [name, setName] = useState('')
   const [age, setAge] = useState('')
   const [email, setEmail] = useState('')
@@ -24,7 +24,10 @@ const UpdateForm = ({ user }) => {
     try {
       if (name) formData.append('name', name)
       if (age) formData.append('age', age)
-      if (email) formData.append('email', email)
+      const emails = users.map(user => user.email.toLowerCase())
+      if (emails.includes(email.toLowerCase())){
+        return dispatch(setNotification('Email already exists', 10))
+      } else if (email) formData.append('email', email)
       if (avatar) formData.append('avatar', avatar)
       if (password === confirmPassword) {
         formData.append('password', password)

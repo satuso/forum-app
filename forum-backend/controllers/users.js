@@ -45,7 +45,7 @@ usersRouter.post('/', async (request, response) => {
       age: body.age,
       email: body.email,
       resetLink: body.resetLink,
-      passwordHash,
+      passwordHash
     })
 
     const savedUser = await user.save()
