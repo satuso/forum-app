@@ -23,7 +23,9 @@ const UpdateForm = ({ user, users }) => {
     const formData = new FormData()
     try {
       if (name) formData.append('name', name)
-      if (age) formData.append('age', age)
+      if (age < 0 || age > 120){
+        return dispatch(setNotification('Age must be between 1-120', 10))
+      } else if (age) formData.append('age', age)
       const emails = users.map(user => user.email.toLowerCase())
       if (emails.includes(email.toLowerCase())){
         return dispatch(setNotification('Email already exists', 10))

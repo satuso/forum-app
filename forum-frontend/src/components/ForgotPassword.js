@@ -20,7 +20,7 @@ const ForgotPassword = ({ users }) => {
           forgotPasswordService.update(email)
           setEmail('')
           navigate('/')
-          dispatch(setNotification('Email sent. Please follow the instructions in the email to reset your password', 10))
+          dispatch(setNotification(`Password reset link sent to ${email}`, 10))
         } else dispatch(setNotification('Email not found', 10))
       }
     } catch(error){

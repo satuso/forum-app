@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Post from './Post'
 import NewPostForm from './NewPostForm'
 import Avatar from './Avatar'
+import Date from './Date'
 import GoBack from './GoBack'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
@@ -42,9 +43,6 @@ const Thread = ({
     }
   }
 
-  const date = thread.date.split('T')
-  const userAvatar = thread.user
-
   return (
     <>
       {user &&
@@ -60,11 +58,15 @@ const Thread = ({
         setToggle={setToggle}
       />}
       <div className='thread'>
-        <Avatar user={userAvatar}/>
+        <Avatar user={thread.user}/>
         <div>
-          <p className='username'>
-            <Link to={`/user/${thread.user.username}`}>{thread.user.username}</Link> {date[0]} {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => removeThread(thread.id)}>delete</button>}
-          </p>
+          <span className='username'>
+            <Link to={`/user/${thread.user.username}`}>{thread.user.username}</Link>
+          </span>
+          <span>
+            <Date date={thread.date}/>
+            {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => removeThread(thread.id)}>delete</button>}
+          </span>
           <h3>{thread.title}</h3>
           <p className='content'>{thread.content}</p>
         </div>

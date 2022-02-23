@@ -29,8 +29,8 @@ const ResetPassword = ({ users }) => {
         if (newPassword === confirmPassword){
           resetPasswordService.update(newPassword, token)
           setNewPassword('')
-          navigate('/login')
-          dispatch(setNotification('Password changed. You can now log in', 10))
+          navigate('/')
+          dispatch(setNotification('Password changed', 10))
         } else {
           dispatch(setNotification('Passwords do not match', 10))
         }

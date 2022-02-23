@@ -1,7 +1,13 @@
 @font-face {
   font-family: 'Lato';
-  src: local('Lato'), url('./fonts/Lato-Regular.ttf') format('truetype');
-  font-weight: 400;
+  src: local('Lato'), url('./fonts/Lato/Lato-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato'), url('./fonts/Lato/Lato-Bold.ttf') format('truetype');
+  font-weight: bold;
 }
 
 * {
@@ -22,8 +28,7 @@
 
 html {
   font-size: 1rem;
-  font-weight: 400;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato', Arial, sans-serif;
 }
 
 body {
@@ -50,7 +55,7 @@ a:focus {
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato', Arial, sans-serif;
   color: var(--black);
   padding: 9px 12px;
   background-color: var(--whitesmoke);
@@ -157,7 +162,8 @@ a:focus {
 }
 
 .main {
-  padding: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
   height: 100%;
 }
 
@@ -188,7 +194,7 @@ a:focus {
 .form textarea {
   outline: none;
   border: 1px solid var(--whitesmoke);
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato', Arial, sans-serif;
   font-size: 1rem;
   color: black;
   border-radius: 5px;
@@ -233,12 +239,13 @@ a:focus {
 
 .thread-list-username {
   color: #282828;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: .3em;
+  padding-right: .3em;
 }
 
 .username {
   color: #282828;
+  margin-right: .3em;
 }
 
 .thread,
@@ -257,8 +264,13 @@ a:focus {
   margin-left: 3em;
 }
 
-.alert {
+.notification-container {
+  height: 40px;
+}
+
+.notification {
   min-height: 1em;
+  width: fit-content;
   margin: 0 auto;
   text-align: center;
   color: goldenrod;
@@ -266,7 +278,8 @@ a:focus {
   border: 1px solid var(--whitesmoke);
   border-radius: 5px;
   padding: 9px 12px;
-  margin-top: 1em;
+  margin-top: .5em;
+  margin-bottom: .5em;
 }
 
 .avatar {
@@ -321,7 +334,8 @@ a:focus {
 
 .message {
   text-align: center;
-  margin-bottom: 2em;
+  margin-top: 1em;
+  margin-bottom: 3em;
 }
 
 .go-back {

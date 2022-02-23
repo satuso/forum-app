@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux'
 import { deletePost } from '../reducers/postReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import Avatar from './Avatar'
+import Date from './Date'
 
 const Post = ({ user, post }) => {
-  const date = post.date.split('T')
   const dispatch = useDispatch()
 
   const handleRemovePost = (id) => {
@@ -21,14 +21,15 @@ const Post = ({ user, post }) => {
     }
   }
 
-  const userAvatar = post
-
   return (
     <div className='post'>
-      <Avatar user={userAvatar}/>
+      <Avatar user={post}/>
       <div>
-        <p className='username'>
-          <Link to={`/user/${post.username}`}>{post.username}</Link> {date[0]} {user && (user.id === (post.user.id || post.user) || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemovePost(post.id, post, user)}>delete</button>}</p>
+        <span className='username'>
+          <Link to={`/user/${post.username}`}>{post.username}</Link>
+        </span>
+        <Date date={post.date}/>
+        <span>{user && (user.id === (post.user.id || post.user) || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemovePost(post.id, post, user)}>delete</button>}</span>
         <p className='content'>{post.content}</p>
       </div>
     </div>

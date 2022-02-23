@@ -35,4 +35,5 @@
 | 23.02.2022 | 2 | refactor code |
 |  | 6 | continue work with reset password feature on the back-end |
 |  | 1 | create front-end for reset password feature and connect it with back-end |
-| total | 105 |  |
+|  | 1 | refactor code |
+| total | 106 |  |
