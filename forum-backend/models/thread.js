@@ -21,7 +21,8 @@ const threadSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Post'
     }
-  ]
+  ],
+  category: String
 })
 
 threadSchema.set('toJSON', {

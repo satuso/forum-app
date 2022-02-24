@@ -58,8 +58,8 @@ usersRouter.post('/', async (request, response) => {
 usersRouter.get('/', async (request, response) => {
   try {
     const users = await User
-      .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1 })
-      .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1,  thread: 1 })
+      .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1, category: 1})
+      .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1,  thread: 1, category: 1 })
     response.json(users.map(u => u.toJSON()))
   } catch (error){
     console.log(error)
@@ -69,8 +69,8 @@ usersRouter.get('/', async (request, response) => {
 usersRouter.get('/:id', async (request, response) => {
   try {
     const user = await User.findById(request.params.id)
-      .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1})
-      .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1, thread: 1 })
+      .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1, category: 1 })
+      .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1, thread: 1, category: 1 })
     if (user) {
       response.json(user)
     } else {

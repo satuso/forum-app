@@ -39,12 +39,12 @@ const Thread = ({ thread, user, toggle, setToggle, posts }) => {
   }
 
   const quoteThread = () => {
-    setQuote(`Reply to ${thread.user.username}'s post "${thread.content}":\n\n`)
+    setQuote(`Quote from ${thread.user.username}: "${thread.content}":\n\n`)
   }
 
   const quoteMessage = (id) => {
     const replyPost = postsOfThread.find(post => post.id === id)
-    setQuote(`Reply to ${replyPost.username}'s post "${replyPost.content}":\n\n`)
+    setQuote(`Quote from ${replyPost.username}: "${replyPost.content}":\n\n`)
   }
 
   return (

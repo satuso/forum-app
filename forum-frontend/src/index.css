@@ -23,7 +23,7 @@
   --lightgray: lightgray;
   --darkgray: #282828;
   --black: #000;
-  --yellow: gold;
+  --gold: goldenrod;
 }
 
 html {
@@ -74,7 +74,7 @@ a:focus {
 }
 
 .btn-secondary {
-  background-color: var(--yellow);
+  background-color: var(--gold);
   color: var(--black);
 }
 
@@ -153,7 +153,6 @@ a:focus {
 }
 
 .nav a {
-  color: var(--darkgray);
   margin-right: 1em;
   text-decoration: none;
   padding-right: 1em;
@@ -163,6 +162,14 @@ a:focus {
 .nav a:hover,
 .nav a:focus {
   color: var(--blue);
+}
+
+.active {
+  color: var(--blue);
+}
+
+.inactive {
+  color: var(--darkgray);
 }
 
 .main {
@@ -257,6 +264,11 @@ a:focus {
   padding-right: .3em;
 }
 
+.thread-list-category {
+  color: var(--darkgray);
+  margin-right: .5em;
+}
+
 .username {
   color: #282828;
   margin-right: .3em;
@@ -287,7 +299,7 @@ a:focus {
   width: fit-content;
   margin: 0 auto;
   text-align: center;
-  color: goldenrod;
+  color: var(--gold);
   font-weight: bold;
   border: 1px solid var(--whitesmoke);
   border-radius: 5px;

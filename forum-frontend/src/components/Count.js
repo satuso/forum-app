@@ -20,7 +20,7 @@ const Count = ({ threadsOfUser, postsOfUser }) => {
         </span>
       </p>
       {toggleThreads && threadsOfUser.map(thread =>
-        <Link to={`/thread/${thread.id}`} key={thread.id}><p>{thread.title}</p></Link>
+        <Link to={`/${thread.category}/thread/${thread.id}`} key={thread.id}><p>{thread.title}</p></Link>
       )}
       {togglePosts && postsOfUser.map(post =>
         <Link to={`/thread/${post.thread}`} key={post.id}><p>{post.content.length > 10 ? post.content.slice(0, 10) + '...' : post.content}</p></Link>

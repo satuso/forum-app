@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 import { createThread } from '../reducers/threadReducer'
 
-const NewThreadForm = ({ toggle, setToggle }) => {
+const NewThreadForm = ({ toggle, setToggle, filter }) => {
   const [newTitle, setNewTitle] = useState('')
   const [newMessage, setNewMessage] = useState('')
 
@@ -11,24 +11,22 @@ const NewThreadForm = ({ toggle, setToggle }) => {
 
   const addThread = (event) => {
     event.preventDefault()
-    if (newMessage.length >= 1 && newTitle.length >= 1){
-      try {
-        const threadObject = {
-          title: newTitle,
-          content: newMessage,
-          date: new Date().toISOString()
-        }
-        dispatch(createThread(threadObject))
-        dispatch(setNotification('Created a new thread', 10))
-        setNewTitle('')
-        setNewMessage('')
-        setToggle(!toggle)
-      } catch (error){
-        console.log(error)
-        dispatch(setNotification('Error', 10))
+    try {
+      const threadObject = {
+        title: newTitle,
+        content: newMessage,
+        date: new Date().toISOString(),
+        category: filter ? filter : 'general'
       }
-    } else {
-      dispatch(setNotification('Title and message cannot be empty', 10))
+      dispatch(createThread(threadObject))
+      console.log(threadObject)
+      dispatch(setNotification('Created a new thread', 10))
+      setNewTitle('')
+      setNewMessage('')
+      setToggle(!toggle)
+    } catch (error){
+      console.log(error)
+      dispatch(setNotification('Error', 10))
     }
   }
 
@@ -69,6 +67,7 @@ const NewThreadForm = ({ toggle, setToggle }) => {
           maxLength={5000}
           required
         /><br/>
+        <label htmlFor="category">Choose a category:</label>
         <button className='btn btn-primary' type='submit'>Send</button>
       </form>
     </div>

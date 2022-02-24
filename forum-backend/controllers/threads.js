@@ -51,6 +51,7 @@ threadsRouter.post('/', async (request, response) => {
       content: body.content,
       date: new Date(),
       user: user._id,
+      category: body.category
     })
     const savedThread = await thread.save()
     user.threads = user.threads.concat(savedThread._id)

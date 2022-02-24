@@ -7,6 +7,7 @@ import { initializePosts } from './reducers/postReducer'
 import { initializeUsers } from './reducers/userReducer'
 import threadService from './services/threads'
 import postService from './services/posts'
+import Home from './components/Home'
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import Threads from './components/Threads'
@@ -24,6 +25,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [toggle, setToggle] = useState(false)
   const [search, setSearch] = useState('')
+  const [filter, setFilter] = useState(null)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -60,7 +62,7 @@ const App = () => {
     dispatch(setNotification('You are now logged out', 10))
   }
 
-  const loggedInUser = user
+  const filteredThreads = filter ? threadsCopy.filter(thread => thread.category === filter) : threadsCopy
 
   return (
     <div className='container'>
@@ -71,16 +73,24 @@ const App = () => {
       />
       <Nav
         setToggle={setToggle}
+        setFilter={setFilter}
       />
       <Notification />
       <div className='main'>
         <Routes>
           <Route path='*' element={
+            <Home
+              user={user}
+              threads={filteredThreads}
+            />
+          }/>
+          <Route path={`/${filter}`} element={
             <Threads
               user={user}
               toggle={toggle}
               setToggle={setToggle}
-              threads={threadsCopy}
+              threads={filteredThreads}
+              filter={filter}
             />
           }/>
           <Route path='/login' element={
@@ -102,7 +112,7 @@ const App = () => {
             />
           }/>
           {threadsCopy.map(thread =>
-            <Route path={`/thread/${thread.id}`} key={thread.id} element={
+            <Route path={`/${thread.category}/thread/${thread.id}`} key={thread.id} element={
               <Thread
                 thread={thread}
                 user={user}
@@ -124,7 +134,7 @@ const App = () => {
             <Route path={`/user/${user.username}`} key={user.username} element={
               <User
                 user={user}
-                loggedInUser={loggedInUser}
+                loggedInUser={user}
                 threads={threadsCopy}
                 posts={postsCopy}
               />

@@ -55,7 +55,8 @@ postsRouter.post('/', async (request, response) => {
       user: user._id,
       username: user.username,
       avatar: user.avatar,
-      thread: thread._id
+      thread: thread._id,
+      category: thread.category
     })
 
     const savedPost = await post.save()

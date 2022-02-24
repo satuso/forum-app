@@ -1,31 +1,23 @@
 import React from 'react'
 import NewThreadForm from './NewThreadForm'
 import ThreadList from './ThreadList'
-import { Link } from 'react-router-dom'
 
-const Threads = ({
-  user,
-  toggle,
-  setToggle,
-  threads
-}) => {
-
+const Threads = ({ user, toggle, setToggle, threads, filter }) => {
   if (threads === []){
     return null
   }
 
   return (
     <>
-      {user ?
+      {user &&
         <div className='center'>
           <button className={toggle ? 'btn btn-toggle' : 'btn btn-toggle off'} onClick={() => setToggle(!toggle)}>New Thread <i className="fas fa-comment"></i></button>
-        </div> :
-        <p className='message'>Please <Link to='/login'>login</Link> or <Link to='/register'>register</Link> to join discussion</p>
-      }
+        </div>}
       {toggle &&
       <NewThreadForm
         toggle={toggle}
         setToggle={setToggle}
+        filter={filter}
       />}
       {threads.map(thread =>
         <ThreadList

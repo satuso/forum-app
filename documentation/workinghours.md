@@ -38,4 +38,5 @@
 |  | 1 | refactor code |
 | 24.02.2022 | 2 | refactor code and switch email service to use nodemailer |
 |  | 3 | add ability to quote forum posts when replying |
-| total | 111 |  |
+|  | 2.5 | create categories for posts |
+| total | 113.5 |  |
