@@ -32,7 +32,7 @@ const ForgotPassword = ({ users }) => {
     <div className='center'>
       <h2>Forgot Password?</h2>
       <p>Send password reset link to your email address</p>
-      <form onSubmit={handleSubmit} className='form'>
+      <form onSubmit={handleSubmit} className='form resetlink-form'>
         <input
           type='email'
           value={email}

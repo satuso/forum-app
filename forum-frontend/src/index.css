@@ -220,9 +220,15 @@ a:focus {
   width: 80%;
 }
 
-.search-form .btn {
+.search-form .btn,
+.resetlink-form .btn {
   margin-left: 1em;
-  width: 50px;
+  width: fit-content;
+}
+
+.resetlink-form {
+  width: 100%;
+  display: flex;
 }
 
 .thread-list {
