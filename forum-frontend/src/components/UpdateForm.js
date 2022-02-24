@@ -120,7 +120,7 @@ const UpdateForm = ({ user, users }) => {
           maxLength={50}
         />
         <br/>
-        <button className="btn btn-primary" type='submit'>Submit</button>
+        <button className="btn btn-secondary" type='submit'>Submit</button>
       </form>
     </div>
   )

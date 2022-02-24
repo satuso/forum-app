@@ -36,14 +36,6 @@ export const deleteThread = (id) => {
   }
 }
 
-export const updateThread = (thread) => {
-  return async (dispatch) => {
-    threadService.update(thread.id, thread).then((updatedthread) => {
-      dispatch(updateOne(updatedthread))
-    })
-  }
-}
-
 export const createThread = (thread) => {
   return async (dispatch) => {
     threadService
@@ -57,5 +49,5 @@ export const createThread = (thread) => {
   }
 }
 
-const { initializeWith, addNew, removeOne, updateOne } = slice.actions
+const { initializeWith, addNew, removeOne } = slice.actions
 export default slice.reducer

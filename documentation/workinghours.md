@@ -37,4 +37,5 @@
 |  | 1 | create front-end for reset password feature and connect it with back-end |
 |  | 1 | refactor code |
 | 24.02.2022 | 2 | refactor code and switch email service to use nodemailer |
-| total | 108 |  |
+|  | 3 | add ability to quote forum posts when replying |
+| total | 111 |  |

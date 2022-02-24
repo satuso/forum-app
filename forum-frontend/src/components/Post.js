@@ -6,7 +6,7 @@ import { setNotification } from '../reducers/notificationReducer'
 import Avatar from './Avatar'
 import Date from './Date'
 
-const Post = ({ user, post }) => {
+const Post = ({ user, post, quoteMessage, setToggle }) => {
   const dispatch = useDispatch()
 
   const handleRemovePost = (id) => {
@@ -29,7 +29,16 @@ const Post = ({ user, post }) => {
           <Link to={`/user/${post.username}`}>{post.username}</Link>
         </span>
         <Date date={post.date}/>
-        <span>{user && (user.id === (post.user.id || post.user) || user.username === 'admin') && <button className='btn btn-danger' onClick={() => handleRemovePost(post.id, post, user)}>delete</button>}</span>
+        <button className='btn btn-primary' onClick={() => {
+          quoteMessage(post.id)
+          setToggle(true)
+        }}>Quote</button>
+        <span>{user && (user.id === (post.user.id || post.user) || user.username === 'admin') &&
+        <>
+          <button className='btn btn-danger' onClick={() => handleRemovePost(post.id, post, user)}>Delete</button>
+        </>
+        }
+        </span>
         <p className='content'>{post.content}</p>
       </div>
     </div>

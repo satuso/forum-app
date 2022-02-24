@@ -25,7 +25,7 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
   const userMatch = users.find(user => user.id === id)
 
   const removeUser = (id) => {
-    if (window.confirm('Are you sure you want to delete your profile?')){
+    if (window.confirm('Are you sure you want to delete your profile? This permanently deletes all your data, including forum posts')){
       try {
         if (userMatch && userMatch.threads.length > 0){
           threadsOfUser.map(thread => dispatch(deleteThread(thread.id)))

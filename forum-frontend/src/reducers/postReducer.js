@@ -36,14 +36,6 @@ export const deletePost = (id) => {
   }
 }
 
-export const updatePost = (post) => {
-  return async (dispatch) => {
-    postService.update(post.id, post).then((updatedpost) => {
-      dispatch(updateOne(updatedpost))
-    })
-  }
-}
-
 export const createPost = (post) => {
   return async (dispatch) => {
     postService.create(post).then((response) => {
@@ -54,5 +46,5 @@ export const createPost = (post) => {
   }
 }
 
-const { initializeWith, addNew, removeOne, updateOne } = slice.actions
+const { initializeWith, addNew, removeOne } = slice.actions
 export default slice.reducer

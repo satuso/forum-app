@@ -59,8 +59,7 @@ a:focus {
   color: var(--black);
   padding: 9px 12px;
   background-color: var(--whitesmoke);
-  margin-top: .5em;
-  margin-bottom: .5em;
+  margin: .5em;
   text-transform: uppercase;
 }
 
@@ -72,6 +71,11 @@ a:focus {
 .btn-primary {
   background-color: var(--blue);
   color: var(--white);
+}
+
+.btn-secondary {
+  background-color: var(--yellow);
+  color: var(--black);
 }
 
 .btn-danger {
@@ -176,6 +180,11 @@ a:focus {
 .form {
   width: 100%;
   text-align: left;
+  margin: .5em;
+}
+
+.form label {
+  margin: .5em;
 }
 
 .form-toggle {
@@ -199,8 +208,7 @@ a:focus {
   color: black;
   border-radius: 5px;
   padding: .5em;
-  margin-bottom: .5em;
-  margin-top: .5em;
+  margin: .5em;
   width: 100%;
 }
 
@@ -271,7 +279,7 @@ a:focus {
 }
 
 .notification-container {
-  height: 40px;
+  height: 45px;
 }
 
 .notification {
@@ -340,7 +348,7 @@ a:focus {
 
 .message {
   text-align: center;
-  margin-top: 1em;
+  margin-top: .5em;
   margin-bottom: 3em;
 }
 

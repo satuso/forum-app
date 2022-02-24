@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Post from './Post'
 import NewPostForm from './NewPostForm'
@@ -11,13 +11,8 @@ import { deleteThread } from '../reducers/threadReducer'
 import { deletePost } from '../reducers/postReducer'
 import { useNavigate } from 'react-router-dom'
 
-const Thread = ({
-  thread,
-  user,
-  toggle,
-  setToggle,
-  posts
-}) => {
+const Thread = ({ thread, user, toggle, setToggle, posts }) => {
+  const [quote, setQuote] = useState('')
 
   if (!thread) {
     return null
@@ -43,6 +38,15 @@ const Thread = ({
     }
   }
 
+  const quoteThread = () => {
+    setQuote(`Reply to ${thread.user.username}'s post "${thread.content}":\n\n`)
+  }
+
+  const quoteMessage = (id) => {
+    const replyPost = postsOfThread.find(post => post.id === id)
+    setQuote(`Reply to ${replyPost.username}'s post "${replyPost.content}":\n\n`)
+  }
+
   return (
     <>
       {user &&
@@ -56,6 +60,7 @@ const Thread = ({
         user={user}
         toggle={toggle}
         setToggle={setToggle}
+        quote={quote}
       />}
       <div className='thread'>
         <Avatar user={thread.user}/>
@@ -63,9 +68,13 @@ const Thread = ({
           <span className='username'>
             <Link to={`/user/${thread.user.username}`}>{thread.user.username}</Link>
           </span>
-          <span>
-            <Date date={thread.date}/>
-            {user && (user.id === thread.user.id || user.username === 'admin') && <button className='btn btn-danger' onClick={() => removeThread(thread.id)}>delete</button>}
+          <Date date={thread.date}/>
+          <button className='btn btn-primary' onClick={() => {
+            quoteThread()
+            setToggle(true)
+          }}>Quote</button>
+          <span>{user && (user.id === thread.user.id || user.username === 'admin') &&
+            <button className='btn btn-danger' onClick={() => removeThread(thread.id)}>delete</button>}
           </span>
           <h3>{thread.title}</h3>
           <p className='content'>{thread.content}</p>
@@ -76,6 +85,8 @@ const Thread = ({
           user={user}
           post={post}
           key={post.id}
+          quoteMessage={quoteMessage}
+          setToggle={setToggle}
         />)}
       <GoBack />
     </>
