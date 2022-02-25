@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Count from './Count'
 import GoBack from './GoBack'
 import UpdateForm from './UpdateForm'
 import UserDetails from './UserDetails'
@@ -9,7 +9,7 @@ import { deleteUser } from '../reducers/userReducer'
 import { deleteThread } from '../reducers/threadReducer'
 import { deletePost } from '../reducers/postReducer'
 import { useNavigate } from 'react-router-dom'
-import Count from './Count'
+import forgotPasswordService from '../services/forgotpassword'
 
 const Profile = ({ user, users, handleLogout, threads, posts }) => {
   const dispatch = useDispatch()
@@ -25,7 +25,7 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
   const userMatch = users.find(user => user.id === id)
 
   const removeUser = (id) => {
-    if (window.confirm('Are you sure you want to delete your profile? This permanently deletes your user information and forum posts from the database.')){
+    if (window.confirm('Are you sure you want to delete your profile?')){
       try {
         if (userMatch && userMatch.threads.length > 0){
           threadsOfUser.map(thread => dispatch(deleteThread(thread.id)))
@@ -44,6 +44,22 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
     }
   }
 
+  const changePassword = (e) => {
+    e.preventDefault(e)
+    if (window.confirm('Are you sure you want to change your password?')){
+      try {
+        if (userMatch){
+          forgotPasswordService.update(userMatch.email)
+          dispatch(setNotification(`Password reset link sent to ${userMatch.email}`, 10))
+        } else {
+          dispatch(setNotification('Error', 10))
+        }
+      } catch(error){
+        dispatch(setNotification('Error', 10))
+      }
+    }
+  }
+
   return (
     <>
       <div className='profile'>
@@ -51,10 +67,9 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
           {userMatch && <UserDetails user={userMatch}/>}
           {userMatch && <p>Email: {userMatch.email}</p>}
           <Count threadsOfUser={threadsOfUser} postsOfUser={postsOfUser}/>
-          {user && <button className='btn btn-danger' onClick={() => removeUser(user.id, user, user)}>Delete profile</button>}
         </div>
         <div>
-          <UpdateForm user={user} users={users}/>
+          <UpdateForm user={user} users={users} removeUser={removeUser} changePassword={changePassword}/>
         </div>
       </div>
       <GoBack />

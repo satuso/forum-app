@@ -32,7 +32,6 @@ const LoginForm = ({ setUser, setToggle }) => {
       navigate('/')
       dispatch(setNotification('You are now logged in', 10))
     } catch (error) {
-      console.log(error)
       dispatch(setNotification('Wrong username or password', 10))
     }
   }

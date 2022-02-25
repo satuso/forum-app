@@ -19,13 +19,11 @@ const NewThreadForm = ({ toggle, setToggle, filter }) => {
         category: filter ? filter : 'general'
       }
       dispatch(createThread(threadObject))
-      console.log(threadObject)
       dispatch(setNotification('Created a new thread', 10))
       setNewTitle('')
       setNewMessage('')
       setToggle(!toggle)
     } catch (error){
-      console.log(error)
       dispatch(setNotification('Error', 10))
     }
   }

@@ -40,4 +40,5 @@
 |  | 3 | add ability to quote forum posts when replying |
 |  | 2.5 | create categories for posts |
 | 25.02.2022 | 6 | work on UI |
-| total | 119.5 |  |
+|  | 4 | refactor code |
+| total | 123.5 |  |

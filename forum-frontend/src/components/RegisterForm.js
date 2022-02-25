@@ -43,7 +43,6 @@ const RegisterForm = ({ users }) => {
         dispatch(setNotification('Passwords must match', 10))
       }
     } catch (error) {
-      console.log(error)
       dispatch(setNotification('Error', 10))
     }
   }
@@ -104,6 +103,7 @@ const RegisterForm = ({ users }) => {
         <button type='submit' className='btn btn-primary'>Register</button>
       </form>
       <p>* required field</p>
+      <p>Email is private and used only for password recovery.</p>
       <p></p>
       <GoBack />
     </div>

@@ -38,7 +38,7 @@ const User = ({ user, loggedInUser, posts, threads }) => {
   return (
     <div className='center'>
       <UserDetails user={user}/>
-      {loggedInUser && (loggedInUser.username === 'admin' && <button className='btn btn-danger' onClick={() => removeUser(user.id)}>delete user</button>)}
+      {loggedInUser && loggedInUser.username === 'admin' && <button className='btn btn-danger' onClick={() => removeUser(user.id)}>delete user</button>}
       <Count threadsOfUser={threadsOfUser} postsOfUser={postsOfUser}/>
       <GoBack/>
     </div>

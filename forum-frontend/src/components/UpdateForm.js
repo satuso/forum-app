@@ -3,12 +3,10 @@ import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 import { updateUser } from '../reducers/userReducer'
 
-const UpdateForm = ({ user, users }) => {
+const UpdateForm = ({ user, users, removeUser, changePassword }) => {
   const [name, setName] = useState('')
-  const [age, setAge] = useState('')
+  const [dateOfBirth, setDateOfBirth] = useState('')
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
   const [avatar, setAvatar] = useState(null)
 
   const dispatch = useDispatch()
@@ -23,27 +21,20 @@ const UpdateForm = ({ user, users }) => {
     const formData = new FormData()
     try {
       if (name) formData.append('name', name)
-      if (age < 0 || age > 120){
-        return dispatch(setNotification('Age must be between 1-120', 10))
-      } else if (age) formData.append('age', age)
+      if (dateOfBirth) formData.append('dateOfBirth', dateOfBirth)
       const emails = users.map(user => user.email.toLowerCase())
       if (emails.includes(email.toLowerCase())){
         return dispatch(setNotification('Email already exists', 10))
       } else if (email) formData.append('email', email)
       if (avatar) formData.append('avatar', avatar)
-      if (password === confirmPassword) {
-        formData.append('password', password)
-        if (window.confirm('Are you sure you want to update profile?')){
-          dispatch(updateUser(user.id, formData))
-          dispatch(setNotification('Updated profile', 10))
-        }
-        setName('')
-        setAge('')
-        setPassword('')
-        setAvatar(null)
-      } else {
-        return dispatch(setNotification('Passwords must match', 10))
+      if (window.confirm('Are you sure you want to update profile?')){
+        dispatch(updateUser(user.id, formData))
+        dispatch(setNotification('Updated profile', 10))
       }
+      setName('')
+      setDateOfBirth('')
+      setEmail('')
+      setAvatar(null)
     } catch(error){
       dispatch(setNotification('Error', 10))
     }
@@ -52,7 +43,6 @@ const UpdateForm = ({ user, users }) => {
   return (
     <div>
       <h2>Edit profile</h2>
-      <p>Fields that are empty will not be updated</p>
       <form onSubmit={submitDetails} className='form update-form'>
         <label htmlFor='file'>Change profile picture</label>
         <input
@@ -74,15 +64,15 @@ const UpdateForm = ({ user, users }) => {
           maxLength={50}
         ></input>
         <br/>
-        <label htmlFor='age'>Age</label><br/>
+        <label htmlFor='dateOfBirth'>Date of Birth</label><br/>
         <input
-          type='number'
+          type='date'
           onFocus={(e) => e.target.placeholder = ''}
-          onBlur={(e) => e.target.placeholder = 'Age'}
-          placeholder='Age'
-          id='age'
-          value={age}
-          onChange={({ target }) => setAge(target.value)}
+          onBlur={(e) => e.target.placeholder = 'Date of Birth'}
+          placeholder='Date of Birth'
+          id='dateOfBirth'
+          value={dateOfBirth}
+          onChange={({ target }) => setDateOfBirth(target.value)}
         ></input>
         <br/>
         <label htmlFor='email'>Email</label><br/>
@@ -97,31 +87,14 @@ const UpdateForm = ({ user, users }) => {
           maxLength={50}
         ></input>
         <br/>
-        <label htmlFor='password'>New Password</label><br/>
-        <input
-          type='password'
-          placeholder='Password'
-          id='password'
-          onFocus={(e) => e.target.placeholder = ''}
-          onBlur={(e) => e.target.placeholder = 'Password'}
-          onChange={({ target }) => setPassword(target.value)}
-          minLength={8}
-          maxLength={50}
-        />
-        <label htmlFor='passwordConfirm'>Confirm New Password</label><br/>
-        <input
-          type='password'
-          placeholder='Confirm Password'
-          id='passwordConfirm'
-          onFocus={(e) => e.target.placeholder = ''}
-          onBlur={(e) => e.target.placeholder = 'Confirm Password'}
-          onChange={({ target }) => setConfirmPassword(target.value)}
-          minLength={8}
-          maxLength={50}
-        />
-        <br/>
-        <button className='btn btn-secondary' type='submit'>Submit</button>
+        <button className='btn btn-primary' type='submit'>Update</button>
       </form>
+      <h2>Change Password</h2>
+      <p>Sends a link to your email to change password</p>
+      <button className='btn' onClick={changePassword}>Request password change link</button>
+      <h2>Delete Profile</h2>
+      <p>This permanently deletes your profile and forum posts</p>
+      {user && <button className='btn btn-danger' onClick={() => removeUser(user.id, user, user)}>Delete profile</button>}
     </div>
   )
 }

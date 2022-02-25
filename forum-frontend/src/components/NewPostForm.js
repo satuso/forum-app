@@ -30,7 +30,6 @@ const NewPostForm = ({
         dispatch(setNotification('Message cannot be empty', 10))
       }
     } catch (error) {
-      console.log(error)
       dispatch(setNotification('Error', 10))
     }
   }

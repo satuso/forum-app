@@ -63,6 +63,7 @@ const App = () => {
   }
 
   const filteredThreads = filter ? threadsCopy.filter(thread => thread.category === filter) : threadsCopy
+  const loggedInUser = user
 
   return (
     <>
@@ -135,7 +136,7 @@ const App = () => {
             <Route path={`/user/${user.username}`} key={user.username} element={
               <User
                 user={user}
-                loggedInUser={user}
+                loggedInUser={loggedInUser}
                 threads={threadsCopy}
                 posts={postsCopy}
               />

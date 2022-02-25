@@ -41,7 +41,7 @@ usersRouter.post('/', async (request, response) => {
       username: body.username,
       name: body.name,
       avatar: body.avatar,
-      age: body.age,
+      dateOfBirth: body.dateOfBirth,
       email: body.email,
       resetLink: body.resetLink,
       passwordHash
@@ -96,13 +96,14 @@ usersRouter.put('/:id', upload.single('avatar'), async (request, response) => {
     const url = request.protocol + '://' + request.get('host')
     const user = {
       name: body.name,
-      age: body.age,
+      dateOfBirth: body.dateOfBirth,
       email: body.email,
       avatar: request.file ? url + '/public/uploads/' + request.file.filename : body.avatar,
       resetLink: body.resetLink
     }
     const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
     response.send(updatedUser)
+    console.log(updatedUser)
   } catch (error){
     console.log(error)
   }
