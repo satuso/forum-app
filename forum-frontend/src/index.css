@@ -149,9 +149,18 @@ a:focus {
   width: 30%;
 }
 
+.update-form h2, p {
+  padding-left: 10px;
+}
+
 .form {
   text-align: left;
   width: 100%;
+  margin-left: 5px;
+}
+
+.form label {
+  margin-left: 5px;
 }
 
 .form .btn {

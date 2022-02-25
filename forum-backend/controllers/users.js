@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
+const fs = require('fs')
 
 const { v4: uuidv4 } = require('uuid')
 const path = require('path')
@@ -92,18 +93,20 @@ usersRouter.delete('/:id', async (request, response) => {
 usersRouter.put('/:id', upload.single('avatar'), async (request, response) => {
   try {
     const body = request.body
-
+    console.log('avatar', body.avatar)
+    if (body.avatar !== undefined){
+      fs.unlinkSync(body.avatar)
+    }
     const url = request.protocol + '://' + request.get('host')
     const user = {
       name: body.name,
       dateOfBirth: body.dateOfBirth,
       email: body.email,
-      avatar: request.file ? url + '/public/uploads/' + request.file.filename : body.avatar,
+      avatar: request.file ? url + '/public/uploads/' + request.file.filename : null,
       resetLink: body.resetLink
     }
     const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })
     response.send(updatedUser)
-    console.log(updatedUser)
   } catch (error){
     console.log(error)
   }

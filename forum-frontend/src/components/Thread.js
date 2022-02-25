@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Thread = ({ thread, user, toggle, setToggle, posts }) => {
   const [quote, setQuote] = useState('')
+  const [quoteToggle, setQuoteToggle] = useState('')
 
   if (!thread) {
     return null
@@ -40,11 +41,13 @@ const Thread = ({ thread, user, toggle, setToggle, posts }) => {
 
   const quoteThread = () => {
     setQuote(`Quote from ${thread.user.username}:\n >> ${thread.content} >>\n\n`)
+    setQuoteToggle(!quoteToggle)
   }
 
   const quoteMessage = (id) => {
     const replyPost = postsOfThread.find(post => post.id === id)
     setQuote(`Quote from ${replyPost.username}:\n >> ${replyPost.content} >>\n\n`)
+    setQuoteToggle(!quoteToggle)
   }
 
   return (
@@ -61,6 +64,7 @@ const Thread = ({ thread, user, toggle, setToggle, posts }) => {
           toggle={toggle}
           setToggle={setToggle}
           quote={quote}
+          quoteToggle={quoteToggle}
         /> : <div className='center'><p>Please <Link to='/login'>login</Link> or <Link to='/register'>register</Link> to join discussion</p></div>}
       <div className='thread'>
         <Avatar user={thread.user}/>

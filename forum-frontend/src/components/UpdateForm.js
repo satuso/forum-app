@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 import { updateUser } from '../reducers/userReducer'
 
-const UpdateForm = ({ user, users, removeUser, changePassword }) => {
+const UpdateForm = ({ userMatch, user, users, removeUser, changePassword, removeAvatar }) => {
   const [name, setName] = useState('')
   const [dateOfBirth, setDateOfBirth] = useState('')
   const [email, setEmail] = useState('')
@@ -40,11 +40,29 @@ const UpdateForm = ({ user, users, removeUser, changePassword }) => {
     }
   }
 
+  const deleteAvatar = () => {
+    try {
+      if (window.confirm('Are you sure you want to delete avatar?')){
+        if (userMatch && userMatch.avatar){
+          removeAvatar()
+          const formData = new FormData()
+          formData.append('avatar', removeAvatar())
+          dispatch(updateUser(user.id, formData))
+          dispatch(setNotification('Avatar deleted', 10))
+        } else {
+          dispatch(setNotification('Nothing to delete', 10))
+        }
+      }
+    } catch(error){
+      dispatch(setNotification('Error', 10))
+    }
+  }
+
   return (
-    <div>
-      <h2>Edit profile</h2>
+    <div className='update-form'>
+      <h2>Edit Profile</h2>
       <form onSubmit={submitDetails} className='form update-form'>
-        <label htmlFor='file'>Change profile picture</label>
+        <label htmlFor='file'>Change avatar</label>
         <input
           type='file'
           id='file'
@@ -92,6 +110,8 @@ const UpdateForm = ({ user, users, removeUser, changePassword }) => {
       <h2>Change Password</h2>
       <p>Sends a link to your email to change password</p>
       <button className='btn' onClick={changePassword}>Request password change link</button>
+      <h2>Delete Avatar</h2>
+      <button className='btn btn-danger' onClick={deleteAvatar}>Delete avatar</button>
       <h2>Delete Profile</h2>
       <p>This permanently deletes your profile and forum posts</p>
       {user && <button className='btn btn-danger' onClick={() => removeUser(user.id, user, user)}>Delete profile</button>}

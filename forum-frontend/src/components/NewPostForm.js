@@ -9,6 +9,7 @@ const NewPostForm = ({
   setToggle,
   toggle,
   quote,
+  quoteToggle
 }) => {
   const [newPost, setNewPost] = useState('')
   const dispatch = useDispatch()
@@ -18,7 +19,7 @@ const NewPostForm = ({
     try {
       if (newPost.length >= 1){
         const postObject = {
-          content: quote ? quote.concat(newPost) : newPost,
+          content: quoteToggle ? quote.concat(newPost) : newPost,
           date: new Date().toISOString(),
           threadId: thread.id
         }
@@ -41,7 +42,7 @@ const NewPostForm = ({
   return (
     user &&
     <div className='center'>
-      {quote && <p><i>{quote}</i></p>}
+      {quoteToggle && <p><i>{quote}</i></p>}
       <form onSubmit={replyToThread} className='form form-toggle'>
         <label htmlFor='message'>Message</label><br/>
         <textarea

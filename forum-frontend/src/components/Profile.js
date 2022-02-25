@@ -60,6 +60,13 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
     }
   }
 
+  const removeAvatar = () => {
+    if (userMatch){
+      const fileToDelete = userMatch.avatar.split('3/')
+      return fileToDelete[1]
+    }
+  }
+
   return (
     <>
       <div className='profile'>
@@ -69,7 +76,7 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
           <Count threadsOfUser={threadsOfUser} postsOfUser={postsOfUser}/>
         </div>
         <div>
-          <UpdateForm user={user} users={users} removeUser={removeUser} changePassword={changePassword}/>
+          <UpdateForm userMatch={userMatch} user={user} users={users} removeUser={removeUser} removeAvatar={removeAvatar} changePassword={changePassword}/>
         </div>
       </div>
       <GoBack />
