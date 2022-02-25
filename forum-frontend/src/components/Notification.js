@@ -5,12 +5,8 @@ const Notification = () => {
   const notification = useSelector(state => state.notification)
 
   return (
-    <div className='notification-container'>
-      {notification &&
-        <div className='notification'>
-          {notification}
-        </div>
-      }
+    <div className='notification'>
+      {notification ? <span>{notification}</span> : ''}
     </div>
   )
 }

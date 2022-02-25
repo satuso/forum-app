@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3003/api/forgotpassword'
+const baseUrl = '/api/forgotpassword'
 
 const update = async (email) => {
   const config = { email: email }

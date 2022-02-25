@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3003/api/users'
+const baseUrl = '/api/users'
 
 let token = null
 const setToken = newToken => {
@@ -19,6 +19,11 @@ const create = async newObject => {
   return response.data
 }
 
+const update = async (id, newObject) => {
+  const response = await axios.put(`${baseUrl}/${id}`, newObject)
+  return response.data
+}
+
 const remove = async id => {
   const config = {
     headers: { Authorization: token },
@@ -28,7 +33,7 @@ const remove = async id => {
 }
 
 const object = {
-  setToken, getAll, create, remove
+  setToken, getAll, create, update, remove
 }
 
 export default object

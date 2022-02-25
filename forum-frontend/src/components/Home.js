@@ -1,22 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import ThreadList from './ThreadList'
 
-const Home = ({ user, threads }) => {
+const Home = ({ user }) => {
   return (
     <>
-      {user && threads ?
-        <>
-          <h2 className='message'>Most recent posts</h2>
-          {threads.map(thread =>
-            <ThreadList
-              key={thread.id}
-              thread={thread}
-              user={user}
-            />)
-          }
-        </>
-        : <p className='message'>Please <Link to='/login'>login</Link> or <Link to='/register'>register</Link> to join discussion</p>}
+      {user ? <div className='center'>
+        <p>Welcome to discussion forum!</p>
+      </div>
+        : <div className='center'><p>Please <Link to='/login'>login</Link> or <Link to='/register'>register</Link> to join discussion</p></div>}
     </>
   )
 }

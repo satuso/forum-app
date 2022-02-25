@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import loginService from '../services/login'
 import threadService from '../services/threads'
 import postService from '../services/posts'
-import loginService from '../services/login'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer'
 import { Link, useNavigate } from 'react-router-dom'
@@ -48,7 +48,7 @@ const LoginForm = ({ setUser, setToggle }) => {
           onFocus={(e) => e.target.placeholder = ''}
           onBlur={(e) => e.target.placeholder = 'Username'}
           value={username}
-          name="Username"
+          name='Username'
           onChange={({ target }) => setUsername(target.value)}
           minLength={2}
           maxLength={50}
@@ -63,7 +63,7 @@ const LoginForm = ({ setUser, setToggle }) => {
           onFocus={(e) => e.target.placeholder = ''}
           onBlur={(e) => e.target.placeholder = 'Password'}
           value={password}
-          name="Password"
+          name='Password'
           onChange={({ target }) => setPassword(target.value)}
           minLength={8}
           maxLength={50}

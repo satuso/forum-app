@@ -2,18 +2,18 @@ const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid')
 const path = require('path')
-const multer = require('multer');
+const multer = require('multer')
 
 const storage = multer.diskStorage({   
   destination: function(req, file, cb) { 
-     cb(null, './public/uploads');    
+     cb(null, './public/uploads')    
   }, 
   filename: function (req, file, cb) { 
-     cb(null , uuidv4() + path.extname(file.originalname));   
+     cb(null , uuidv4() + path.extname(file.originalname))   
   }
-});
+})
 
 const upload = multer({ 
   storage: storage,
@@ -22,14 +22,13 @@ const upload = multer({
   },
   fileFilter: (req, file, cb) => {
     if (file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg') {
-      cb(null, true);
+      cb(null, true)
     } else {
-        cb(null, false);
-        return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        cb(null, false)
+        return cb(new Error('Only .png, .jpg and .jpeg format allowed!'))
     }
   }
 })
-
 
 usersRouter.post('/', async (request, response) => {
   try {

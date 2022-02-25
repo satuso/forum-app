@@ -12,8 +12,14 @@ const Users = ({ users, search, setSearch }) => {
         setSearch={setSearch}
       />
       {filteredUsers.sort((a, b) => a.username.localeCompare(b.username)).map(user =>
-        <p key={user.id}>
-          <Link to={`/user/${user.username}`}>{user.username}</Link> {user.name}</p>)}
+        <div className='small-avatar-username' key={user.id}>
+          <Link to={`/user/${user.username}`}>
+            <div className='small-avatar-username'>
+              {user.avatar ? <img src={user.avatar} alt={user.username} className='avatar avatar-small'/> : <img src='http://localhost:3003/public/uploads/default-avatar.png' alt='profile' className='avatar avatar-small'/> } <span>{user.username}</span>
+            </div>
+          </Link>
+        </div>
+      )}
       <GoBack />
     </div>
   )

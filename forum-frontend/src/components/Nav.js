@@ -1,30 +1,14 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import NavigationLink from './NavigationLink'
 
 const Nav = ({ setToggle, setFilter }) => {
+  const categories = ['general', 'music', 'movies', 'news']
+
   return (
     <div className='nav'>
-      <NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to='*' onClick={() => {
-        setToggle(false)
-        setFilter(null)
-      }}>Home</NavLink>
-
-      <NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to='/general' onClick={() => {
-        setToggle(false)
-        setFilter('general')
-      }}>General</NavLink>
-
-      <NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to='/music' onClick={() => {
-        setToggle(false)
-        setFilter('music')
-      }}>Music</NavLink>
-
-      <NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to='/movies' onClick={() => {
-        setToggle(false)
-        setFilter('movies')
-      }}>Movies</NavLink>
-
-      <NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to='/users'>Users</NavLink>
+      <div>{categories.map(category => <NavigationLink key={category} category={category} setToggle={setToggle} setFilter={setFilter} />).sort()}</div>
+      <div><NavLink className={({ isActive }) => (isActive ? 'active' : 'inactive')} to='/users'>Users</NavLink></div>
     </div>
   )
 }

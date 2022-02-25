@@ -65,32 +65,33 @@ const App = () => {
   const filteredThreads = filter ? threadsCopy.filter(thread => thread.category === filter) : threadsCopy
 
   return (
-    <div className='container'>
+    <>
       <Header
         user={user}
         handleLogout={handleLogout}
         users={usersCopy}
+        setFilter={setFilter}
       />
       <Nav
         setToggle={setToggle}
         setFilter={setFilter}
       />
       <Notification />
-      <div className='main'>
+      <div className='container'>
         <Routes>
           <Route path='*' element={
             <Home
               user={user}
-              threads={filteredThreads}
             />
           }/>
-          <Route path={`/${filter}`} element={
+          <Route path={'/:category'} element={
             <Threads
               user={user}
               toggle={toggle}
               setToggle={setToggle}
               threads={filteredThreads}
               filter={filter}
+              setFilter={setFilter}
             />
           }/>
           <Route path='/login' element={
@@ -144,7 +145,7 @@ const App = () => {
           <Route path='/resetpassword/:token' element={<ResetPassword users={usersCopy}/>}></Route>
         </Routes>
       </div>
-    </div>
+    </>
   )
 }
 

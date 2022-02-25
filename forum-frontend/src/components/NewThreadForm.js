@@ -50,7 +50,7 @@ const NewThreadForm = ({ toggle, setToggle, filter }) => {
           type='text'
           onChange={handleTitleChange}
           minLength={1}
-          maxLength={40}
+          maxLength={100}
           required
         /><br/>
         <label htmlFor='message'>Message</label><br/>
@@ -67,7 +67,6 @@ const NewThreadForm = ({ toggle, setToggle, filter }) => {
           maxLength={5000}
           required
         /><br/>
-        <label htmlFor="category">Choose a category:</label>
         <button className='btn btn-primary' type='submit'>Send</button>
       </form>
     </div>

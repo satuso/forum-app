@@ -29,15 +29,14 @@ const Post = ({ user, post, quoteMessage, setToggle }) => {
           <Link to={`/user/${post.username}`}>{post.username}</Link>
         </span>
         <Date date={post.date}/>
-        <button className='btn btn-primary' onClick={() => {
-          quoteMessage(post.id)
-          setToggle(true)
-        }}>Quote</button>
         <span>{user && (user.id === (post.user.id || post.user) || user.username === 'admin') &&
         <>
+          <button className='btn btn-primary' onClick={() => {
+            quoteMessage(post.id)
+            setToggle(true)
+          }}>Quote</button>
           <button className='btn btn-danger' onClick={() => handleRemovePost(post.id, post, user)}>Delete</button>
-        </>
-        }
+        </>}
         </span>
         <p className='content'>{post.content}</p>
       </div>

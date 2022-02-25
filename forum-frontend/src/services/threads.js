@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3003/api/threads'
+const baseUrl = '/api/threads'
 
 let token = null
 const setToken = newToken => {

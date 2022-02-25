@@ -39,29 +39,29 @@ const Thread = ({ thread, user, toggle, setToggle, posts }) => {
   }
 
   const quoteThread = () => {
-    setQuote(`Quote from ${thread.user.username}: "${thread.content}":\n\n`)
+    setQuote(`Quote from ${thread.user.username}:\n >> ${thread.content} >>\n\n`)
   }
 
   const quoteMessage = (id) => {
     const replyPost = postsOfThread.find(post => post.id === id)
-    setQuote(`Quote from ${replyPost.username}: "${replyPost.content}":\n\n`)
+    setQuote(`Quote from ${replyPost.username}:\n >> ${replyPost.content} >>\n\n`)
   }
 
   return (
     <>
       {user &&
       <div className='center'>
-        <button className={toggle ? 'btn btn-toggle' : 'btn btn-toggle off'} onClick={() => setToggle(!toggle)}>Reply <i className="fas fa-comment"></i></button>
+        <h3 className='page-link' onClick={() => setToggle(!toggle)}>Reply <i className='fas fa-comment'></i></h3>
       </div>
       }
-      {user && toggle &&
-      <NewPostForm
-        thread={thread}
-        user={user}
-        toggle={toggle}
-        setToggle={setToggle}
-        quote={quote}
-      />}
+      {user ? toggle &&
+        <NewPostForm
+          thread={thread}
+          user={user}
+          toggle={toggle}
+          setToggle={setToggle}
+          quote={quote}
+        /> : <div className='center'><p>Please <Link to='/login'>login</Link> or <Link to='/register'>register</Link> to join discussion</p></div>}
       <div className='thread'>
         <Avatar user={thread.user}/>
         <div>
@@ -69,10 +69,10 @@ const Thread = ({ thread, user, toggle, setToggle, posts }) => {
             <Link to={`/user/${thread.user.username}`}>{thread.user.username}</Link>
           </span>
           <Date date={thread.date}/>
-          <button className='btn btn-primary' onClick={() => {
+          {user && <button className='btn btn-primary' onClick={() => {
             quoteThread()
             setToggle(true)
-          }}>Quote</button>
+          }}>Quote</button>}
           <span>{user && (user.id === thread.user.id || user.username === 'admin') &&
             <button className='btn btn-danger' onClick={() => removeThread(thread.id)}>delete</button>}
           </span>

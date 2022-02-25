@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3003/api/resetpassword'
+const baseUrl = '/api/resetpassword'
 
 const update = async (password, token) => {
   const config = {
