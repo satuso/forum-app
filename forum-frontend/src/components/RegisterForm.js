@@ -103,7 +103,7 @@ const RegisterForm = ({ users }) => {
         <button type='submit' className='btn btn-primary'>Register</button>
       </form>
       <p>* required field</p>
-      <p>Email is private and used only for password recovery.</p>
+      <p>Email is used only for password recovery</p>
       <p></p>
       <GoBack />
     </div>
