@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/users'
+const baseUrl = 'http://satuso-forum-backend.herokuapp.com/api/users'
 
 let token = null
 const setToken = newToken => {

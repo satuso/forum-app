@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/forgotpassword'
+const baseUrl = 'http://satuso-forum-backend.herokuapp.com/api/forgotpassword'
 
 const update = async (email) => {
   const config = { email: email }
