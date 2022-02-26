@@ -2,17 +2,31 @@ const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 const fs = require('fs')
-
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const { v4: uuidv4 } = require('uuid')
 const path = require('path')
 const multer = require('multer')
+const dotenv = require('dotenv');
+const { request } = require('http');
+dotenv.config()
 
-const storage = multer.diskStorage({   
-  destination: function(req, file, cb) { 
-     cb(null, './public/uploads')    
-  }, 
-  filename: function (req, file, cb) { 
-     cb(null , uuidv4() + path.extname(file.originalname))   
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    return {
+      width: 200,
+      height: 200,
+      folder: 'forum',
+      format: 'jpeg',
+      public_id: uuidv4(),
+    }
   }
 })
 
@@ -93,16 +107,12 @@ usersRouter.delete('/:id', async (request, response) => {
 usersRouter.put('/:id', upload.single('avatar'), async (request, response) => {
   try {
     const body = request.body
-    console.log('avatar', body.avatar)
-    if (body.avatar !== undefined){
-      fs.unlinkSync(body.avatar)
-    }
-    const url = request.protocol + '://' + request.get('host')
+    
     const user = {
       name: body.name,
       dateOfBirth: body.dateOfBirth,
       email: body.email,
-      avatar: request.file ? url + '/public/uploads/' + request.file.filename : null,
+      avatar: request.file ? request.file.path : null,
       resetLink: body.resetLink
     }
     const updatedUser = await User.findByIdAndUpdate(request.params.id, user, { new: true })

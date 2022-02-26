@@ -248,6 +248,7 @@ a:focus {
 
 .user-details {
   min-width: 250px;
+  margin: 5px;
 }
 
 .thread,
@@ -287,8 +288,8 @@ a:focus {
 .avatar {
   border-radius: 50%;
   height: 100px;
-  margin: 1em;
   width: 100px;
+  margin: 1em;
 }
 
 .avatar-small {
@@ -305,7 +306,7 @@ a:focus {
 }
 
 .small-avatar-username span {
-  padding: 5px;
+  padding: 2px;
 }
 
 .small-avatar-username img {

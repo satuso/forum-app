@@ -62,8 +62,8 @@ const Profile = ({ user, users, handleLogout, threads, posts }) => {
 
   const removeAvatar = () => {
     if (userMatch){
-      const fileToDelete = userMatch.avatar.split('3/')
-      return fileToDelete[1]
+      const fileToDelete = userMatch.avatar
+      return fileToDelete
     }
   }
 

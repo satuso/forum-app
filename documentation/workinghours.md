@@ -41,5 +41,6 @@
 |  | 2.5 | create categories for posts |
 | 25.02.2022 | 6 | work on UI |
 |  | 4 | refactor code |
-|  | 2 | add ability to delete avatars from user profile and files |
-| total | 125,5 |  |
+| 26.02.2022 | 2 | add ability to delete avatars from user profile and files |
+|  | 2 | upload avatars to cloudinary |
+| total | 127,5 |  |
