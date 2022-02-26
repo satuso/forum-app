@@ -1,1 +1,1 @@
-http://satuso-forum-frontend.herokuapp.com
+https://satuso-forum-frontend.herokuapp.com
