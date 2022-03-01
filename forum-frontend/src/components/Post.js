@@ -6,7 +6,7 @@ import { setNotification } from '../reducers/notificationReducer'
 import Avatar from './Avatar'
 import Date from './Date'
 
-const Post = ({ user, post, quoteMessage, setToggle }) => {
+const Post = ({ user, users, post, quoteMessage, setToggle }) => {
   const dispatch = useDispatch()
 
   const handleRemovePost = (id) => {
@@ -21,9 +21,12 @@ const Post = ({ user, post, quoteMessage, setToggle }) => {
     }
   }
 
+  const userMatch = users.find(user => user.id === post.user.id)
+  if (!userMatch) return null
+
   return (
     <div className='post'>
-      <Avatar user={post}/>
+      <Avatar user={userMatch}/>
       <div>
         <span className='username'>
           <Link to={`/user/${post.username}`}>{post.username}</Link>

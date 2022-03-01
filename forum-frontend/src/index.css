@@ -1,14 +1,4 @@
-@font-face {
-  font-family: 'Lato';
-  font-weight: normal;
-  src: local('Lato'), url('./fonts/Lato/Lato-Regular.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Lato';
-  font-weight: bold;
-  src: local('Lato'), url('./fonts/Lato/Lato-Bold.ttf') format('truetype');
-}
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -149,18 +139,14 @@ a:focus {
   width: 30%;
 }
 
-.update-form h2, p {
-  padding-left: 10px;
+.update-form .btn {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .form {
   text-align: left;
   width: 100%;
-  margin-left: 5px;
-}
-
-.form label {
-  margin-left: 5px;
 }
 
 .form .btn {

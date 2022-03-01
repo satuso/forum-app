@@ -11,7 +11,7 @@ import { deleteThread } from '../reducers/threadReducer'
 import { deletePost } from '../reducers/postReducer'
 import { useNavigate } from 'react-router-dom'
 
-const Thread = ({ thread, user, toggle, setToggle, posts }) => {
+const Thread = ({ thread, user, users, toggle, setToggle, posts }) => {
   const [quote, setQuote] = useState('')
   const [quoteToggle, setQuoteToggle] = useState('')
 
@@ -87,6 +87,7 @@ const Thread = ({ thread, user, toggle, setToggle, posts }) => {
       {postsOfThread.map(post =>
         <Post
           user={user}
+          users={users}
           post={post}
           key={post.id}
           quoteMessage={quoteMessage}

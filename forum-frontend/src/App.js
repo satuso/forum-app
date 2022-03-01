@@ -118,6 +118,7 @@ const App = () => {
               <Thread
                 thread={thread}
                 user={user}
+                users={users}
                 setUser={setUser}
                 toggle={toggle}
                 setToggle={setToggle}

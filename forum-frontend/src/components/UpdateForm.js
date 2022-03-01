@@ -27,7 +27,7 @@ const UpdateForm = ({ userMatch, user, users, removeUser, changePassword, remove
         return dispatch(setNotification('Email already exists', 10))
       } else if (email) formData.append('email', email)
       if (avatar) formData.append('avatar', avatar)
-      if (window.confirm('Are you sure you want to update profile?')){
+      if (window.confirm('Are you sure you want to update your profile?')){
         dispatch(updateUser(user.id, formData))
         dispatch(setNotification('Updated profile', 10))
       }
