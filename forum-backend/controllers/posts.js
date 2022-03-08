@@ -21,7 +21,7 @@ postsRouter.get('/', async (request, response) => {
   const posts = await Post
     .find({}).populate('user', { user: 1, username: 1, name: 1, id: 1, age: 1, avatar: 1, email: 1 })
 
-  response.json(posts.map(post => post.toJSON()))
+  response.json(posts.map(post => post))
   } catch(error){
     console.log(error)
   }
@@ -32,7 +32,7 @@ postsRouter.get('/:id', async (request, response) => {
     const post = await Post.findById(request.params.id)
     .find({}).populate('user', { user: 1, username: 1, name: 1, id: 1, age: 1, avatar: 1, email: 1 })
 
-    response.json(post.map(post => post.toJSON()))
+    response.json(post.map(post => post))
   } catch(error){
     console.log(error)
   }
@@ -68,7 +68,7 @@ postsRouter.post('/', async (request, response) => {
     const populatedPost = await savedPost
     .populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
     
-    response.status(201).json(populatedPost.toJSON())
+    response.status(201).json(populatedPost)
 
   } catch(error){
     console.log(error)
@@ -88,7 +88,7 @@ postsRouter.put('/:id', async (request, response) => {
   try {
     const post = request.body
     const updatedPost = await Post.findByIdAndUpdate(request.params.id, post, { new: true })
-    response.json(updatedPost.toJSON())
+    response.json(updatedPost)
   } catch(error){
     console.log(error)
   }

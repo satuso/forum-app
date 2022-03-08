@@ -20,7 +20,7 @@ threadsRouter.get('/', async (request, response) => {
     const threads = await Thread
       .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
       .find({}).populate('posts')
-    response.json(threads.map(thread => thread.toJSON()))
+    response.json(threads.map(thread => thread))
   } catch(error){
     console.log(error)
   }
@@ -31,7 +31,7 @@ threadsRouter.get('/:id', async (request, response) => {
     const thread = await Thread.findById(request.params.id)
       .find({}).populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
       .find({}).populate('posts')
-    response.json(thread.map(thread => thread.toJSON()))
+    response.json(thread.map(thread => thread))
   } catch(error){
     console.log(error)
   }
@@ -60,7 +60,7 @@ threadsRouter.post('/', async (request, response) => {
     const populatedThread = await savedThread
       .populate('user', { username: 1, name: 1, id: 1, avatar: 1 })
       
-    response.status(201).json(populatedThread.toJSON())
+    response.status(201).json(populatedThread)
   } catch(error){
     console.log(error)
   }
@@ -79,7 +79,7 @@ threadsRouter.put('/:id', async (request, response) => {
   try {
     const thread = request.body
     const updatedThread = await Thread.findByIdAndUpdate(request.params.id, thread, { new: true })
-    response.json(updatedThread.toJSON())
+    response.json(updatedThread)
   } catch(error){
     console.log(error)
   }

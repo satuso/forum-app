@@ -1,14 +1,12 @@
 const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
-const fs = require('fs')
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
 const { v4: uuidv4 } = require('uuid')
-const path = require('path')
 const multer = require('multer')
-const dotenv = require('dotenv');
-const { request } = require('http');
+const dotenv = require('dotenv')
+const { request } = require('http')
 dotenv.config()
 
 cloudinary.config({
@@ -74,7 +72,7 @@ usersRouter.get('/', async (request, response) => {
     const users = await User
       .find({}).populate('threads', { title: 1, content: 1, date: 1, id: 1, category: 1})
       .find({}).populate('posts', { title: 1, content: 1, date: 1, id: 1,  thread: 1, category: 1 })
-    response.json(users.map(u => u.toJSON()))
+    response.json(users.map(u => u))
   } catch (error){
     console.log(error)
   }
